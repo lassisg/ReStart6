@@ -88,20 +88,57 @@ namespace E04_Curso
         {
             Utils.PrintSubHeader("Novo curso");
 
-            // TODO: v2 - Usar int.TryParse
+            // Evitar atribuição de valores lidos diretamente às propriedades
+            int cursoID, numeroSessoes, numeroHorasPorSessao;
+            string nomeCurso;
+            bool result;
+
             Console.Write("Digite o ID do curso: ");
-            CursoID = int.Parse(Console.ReadLine());
+            result = int.TryParse(Console.ReadLine(), out cursoID);
+            if (result)
+            {
+                CursoID = cursoID;
+            }
+            else
+            {
+                CursoID = listaCursos.Count + 1;
+            }
+
 
             Console.Write("Digite o nome do curso: ");
-            NomeCurso = TransformarNomeCursoMaiusculas(Console.ReadLine());
+            nomeCurso = Console.ReadLine();
+            if (nomeCurso != string.Empty)
+            {
+                NomeCurso = TransformarNomeCursoMaiusculas(nomeCurso);
+            }
+            else
+            {
+                NomeCurso = $"Curso {CursoID}";
+            }
 
             Console.Write("Digite o nº de sessões do curso: ");
-            NumeroSessoes = int.Parse(Console.ReadLine());
+            result = int.TryParse(Console.ReadLine(), out numeroSessoes);
+            if (result)
+            {
+                NumeroSessoes = numeroSessoes;
+            }
+            else
+            {
+                NumeroSessoes = 7;
+            }
 
             Console.Write("Digite o nº de horas por sessões do curso: ");
-            NumeroHorasPorSessao = int.Parse(Console.ReadLine());
+            result = int.TryParse(Console.ReadLine(), out numeroHorasPorSessao);
+            if (result)
+            {
+                NumeroHorasPorSessao = numeroHorasPorSessao;
+            }
+            else
+            {
+                NumeroHorasPorSessao = 3;
+            }
 
-            int numeroTotalHoras = CalcularNumeroHoras();
+            _ = CalcularNumeroHoras();
 
             listaCursos.Add(this);
 
@@ -111,7 +148,8 @@ namespace E04_Curso
         {
             
             StringBuilder sb = new StringBuilder();
-            
+
+            Console.Clear();
             Utils.PrintSubHeader("Cursos disponíveis");
 
             foreach (Curso item in listaCursos)
