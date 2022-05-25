@@ -1,5 +1,6 @@
 ﻿using D00_Utils;
 using System;
+using System.Collections;
 
 namespace E01_Calculadora
 {
@@ -12,7 +13,7 @@ namespace E01_Calculadora
         public double Numero02 { get; set; }
         public double Resultado { get; set; }
         public byte Operacao { get; set; }
-        public string[,] MenuOptions { get; set; }
+        public Hashtable MenuOptions { get; set; } = new Hashtable();
 
         #endregion
 
@@ -53,14 +54,22 @@ namespace E01_Calculadora
         private void MakeMenu()
         {
 
-            MenuOptions = new string[,]
-            {
-                { "1", "Adição"},
-                { "2", "Subtração"},
-                { "3", "Multiplicação"},
-                { "4", "Divisão"},
-                { "x", "Sair"}
-            };
+            //MenuOptions = new string[,]
+            //{
+            //    { "1", "Adição"},
+            //    { "2", "Subtração"},
+            //    { "3", "Multiplicação"},
+            //    { "4", "Divisão"},
+            //    { "x", "Sair"}
+            //};
+
+            MenuOptions.Add(1, "Adição");
+            MenuOptions.Add(2, "Subtração");
+            MenuOptions.Add(3, "Multiplicação");
+            MenuOptions.Add(4, "Divisão");
+
+           
+
 
         }
 
@@ -119,6 +128,13 @@ namespace E01_Calculadora
         {
 
             bool isValidOption = true;
+
+            int selection = 2;
+
+            if (MenuOptions.ContainsKey(selectedOption) || selectedOption == 'x')
+            {
+
+            }
 
             switch (selectedOption)
             {
