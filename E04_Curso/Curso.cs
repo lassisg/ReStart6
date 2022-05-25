@@ -65,8 +65,8 @@ namespace E04_Curso
         {
 
             duracaoHoras = NumeroSessoes * NumeroHorasPorSessao;
-
             return duracaoHoras;
+
         }
 
         private string TransformarNomeCursoMaiusculas(string nomeCurso)
@@ -79,22 +79,42 @@ namespace E04_Curso
             return nomeCurso.ToUpper();
 
         }
-
-        #endregion
-
-        #region Protected Methods
-
-        protected internal void InserirCurso()
+        private List<string> ReadInputs()
         {
-            Utils.PrintSubHeader("Novo curso");
 
+            List<string> result = new List<string>();
+
+            string cursoID, nomeCurso, numeroSessoes, numeroHorasPorSessao;
+
+            Console.Write("Digite o ID do curso: ");
+            cursoID = Console.ReadLine();
+
+            Console.Write("Digite o nome do curso: ");
+            nomeCurso = Console.ReadLine();
+
+            Console.Write("Digite o nº de sessões do curso: ");
+            numeroSessoes = Console.ReadLine();
+
+            Console.Write("Digite o nº de horas por sessões do curso: ");
+            numeroHorasPorSessao = Console.ReadLine();
+
+            result.Add(cursoID);
+            result.Add(nomeCurso);
+            result.Add(numeroSessoes);
+            result.Add(numeroHorasPorSessao);
+
+            return result;
+
+        }
+
+        private void ValidateInputs(List<string> userInputs)
+        {
             // Evitar atribuição de valores lidos diretamente às propriedades
             int cursoID, numeroSessoes, numeroHorasPorSessao;
             string nomeCurso;
             bool result;
 
-            Console.Write("Digite o ID do curso: ");
-            result = int.TryParse(Console.ReadLine(), out cursoID);
+            result = int.TryParse(userInputs[0], out cursoID);
             if (result)
             {
                 CursoID = cursoID;
@@ -105,8 +125,7 @@ namespace E04_Curso
             }
 
 
-            Console.Write("Digite o nome do curso: ");
-            nomeCurso = Console.ReadLine();
+            nomeCurso = userInputs[1];
             if (nomeCurso != string.Empty)
             {
                 NomeCurso = TransformarNomeCursoMaiusculas(nomeCurso);
@@ -116,8 +135,7 @@ namespace E04_Curso
                 NomeCurso = $"Curso {CursoID}";
             }
 
-            Console.Write("Digite o nº de sessões do curso: ");
-            result = int.TryParse(Console.ReadLine(), out numeroSessoes);
+            result = int.TryParse(userInputs[2], out numeroSessoes);
             if (result)
             {
                 NumeroSessoes = numeroSessoes;
@@ -127,8 +145,7 @@ namespace E04_Curso
                 NumeroSessoes = 7;
             }
 
-            Console.Write("Digite o nº de horas por sessões do curso: ");
-            result = int.TryParse(Console.ReadLine(), out numeroHorasPorSessao);
+            result = int.TryParse(userInputs[3], out numeroHorasPorSessao);
             if (result)
             {
                 NumeroHorasPorSessao = numeroHorasPorSessao;
@@ -137,6 +154,22 @@ namespace E04_Curso
             {
                 NumeroHorasPorSessao = 3;
             }
+
+        }
+
+        #endregion
+
+        #region Protected Methods
+
+        protected internal void InserirCurso()
+        {
+
+            Utils.PrintSubHeader("Novo curso");
+
+            List<string> userInputs;
+
+            userInputs = ReadInputs();
+            ValidateInputs(userInputs);
 
             _ = CalcularNumeroHoras();
 
@@ -151,15 +184,18 @@ namespace E04_Curso
 
             Console.Clear();
             Utils.PrintSubHeader("Cursos disponíveis");
+            Console.WriteLine();
 
             foreach (Curso item in listaCursos)
             {
                 sb.Clear();
                 sb.AppendLine($"Curso {item.CursoID}:");
-                sb.AppendLine($"\tNome do curso: {item.NomeCurso}");
-                sb.AppendLine($"\tNº de sessões: {item.NumeroSessoes}");
-                sb.AppendLine($"\tHoras por sessão: {item.NumeroHorasPorSessao}");
-                sb.AppendLine($"\tDuração total do curso: {item.duracaoHoras} horas");
+                sb.AppendLine(new String('-', 10));
+                sb.AppendLine($"-> Nome do curso: {item.NomeCurso}");
+                sb.AppendLine($"-> Nº de sessões: {item.NumeroSessoes}");
+                sb.AppendLine($"-> Horas por sessão: {item.NumeroHorasPorSessao}");
+                sb.AppendLine($"-> Duração total do curso: {item.duracaoHoras} horas");
+                sb.AppendLine(new String('-', 16));
 
                 Console.WriteLine(sb.ToString());
             }
