@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DDE64560-10DE-4634-ADE9-CC9A6CA5B308}</ProjectGuid>
+    <ProjectGuid>{EF60D2B0-50AC-4DEA-B321-E854DDF607A2}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>D09_Classes</RootNamespace>
-    <AssemblyName>D09_Classes</AssemblyName>
+    <RootNamespace>D10_Colecao_ArrayList</RootNamespace>
+    <AssemblyName>D10_Colecao_ArrayList</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,8 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constructors.cs" />
-    <Compile Include="Methods.cs" />
+    <Compile Include="Funcionario.cs" />
+    <Compile Include="Pessoa.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

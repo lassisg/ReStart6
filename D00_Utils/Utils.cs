@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Text;
 
 namespace D00_Utils
@@ -6,6 +7,13 @@ namespace D00_Utils
 
     public class Utils
     {
+
+        public static void SetUTF8Encoding()
+        {
+
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+        }
 
         public static void PrintHeader(string title, string newLines = "")
         {
@@ -37,6 +45,14 @@ namespace D00_Utils
             Console.ReadLine();
             Console.Clear();
 
+        }
+
+        public static void PrintArrayList(ArrayList arrayList)
+        {
+            foreach (var item in arrayList)
+            {
+                Console.WriteLine(item);
+            }
         }
 
     }
