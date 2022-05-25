@@ -76,7 +76,10 @@ namespace D14_ColecaoGenerica_Dictionary
                 {
                     dicionarioStrings.Add($"{novaChave}{contagemChave + 1}", novoPais);
                 }
+
+                // Listar a coleção
                 Console.WriteLine($"{novoPais} foi adicionado.");
+
             }
 
 
