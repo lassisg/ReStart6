@@ -23,30 +23,28 @@ namespace E03_Cars
             #region Methods
             try
             {
-
+                
                 // TODO: Adicionar loop para adicionar carro ou acelerar, desacelerar e parar
                 do
                 {
-                    
-                    if (selectedOption != "x")
-                    {
 
-                        Car.ShowMenu(validOption, cars.Count > 0);
+                    Car.ShowMenu(validOption, cars.Count > 0);
                         
-                        selectedOption = Car.ReadSelectedOption();
+                    selectedOption = Car.ReadSelectedOption();
 
-                        if (selectedOption != "x")
+                    if (selectedOption.ToLower() != "x")
+                    {
+                        validOption = Car.ValidateOption(selectedOption, cars.Count > 0);
+
+                        // 4. Execute selection (if valid selection)
+                        if (validOption)
                         {
-
-                            validOption = Car.ValidateOption(selectedOption, cars.Count > 0);
-
-                            // 4. Execute selection (if valid selection)
-                            Console.WriteLine("Execute something");
-
+                            Car.ExecuteAction(selectedOption);
                         }
+
                     }
 
-                } while (selectedOption != "x" );
+                } while (selectedOption.ToLower() != "x" );
 
                 Console.WriteLine("Exited menu.");
 

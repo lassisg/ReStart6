@@ -192,6 +192,14 @@ namespace E03_Cars
             return false;
         }
 
+        internal static void ExecuteAction(string action)
+        {
+            Console.WriteLine($"Executar {action}");
+            //Dictionary<string, string> menuOptions = GetMenuOptions();
+
+
+        }
+
         internal void CreateCar()
         {
 
