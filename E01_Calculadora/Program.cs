@@ -3,49 +3,31 @@
 namespace E01_Calculadora
 {
 
-    internal class Program
+    class Program
     {
 
         static void Main(string[] args)
         {
 
-            #region Calculadora Simples v01 (Main)
+            // Instanciar a calculadora
+            CalculadoraSimples calculadora = new CalculadoraSimples();
 
-            /*
-            CalculadoraSimples.LerNumeros();
+            // Invocar os métodos
+            calculadora.LerNumeros();
 
-            CalculadoraSimples.Somar();
+            calculadora.Somar();
+            calculadora.EscreverResultado();
 
-            CalculadoraSimples.Subtrair();
+            calculadora.Subtrair();
+            calculadora.EscreverResultado();
 
-            CalculadoraSimples.Multiplicar();
+            calculadora.Multiplicar();
+            calculadora.EscreverResultado();
 
-            CalculadoraSimples.Dividir();
-
-            Console.ReadLine();
-            */
-
-            #endregion
-
-            #region Calculadora Simples v02 (main)
-
-            CalculadoraSimples.LerNumeros();
-
-            CalculadoraSimples.Somar();
-            CalculadoraSimples.EscreverResultado();
-
-            CalculadoraSimples.Subtrair();
-            CalculadoraSimples.EscreverResultado();
-
-            CalculadoraSimples.Multiplicar();
-            CalculadoraSimples.EscreverResultado();
-
-            CalculadoraSimples.Dividir();
-            CalculadoraSimples.EscreverResultado();
+            calculadora.Dividir();
+            calculadora.EscreverResultado();
 
             Console.ReadLine();
-
-            #endregion
 
         }
 

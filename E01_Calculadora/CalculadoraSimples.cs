@@ -2,117 +2,74 @@
 
 namespace E01_Calculadora
 {
-    internal class CalculadoraSimples
+    public class CalculadoraSimples
     {
 
-        #region Calculadora Simples v01
+        #region Properties
 
-        /*
-        static double numero01;
-        static double numero02;
-        static double resultado;
-
-        public static void LerNumeros()
-        {
-            Console.Write("Digite o número 1: ");
-            numero01 = Convert.ToDouble(Console.ReadLine());
-
-            Console.Write("Digite o número 2: ");
-            numero02 = Convert.ToDouble(Console.ReadLine());
-        }
-
-        public static void Somar()
-        {
-
-            resultado = numero01 + numero02;
-            Console.WriteLine($"\nResultado da operação de adição: {numero01} + {numero02} = {resultado}");
-
-        }
-
-        public static void Subtrair()
-        {
-
-            resultado = numero01 - numero02;
-            Console.WriteLine($"\nResultado da operação de subtração: {numero01} - {numero02} = {resultado}");
-
-        }
-
-        public static void Multiplicar()
-        {
-
-            resultado = numero01 * numero02;
-            Console.WriteLine($"\nResultado da operação de multiplicação: {numero01} * {numero02} = {resultado}");
-
-        }
-
-        public static void Dividir()
-        {
-
-            resultado = numero01 / numero02;
-            Console.WriteLine($"\nResultado da operação de divisão: {numero01} / {numero02} = {resultado}");
-
-        }
-        */
+        public double Numero01 { get; set; }
+        public double Numero02 { get; set; }
+        public double Resultado { get; set; }
+        public string Operacao { get; set; }
+        public string Simbolo { get; set; }
 
         #endregion
 
+        #region Methods
 
-        #region Calculadora Simples v02
-
-        static double numero01, numero02, resultado;
-        static string operacao, simbolo;
-
-        public static void LerNumeros()
+        public void LerNumeros()
         {
+
             Console.Write("Digite o número 1: ");
-            numero01 = Convert.ToDouble(Console.ReadLine());
+            Numero01 = Convert.ToDouble(Console.ReadLine());
 
             Console.Write("Digite o número 2: ");
-            numero02 = Convert.ToDouble(Console.ReadLine());
-        }
-
-        public static void Somar()
-        {
-
-            operacao = "adição";
-            simbolo = "+";
-            resultado = numero01 + numero02;
-
-            // EscreverResultado();     // Não chamar aqui porque já foge de sua responsabilidade
+            Numero02 = Convert.ToDouble(Console.ReadLine());
 
         }
 
-        public static void Subtrair()
+        public void Somar()
         {
 
-            operacao = "subtração";
-            simbolo = "-";
-            resultado = numero01 - numero02;
+            Operacao = "adição";
+            Simbolo = "+";
+            Resultado = Numero01 + Numero02;
+
+            // EscreverResultado();     // Não chamar aqui porque já foge de sua responsabilidade ! ! !
 
         }
 
-        public static void Multiplicar()
+        public void Subtrair()
         {
 
-            operacao = "multiplicação";
-            simbolo = "*";
-            resultado = numero01 * numero02;
+            Operacao = "subtração";
+            Simbolo = "-";
+            Resultado = Numero01 - Numero02;
 
         }
 
-        public static void Dividir()
+        public void Multiplicar()
         {
 
-            operacao = "divisão";
-            simbolo = "/";
-            resultado = numero01 / numero02;
+            Operacao = "multiplicação";
+            Simbolo = "*";
+            Resultado = Numero01 * Numero02;
 
         }
 
-        public static void EscreverResultado()
+        public void Dividir()
         {
 
-            Console.WriteLine($"\nResultado da operação de {operacao}: {numero01} {simbolo} {numero02} = {resultado}");
+            Operacao = "divisão";
+            Simbolo = "/";
+            Resultado = Numero01 / Numero02;
+
+        }
+
+        public void EscreverResultado()
+        {
+
+            Console.WriteLine($"\nResultado da operação de {Operacao}: {Numero01} {Simbolo} {Numero02} = {Resultado}");
 
         }
 
