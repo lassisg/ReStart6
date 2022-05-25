@@ -2,14 +2,18 @@
 
 namespace E02_NomeCompleto
 {
-    class Program
+
+    internal class Program
     {
+
         static void Main(string[] args)
         {
 
             Employee employee = new Employee();
 
             employee.ReadNames();
+
+            employee.ValidateNames();
 
             employee.CreateFullName();
 
