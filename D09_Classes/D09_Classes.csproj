@@ -43,15 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Colaborador.cs" />
+    <Compile Include="Constructors.cs" />
+    <Compile Include="Methods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="_notes.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\D00_Utils\D00_Utils.csproj">
