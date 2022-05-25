@@ -1,6 +1,6 @@
 ﻿using D00_Utils;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace E01_Calculadora
 {
@@ -12,8 +12,8 @@ namespace E01_Calculadora
         public double Numero01 { get; set; }
         public double Numero02 { get; set; }
         public double Resultado { get; set; }
-        public byte Operacao { get; set; }
-        public Hashtable MenuOptions { get; set; } = new Hashtable();
+        public string Operacao { get; set; }
+        private Dictionary<string, string> MenuOptions { get; set; }
 
         #endregion
 
@@ -21,30 +21,35 @@ namespace E01_Calculadora
 
         public CalculadoraSimples()
         {
-            Numero01 =0; 
-            Numero02 =0;
+            // Optei por iniciar sempre as propriedade, inclusive o menu
+            Numero01 = 0; 
+            Numero02 = 0;
+            Operacao = string.Empty;
             Resultado = 0;
-            Operacao = 0;
             MakeMenu();
 
         }
 
         public CalculadoraSimples(int numero01, int numero02)
         {
+
             Numero01 = numero01;
             Numero02 = numero02;
+            Operacao = string.Empty;
             Resultado = 0;
-            Operacao = 0;
             MakeMenu();
+
         }
 
-        public CalculadoraSimples(int numero01, int numero02, byte operacao)
+        public CalculadoraSimples(int numero01, int numero02, string operacao)
         {
+
             Numero01 = numero01;
             Numero02 = numero02;
-            Resultado = 0;
             Operacao = operacao;
+            Resultado = 0;
             MakeMenu();
+
         }
 
         #endregion
@@ -54,57 +59,37 @@ namespace E01_Calculadora
         private void MakeMenu()
         {
 
-            //MenuOptions = new string[,]
-            //{
-            //    { "1", "Adição"},
-            //    { "2", "Subtração"},
-            //    { "3", "Multiplicação"},
-            //    { "4", "Divisão"},
-            //    { "x", "Sair"}
-            //};
+            MenuOptions = new Dictionary<string, string>();
 
-            MenuOptions.Add(1, "Adição");
-            MenuOptions.Add(2, "Subtração");
-            MenuOptions.Add(3, "Multiplicação");
-            MenuOptions.Add(4, "Divisão");
-
-           
-
+            MenuOptions.Add("1", "Adição");
+            MenuOptions.Add("2", "Subtração");
+            MenuOptions.Add("3", "Multiplicação");
+            MenuOptions.Add("4", "Divisão");
+            MenuOptions.Add("x", "Sair");
 
         }
 
-        public void ShowMenu() 
+        public void ShowMenu(bool isValidOption = true) 
         {
-            bool isValidOption = true;
 
             Utils.PrintHeader("Calculadora Simples");
-            
-            do
+                           
+            if (!isValidOption)
             {
+
+                Utils.PrintHeader("Calculadora Simples");
+                ShowWarning();
                 
-                if (!isValidOption)
-                {
-
-                    Utils.PrintHeader("Calculadora Simples");
-                    ShowWarning();
+            }
                 
-                }
-                
-                Utils.PrintSubHeader("Escolha uma das opções abaixo.");
+            Utils.PrintSubHeader("Escolha uma das opções abaixo.");
 
-                for (int i = 0; i < MenuOptions.GetLength(0); i++)
-                {
-                    Console.WriteLine($"{MenuOptions[i, 0]} - {MenuOptions[i, 1]}");
-                }
+            foreach (KeyValuePair<string, string> item in MenuOptions)
+            {
+                Console.WriteLine($"{item.Key} - {item.Value}");
+            }
 
-                Console.Write($"\nOpção selecionada: ");
-
-                string selectedOption = ReadSelectedOption();
-
-                isValidOption = ValidateOption(selectedOption);
-
-
-            } while (!isValidOption);
+            Console.Write($"\nOpção selecionada: ");
 
         }
 
@@ -117,88 +102,92 @@ namespace E01_Calculadora
 
         }
 
-        private string ReadSelectedOption()
+        public string ReadSelectedOption()
         {
 
             return Console.ReadLine();
 
         }
 
-        private bool ValidateOption(string selectedOption)
+        public bool ValidateOption(string selectedOption)
         {
 
-            bool isValidOption = true;
-
-            int selection = 2;
-
-            if (MenuOptions.ContainsKey(selectedOption) || selectedOption == 'x')
+            if (MenuOptions.ContainsKey(selectedOption))
             {
+
+                Operacao = selectedOption;
+
+                return true;
 
             }
 
-            switch (selectedOption)
-            {
-                case "1":
-                    Operacao = 0;
-                    break;
-
-                case "2":
-                    Operacao = 1;
-                    break;
-
-                case "3":
-                    Operacao = 2;
-                    break;
-
-                case "4":
-                    Operacao = 3;
-                    break;
-
-                case "x":
-                    Operacao = 4;
-                    break;
-                
-                default:
-                    isValidOption = false;
-                    break;
-            }
-
-            return isValidOption;
+            return false;
 
         }
 
         public void ReadNumbers()
         {
 
-            Console.Write("\nDigite o número 1: ");
-            Numero01 = Convert.ToDouble(Console.ReadLine());
+            string inputString;
 
-            Console.Write("Digite o número 2: ");
-            Numero02 = Convert.ToDouble(Console.ReadLine());
+            Console.Write("\nDigite o 1º número: ");
+            inputString = Console.ReadLine();
+            Numero01 = ValidateNumber(inputString);
+
+            Console.Write("\nDigite o 2º número: ");
+            inputString = Console.ReadLine();
+            Numero02 = ValidateNumber(inputString);
+
+        }
+
+        private double ValidateNumber(string inputString)
+        {
+
+            bool isValid = true;
+            double inputValue;
+
+            do
+            {
+                if (!isValid)
+                {
+                    Console.Write("Atenção! Digite um número válido: ");
+                    inputString = Console.ReadLine();
+                }
+
+                isValid = double.TryParse(inputString, out inputValue);
+
+            } while (!isValid);
+
+            return Convert.ToDouble(inputValue);
 
         }
 
         public void ExecuteOperation()
         {
+
             switch (Operacao)
             {
 
-                case 1:
+                case "1":
+                    Add();
+                    break;
+
+                case "2":
                     Subtratct();
                     break;
 
-                case 2:
+                case "3":
                     Multiply();
                     break;
 
-                case 3:
+                case "4":
                     Divide();
                     break;
 
                 default:
-                    Add();
                     break;
             }
+
         }
 
         private void Add()
@@ -232,7 +221,7 @@ namespace E01_Calculadora
         public void ShowResult()
         {
 
-            Console.WriteLine($"\nResultado da operação de \'{MenuOptions[Operacao, 1]}\': {Resultado}");
+            Console.WriteLine($"\nResultado da operação de {MenuOptions[Operacao]}: {Resultado}");
 
         }
 
