@@ -242,11 +242,18 @@ Structs
 	Allocated on the stack
 	Allocations and de-allocations of value types are in general cheaper than allocation and de-allocation of
 
+	
+------------------------------------------------------------------------------------------------------------------------
+Regular Expression (REGEX)
+------------------------------------------------------------------------------------------------------------------------
+
+https://docs.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.regex?view=net-6.0
+
+Qual o tipo de dado?
+É obrigatório?
 
 
-
-
-
+access modifiers
 
 
 

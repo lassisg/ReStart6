@@ -18,6 +18,8 @@ namespace E03_Cars
 
             #endregion
 
+            // TODO: Adicionar loop para adicionar carro ou acelerar, desacelerar e parar
+            // TODO: Trazer try...caatch para aqui
             #region Methods
 
             string inputValue;
