@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace D09_Classes
+﻿namespace D09_Classes
 {
 
     internal class Colaborador
@@ -44,6 +38,28 @@ namespace D09_Classes
             Email = "";
             Localidade = string.Empty;
         }
+
+        public Colaborador(int colaboradorID, string nome, string email)
+        {
+            ColaboradorID = colaboradorID;
+            Nome = nome;
+            Email = email;
+            Localidade = "Porto";
+        }
+
+        public Colaborador(int colaboradorID, string nome, string email, string localidade)
+        {
+            ColaboradorID= colaboradorID;
+            Nome = nome;
+            Email = email;
+            Localidade = localidade;
+        }
+
+        #endregion
+
+        #region Methods
+
+
 
         #endregion
 
