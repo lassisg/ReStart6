@@ -33,14 +33,17 @@ namespace D16_Enums
         {
 
             #region Enum Weekdays com variáveis fazendo cast
+
             int weekday = (int)Weekdays.Wednesday;
             Console.WriteLine($"{weekday} \n\n");
 
             var day = (Weekdays)2;
             Console.WriteLine($"{day} \n\n");
+
             #endregion           
 
             #region Enum Classification com Switch
+
             Classification classification = Classification.VeryGood;
 
             switch (classification)
@@ -60,6 +63,7 @@ namespace D16_Enums
                 default:
                     break;
             }
+
             #endregion
 
             Console.ReadKey();

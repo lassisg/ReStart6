@@ -21,7 +21,7 @@ namespace D09_Classes
         public string Localidade { get; set; }
 
         // Propriedades clássicas
-        public string Nome          // usa-se o correspondente field
+        public string Nome          // usa-se o correspondente field/atributo
         { 
             get { return nome; }
             set { nome = value; }
