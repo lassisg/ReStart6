@@ -9,42 +9,43 @@ namespace E01_Calculadora
         static void Main(string[] args)
         {
 
-            int operacao;
+            #region Calculadora Simples v01 (Main)
 
-            Console.WriteLine("Que operação deseja fazer?");
-            Console.WriteLine("1-Adição");
-            Console.WriteLine("2-Subtração");
-            Console.WriteLine("3-Multiplicação");
-            Console.WriteLine("4-Divisão");
-            operacao = Convert.ToInt16(Console.ReadLine());
+            /*
+            CalculadoraSimples.LerNumeros();
 
-            Console.Write("\nOperação selecionada: ");
+            CalculadoraSimples.Somar();
 
-            switch (operacao)
-            {
-                case 1:
-                    OperacoesMatematicas.Somar();
-                    break;
+            CalculadoraSimples.Subtrair();
 
-                case 2:
-                    OperacoesMatematicas.Subtrair();
-                    break;
+            CalculadoraSimples.Multiplicar();
 
-                case 3:
-                    OperacoesMatematicas.Multiplicar();
-                    break;
-
-                case 4:
-                    OperacoesMatematicas.Dividir();
-                    break;
-
-                default:
-                    Console.WriteLine("Opção incorreta!");
-                    break;
-
-            }
+            CalculadoraSimples.Dividir();
 
             Console.ReadLine();
+            */
+
+            #endregion
+
+            #region Calculadora Simples v02 (main)
+
+            CalculadoraSimples.LerNumeros();
+
+            CalculadoraSimples.Somar();
+            CalculadoraSimples.EscreverResultado();
+
+            CalculadoraSimples.Subtrair();
+            CalculadoraSimples.EscreverResultado();
+
+            CalculadoraSimples.Multiplicar();
+            CalculadoraSimples.EscreverResultado();
+
+            CalculadoraSimples.Dividir();
+            CalculadoraSimples.EscreverResultado();
+
+            Console.ReadLine();
+
+            #endregion
 
         }
 
