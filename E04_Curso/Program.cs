@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using D00_Utils;
+using System;
 
 namespace E04_Curso
 {
@@ -13,13 +10,20 @@ namespace E04_Curso
         static void Main(string[] args)
         {
 
-            Curso c1 = new Curso();
+            Utils.PrintHeader("E07: Cursos");
 
+            Curso c1 = new Curso();
             c1.InserirCurso();
+
+            Curso c2 = new Curso();
             c2.InserirCurso();
 
-            Curso.ListarCurso(c1.listaCursos);
-            Console.ReadLine();
+            Curso c3 = new Curso();
+            c3.InserirCurso();
+
+            Curso.ListarCurso(Curso.listaCursos);
+
+            Utils.CleanConsole();
 
         }
 
