@@ -190,6 +190,7 @@ Se for nome válido
 ------------------------------------------------------------------------------------------------------------------------
 Carateres especiais na Consola
 ------------------------------------------------------------------------------------------------------------------------
+
 // Ativar o suporte a Unicode na consola
 
 Console.WriteLine("á é í ó ú ç ã â");
@@ -197,6 +198,34 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 Console.WriteLine("á é í ó ú ç ã â");
 
 
+------------------------------------------------------------------------------------------------------------------------
+Exercício CARROS
+------------------------------------------------------------------------------------------------------------------------
+
+Tratamento de erros
+
+Propriedades
+    Marca: uma enumeração de 3 marcas
+    Modelo: uma enumeração de 6 modelos
+    Cor: uma enumeração de 5 cores
+    Matricula
+    Cilindrada
+    Velocidade
+    Data de registo
+
+Construtores
+    1. O default com tudo vazio e a zero
+    2. Cria um carro da marca 'Bólide', do modelo 'Novo Bólide', com 1000 de cilindrada.
+    3. Um carro que receba os parâmetros de entrada
+    
+Destrutor
+    Diz que o carro vai para a sucata
+
+Métodos
+    Criar: criar o carro pedindo os valores ao user
+    Parar: velocidade passa a zero
+    Acelerar: incrementa a velocidade com o valor de aceleração
+    Desacelerar: decrementa a velocidade com o valor de desaceleração
 
 
 
