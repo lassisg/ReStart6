@@ -1,5 +1,6 @@
 ﻿using D00_Utils;
 using System;
+using System.Collections.Generic;
 
 namespace E03_Cars
 {
@@ -10,78 +11,70 @@ namespace E03_Cars
         static void Main(string[] args)
         {
 
-            Utils.PrintHeader("E06_Cars");
 
             #region Variables
 
-            Car myCar = new Car();
+            List<Car> cars = new List<Car>();
+            string selectedOption = "";
+            bool validOption = true;
 
             #endregion
 
-            // TODO: Adicionar loop para adicionar carro ou acelerar, desacelerar e parar
-            // TODO: Trazer try...caatch para aqui
             #region Methods
-
-            string inputValue;
-
-            do
+            try
             {
-                myCar.ShowMakeMenu();
-                inputValue = Console.ReadLine();
-                myCar.ValidateMake(inputValue);
 
-            } while (myCar.Make == Car.EnumMake.None);
+                // TODO: Adicionar loop para adicionar carro ou acelerar, desacelerar e parar
+                do
+                {
+                    
+                    if (selectedOption != "x")
+                    {
 
-            do
+                        Car.ShowMenu(validOption, cars.Count > 0);
+                        
+                        selectedOption = Car.ReadSelectedOption();
+
+                        if (selectedOption != "x")
+                        {
+
+                            validOption = Car.ValidateOption(selectedOption, cars.Count > 0);
+
+                            // 4. Execute selection (if valid selection)
+                            Console.WriteLine("Execute something");
+
+                        }
+                    }
+
+                } while (selectedOption != "x" );
+
+                Console.WriteLine("Exited menu.");
+
+                //Car myCar = new Car();
+                //myCar.CreateCar();
+
+                //Console.Clear();
+
+                //Console.WriteLine(myCar.ToString());
+
+                //Console.ReadLine();
+
+                //myCar.Accelerate(90);
+
+                //myCar.Decelerate(20);
+
+                //myCar.Stop();
+
+            }
+            catch (FormatException)
             {
-                myCar.ShowModelMenu();
-                inputValue = Console.ReadLine();
-                myCar.ValidateModel(inputValue);
-
-            } while (myCar.Model == Car.EnumModel.None);
-
+                Console.WriteLine("\nHouve um erro na conversão do valor informado.");
+            }
+            catch (Exception e)
             {
-                myCar.ShowColorMenu();
-                inputValue = Console.ReadLine();
-                myCar.ValidateColor(inputValue);
-
-            } while (myCar.Color == Car.EnumColor.None) ;
-
-            do
-            {
-                Console.Write("\nDigite a matrícula do carro: ");
-                inputValue = Console.ReadLine();
-                myCar.License = myCar.ValidateLicense(inputValue);
-
-            } while (myCar.License == string.Empty);
-
-            Console.Write("\nDigite a cilindrada do carro: ");
-            inputValue = Console.ReadLine();
-            myCar.CubicCapacity = myCar.ValidateCC(inputValue);
-
-            Console.Write("\nDigite a velocidade do carro: ");
-            inputValue = Console.ReadLine();
-            myCar.Speed = myCar.ValidateSpeed(inputValue);
-
-            do
-            {
-                Console.Write("\nDigite a data de registo do carro no formato \'dd/mm/aaaa\': ");
-                inputValue = Console.ReadLine();
-                myCar.RegistrationDate = myCar.ValidateRegistrationDate(inputValue);
-
-            } while (myCar.RegistrationDate == DateTime.MinValue);
-
-            Console.Clear();
-
-            Console.WriteLine(myCar.ToString());
-
-            Console.ReadLine();
-
-            myCar.Accelerate(90);
-
-            myCar.Decelerate(20);
-
-            myCar.Stop();
+                Console.WriteLine("\nErro desconhecido:");
+                Console.WriteLine(e.Message);
+            }
 
             #endregion
 

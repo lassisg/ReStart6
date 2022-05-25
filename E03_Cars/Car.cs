@@ -1,5 +1,8 @@
-﻿using System;
+﻿using D00_Utils;
+using System;
+using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace E03_Cars
 {
@@ -120,6 +123,137 @@ namespace E03_Cars
 
         #region Methods
 
+        internal static void ShowMenu(bool isValidOption, bool showFullMenu)
+        {
+
+            Dictionary<string, string> menuOptions = GetMenuOptions(showFullMenu);
+
+            Utils.PrintHeader("E06_Cars");
+
+            if (!isValidOption)
+            {
+
+                Utils.PrintHeader("Calculadora Simples");
+                ShowWarning();
+
+            }
+
+            Utils.PrintSubHeader("Escolha uma das opções abaixo.");
+
+            foreach (KeyValuePair<string, string> item in menuOptions)
+            {
+                Console.WriteLine($"{item.Key} - {item.Value}");
+            }
+
+            Console.Write($"\nOpção selecionada: ");
+
+        }
+
+        private static void ShowWarning()
+        {
+
+            Console.Write($"\n{new string('-', 8)}>");
+            Console.Write($"{new string(' ', 8)}Por favor selecione uma opção válida{new string(' ', 8)}");
+            Console.Write($"<{new string('-', 8)}\n");
+
+        }
+
+        private static Dictionary<string, string> GetMenuOptions(bool fullMenu = true)
+        {
+            Dictionary<string, string> menuOptions = new Dictionary<string, string>();
+
+            menuOptions.Add("1", "Criar carro");
+            if (fullMenu)
+            {
+                menuOptions.Add("2", "Parar");
+                menuOptions.Add("3", "Acelerar");
+                menuOptions.Add("4", "Desacelerar");
+            }
+            menuOptions.Add("x", "Sair");
+
+            return menuOptions;
+        }
+
+        internal static string ReadSelectedOption()
+        {
+            return Console.ReadLine();
+        }
+
+        internal static bool ValidateOption(string selectedOption, bool fullMenu)
+        {
+
+            Dictionary<string, string> menuOptions = GetMenuOptions(fullMenu);
+
+            if (menuOptions.ContainsKey(selectedOption))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        internal void CreateCar()
+        {
+
+            string inputValue;
+
+            do
+            {
+                ShowMakeMenu();
+                inputValue = Console.ReadLine();
+                ValidateMake(inputValue);
+
+            } while (Make == Car.EnumMake.None);
+
+            do
+            {
+                ShowModelMenu();
+                inputValue = Console.ReadLine();
+                ValidateModel(inputValue);
+
+            } while (Model == Car.EnumModel.None);
+
+            {
+                ShowColorMenu();
+                inputValue = Console.ReadLine();
+                ValidateColor(inputValue);
+
+            } while (Color == Car.EnumColor.None) ;
+
+            do
+            {
+                Console.Write("\nDigite a matrícula do carro: ");
+                inputValue = Console.ReadLine();
+                License = ValidateLicense(inputValue);
+
+            } while (License == string.Empty);
+
+            do
+            {
+                Console.Write("\nDigite a cilindrada do carro: ");
+                inputValue = Console.ReadLine();
+                CubicCapacity = ValidateCC(inputValue);
+
+            } while (CubicCapacity == string.Empty);
+
+            do
+            {
+                Console.Write("\nDigite a velocidade do carro: ");
+                inputValue = Console.ReadLine();
+                Speed = ValidateSpeed(inputValue);
+
+            } while (Speed == 0);
+
+            do
+            {
+                Console.Write("\nDigite a data de registo do carro no formato \'dd/mm/aaaa\': ");
+                inputValue = Console.ReadLine();
+                RegistrationDate = ValidateRegistrationDate(inputValue);
+
+            } while (RegistrationDate == DateTime.MinValue);
+
+        }
+
         internal void ShowMakeMenu()
         {
 
@@ -166,31 +300,18 @@ namespace E03_Cars
 
         internal void ValidateMake(string userInput)
         {
-            try
-            {
+            
+            bool isNumeric = int.TryParse(userInput, out int userValue);
+            bool isDefined = Enum.IsDefined(typeof(EnumMake), userValue);
 
-                bool isNumeric = int.TryParse(userInput, out int userValue);
-                bool isDefined = Enum.IsDefined(typeof(EnumMake), userValue);
-
-                Make = (isNumeric && isDefined) ? (EnumMake)userValue : Make;
-
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("\nHouve um erro na conversão do valor informado.");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("\nErro desconhecido:");
-                Console.WriteLine(e.Message);
-            }
+            Make = (isNumeric && isDefined) ? (EnumMake)userValue : Make;
 
         }
 
         internal void ShowModelMenu()
         {
 
-            Console.WriteLine("Escolha um modelo de carro");
+            Console.WriteLine("\nEscolha um modelo de carro");
 
             var enumValues = Enum.GetValues(typeof(EnumModel));
 
@@ -246,23 +367,11 @@ namespace E03_Cars
 
         internal void ValidateModel(string userInput)
         {
+            
+            bool isNumeric = int.TryParse(userInput, out int userValue);
+            bool isDefined = Enum.IsDefined(typeof(EnumModel), userValue);
 
-            try {
-
-                bool isNumeric = int.TryParse(userInput, out int userValue);
-                bool isDefined = Enum.IsDefined(typeof(EnumModel), userValue);
-                Model = (isNumeric && isDefined) ? (EnumModel)userValue : Model;
-
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("\nHouve um erro na conversão do valor informado.");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("\nErro desconhecido:");
-                Console.WriteLine(e.Message);
-            }
+            Model = (isNumeric && isDefined) ? (EnumModel)userValue : Model;
 
         }
 
@@ -326,115 +435,31 @@ namespace E03_Cars
         internal void ValidateColor(string userInput)
         {
 
-            try {
+            bool isNumeric = int.TryParse(userInput, out int userValue);
+            bool isDefined = Enum.IsDefined(typeof(EnumColor), userValue);
 
-                bool isNumeric = int.TryParse(userInput, out int userValue);
-                bool isDefined = Enum.IsDefined(typeof(EnumColor), userValue);
-
-                Color = (isNumeric && isDefined) ? (EnumColor)userValue : Color;
-
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("\nHouve um erro na conversão do valor informado.");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("\nErro desconhecido:");
-                Console.WriteLine(e.Message);
-            }
+            Color = (isNumeric && isDefined) ? (EnumColor)userValue : Color;
 
         }
 
         internal string ValidateLicense(string userValue)
         {
 
-            /*
-                Matrículas válidas:
-                * de 00-00-AA a 00-00-ZZ
-                * de 00-AA-00 a 00-AA-ZZ
-                * de AA-00-00 a AA-00-ZZ
-                * de AA-AA-00 a AA-AA-ZZ
-            
-                Podem ser ignorados os separadoes.
-                Podem ser utilizados espaços ' ' como separadores
-                Exemplos de inputs:
-                    * AA-00-01
-                    * AB 52 BC
-                    * Ac-26 09 (apesar de não haver padrão, aceitaremos este input
-            */
+            string newValue = userValue.Trim().ToUpper().Replace(" ", "-");
 
-            // Acho que seria melhor usar Regular Expressions (se eu soubesse como...)
+            Regex rx = new Regex(@"(\d{2}|[a-zA-Z]{2})[\-]?(\d{2}|[a-zA-Z]{2})[\-]?(\d{2}|[a-zA-Z]{2})",
+              RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-            string newValue = userValue;
+            Match match = rx.Match(newValue);
 
-            try
+            if (!match.Success)
             {
-
-                // 1. Remove caracteres inválidos
-                foreach (char c in newValue)
-                {
-                    if (!char.IsLetterOrDigit(c))
-                    {
-                        newValue = newValue.Remove(newValue.IndexOf(c), 1);
-                    }
-                }
-
-
-                // 2. Verificar se restaram 6 caraceteres
-                if (newValue.Length > 6)
-                    throw new FormatException("Valor de entrada inválido.");
-
-                // 3. Separa em partes de 2
-                string[] licenseParts = new string[3];
-
-                for (int i = 2; i <= newValue.Length; i += 2)
-                {
-                    licenseParts[(i / 2) - 1] = newValue.Substring(i - 2, 2);
-                }
-
-                // 4. Valida se cada parte possui apenas um tipo de dado: numérico ou caractere
-                foreach (var item in licenseParts)
-                {
-                    if (!IsValidLicensePart(item))
-                    {
-                        throw new FormatException($"Valor de entrada inválido. Parte \'{item}\' não é válida!");
-                    }
-                }
-
-                // 5. Unir os grupos com separador '-' entre eles
-                newValue = string.Join("-", licenseParts);
-
-                // 6. Padronizar com uso de Uppercase
-                newValue = newValue.ToUpper();
-
-            }
-            catch (FormatException e)
-            {
-                Console.WriteLine(e.Message);
                 return License;
             }
 
+            newValue = $"{match.Groups[1].Value}-{match.Groups[2].Value}-{match.Groups[3].Value}";
+
             return newValue;
-
-        }
-
-        private bool IsValidLicensePart(string licencePart)
-        {
-
-            byte numericCount = 0;
-
-            foreach (char c in licencePart)
-            {
-                if (char.IsNumber(c))
-                {
-                    numericCount += 1;
-                }
-            }
-
-            bool result = (numericCount == 0 || numericCount == 2) ? true : false;
-
-            return result;
 
         }
 
@@ -501,7 +526,7 @@ namespace E03_Cars
 
         internal void Stop()
         {
-            
+
             Speed = 0;
             Console.WriteLine("\nCarro parado...");
 
@@ -528,7 +553,7 @@ namespace E03_Cars
         #endregion
 
         #region Destructor
-        
+
         // Para ver a mansagem do destrutor, correr com Ctrl+F5
 
         ~Car()
