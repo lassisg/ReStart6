@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace E01_Calculadora
 {
@@ -12,6 +8,7 @@ namespace E01_Calculadora
 
         static double numero01;
         static double numero02;
+        static double resultado;
 
         private static void LerNumeros()
         {
@@ -29,7 +26,8 @@ namespace E01_Calculadora
             
             LerNumeros();
 
-            Console.WriteLine($"\nResultado da operação de adição: {numero01} + {numero02} = {numero01 + numero02}");
+            resultado = numero01 + numero02;
+            Console.WriteLine($"\nResultado da operação de adição: {numero01} + {numero02} = {resultado}");
         
         }
 
@@ -40,7 +38,8 @@ namespace E01_Calculadora
 
             LerNumeros();
 
-            Console.WriteLine($"\nResultado da operação de subtração: {numero01} - {numero02} = {numero01 - numero02}");
+            resultado = numero01 - numero02;
+            Console.WriteLine($"\nResultado da operação de subtração: {numero01} - {numero02} = {resultado}");
 
         }
         
@@ -51,7 +50,8 @@ namespace E01_Calculadora
 
             LerNumeros();
 
-            Console.WriteLine($"\nResultado da operação de multiplicação: {numero01} * {numero02} = {numero01 * numero02}");
+            resultado = numero01 * numero02;
+            Console.WriteLine($"\nResultado da operação de multiplicação: {numero01} * {numero02} = {resultado}");
 
         }
 
@@ -62,7 +62,8 @@ namespace E01_Calculadora
 
             LerNumeros();
 
-            Console.WriteLine($"\nResultado da operação de divisão: {numero01} / {numero02} = {numero01 / numero02}");
+            resultado = numero01 / numero02;
+            Console.WriteLine($"\nResultado da operação de divisão: {numero01} / {numero02} = {resultado}");
 
         }
 
