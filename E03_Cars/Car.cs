@@ -1,34 +1,57 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Text;
 
 namespace E03_Cars
 {
 
-    internal class Car
+    public class Car
     {
 
         #region Enums
 
-        public enum Make
+        /*
+            Enumeration best practices (https://docs.microsoft.com/en-us/dotnet/api/system.enum?view=net-6.0#constructors)
+
+                * If you have not defined an enumeration member whose value is 0, consider creating a None enumerated constant.
+                  By default, the memory used for the enumeration is initialized to zero by the common language runtime.
+                  Consequently, if you do not define a constant whose value is zero, the enumeration will contain an illegal value
+                  when it is created.
+
+                * If there is an obvious default case that your application has to represent, consider using an enumerated constant 
+                  whose value is zero to represent it. If there is no default case, consider using an enumerated constant whose value is
+                  zero to specify the case that is not represented by any of the other enumerated constants.
+
+                * Do not specify enumerated constants that are reserved for future use.
+
+                * When you define a method or property that takes an enumerated constant as a value, consider validating the value.
+                  The reason is that you can cast a numeric value to the enumeration type even if that numeric value is not defined in
+                  the enumeration.
+        */
+
+        // Apesar de não precisar incluir a atribuição, porque já inicia no valor 0, incluí na mesma para ilustrar o uso de Enums
+
+        public enum EnumMake
         {
+            None = 0,
             Bolide = 1,
             Renault = 2,
             Ferrari = 3
         }
 
-        public enum Model
+        public enum EnumModel
         {
+            None = 0,
             NewBolide = 1,
-            Megane =2,
+            Megane = 2,
             Clio = 3,
             Captur = 4,
             F40 = 5,
             California = 6
         }
 
-        public enum Color
+        public enum EnumColor
         {
+            None = 0,
             Black = 1,
             Blue = 2,
             Red = 3,
@@ -36,19 +59,19 @@ namespace E03_Cars
             White = 5,
             Yellow = 6
         }
-        
+
 
         #endregion
 
         #region Properties
 
-        public Make? CarMake { get; set; }
-        public Model? CarModel { get; set; }
-        public Color? CarColor { get; set; }
+        public EnumMake Make { get; set; }
+        public EnumModel Model { get; set; }
+        public EnumColor Color { get; set; }
         public string License { get; set; }
-        public int CubicCapacity { get; set; }
-        public double Speed { get; set; }
-        public DateTime? RegistrationDate { get; set; }
+        public string CubicCapacity { get; set; }
+        public int Speed { get; set; }
+        public DateTime RegistrationDate { get; set; }
 
         #endregion
 
@@ -56,36 +79,36 @@ namespace E03_Cars
 
         public Car()
         {
-
-            CarMake = null;
-            CarModel = null;
-            CarColor = null;
+            // Atenção com nulos se for adicionar à BD
+            Make = EnumMake.None;
+            Model = EnumModel.None;
+            Color = EnumColor.None;
             License = string.Empty;
-            CubicCapacity = 0;
+            CubicCapacity = "";
             Speed = 0;
-            RegistrationDate = null;
+            RegistrationDate = DateTime.MinValue;
 
         }
 
-        public Car (Make make, Model model, int cubicCapacity)
+        public Car(EnumColor color, string license, int speed, DateTime registrationDate)
         {
 
-            CarMake = make;
-            CarModel = model;
-            CarColor = null;
-            License = string.Empty;
-            CubicCapacity = cubicCapacity;
-            Speed = 0;
-            RegistrationDate = null;
+            Make = EnumMake.Bolide;
+            Model = EnumModel.NewBolide;
+            Color = color;
+            License = license;
+            CubicCapacity = "1000";
+            Speed = speed;
+            RegistrationDate = registrationDate;
 
         }
 
-        public Car(Make make, Model model, Color color, string matricula, int cilindrada, double velociadde, DateTime dataRegisto)
+        public Car(EnumMake make, EnumModel model, EnumColor color, string matricula, string cilindrada, int velociadde, DateTime dataRegisto)
         {
 
-            CarMake = make;
-            CarModel = model;
-            CarColor = color;
+            Make = make;
+            Model = model;
+            Color = color;
             License = matricula;
             CubicCapacity = cilindrada;
             Speed = velociadde;
@@ -97,78 +120,39 @@ namespace E03_Cars
 
         #region Methods
 
-        public void Create()
+        internal void ShowMakeMenu()
         {
-            
-            string inputValue;
-
-            // TODO: Validate input values
-            do
-            {
-                ShowMakeMenu();
-                inputValue = Console.ReadLine();
-                CarMake = ValidateMake(inputValue);
-
-            } while (!CarMake.HasValue);
-
-            ShowModelMenu();
-            inputValue = Console.ReadLine();
-            //CarModel = ValidateModel(inputValue);
-
-            ShowColorMenu();
-            inputValue = Console.ReadLine();
-            //CarColor = ValidateColor(inputValue);
-
-            Console.Write("\nDigite a matrícula do carro: ");
-            inputValue = Console.ReadLine();
-            //License = ValidateLicense(inputValue);
-
-            Console.Write("\nDigite a cilindrada do carro: ");
-            inputValue = Console.ReadLine();
-            //CubicCapacity = ValidateCC(inputValue);
-
-            Console.Write("\nDigite a velocidade atual do carro: ");
-            inputValue = Console.ReadLine();
-            //Speed = ValidateSpeed(inputValue);
-
-            Console.Write("\nDigite a data de registo do carro: ");
-            inputValue = Console.ReadLine();
-            //RegistrationDate = ValidateRegistrationDate(inputValue);
-
-        }
-
-        private void ShowMakeMenu()
-        {
-
-            Console.Clear();
 
             Console.WriteLine("\nEscolha uma marca de carro:");
 
-            var enumValues = Enum.GetValues(typeof(Make));
-            
-            foreach (Make item in enumValues)
+            var enumValues = Enum.GetValues(typeof(EnumMake));
+
+            foreach (EnumMake item in enumValues)
             {
-                Console.WriteLine($"{(int)item} - {GetFriendlyMake(item)}");
+                if (item != EnumMake.None)
+                {
+                    Console.WriteLine($"{item:D} - {GetFriendlyMake(item)}");
+                }
             }
 
         }
 
-        private string GetFriendlyMake(Make currentItem)
+        internal string GetFriendlyMake(EnumMake currentItem)
         {
 
             string friendlyMake;
 
             switch (currentItem)
             {
-                case Make.Bolide:
+                case EnumMake.Bolide:
                     friendlyMake = "Bólide";
                     break;
 
-                case Make.Renault:
+                case EnumMake.Renault:
                     friendlyMake = "Renault";
                     break;
 
-                case Make.Ferrari:
+                case EnumMake.Ferrari:
                     friendlyMake = "Ferrari";
                     break;
 
@@ -180,63 +164,74 @@ namespace E03_Cars
             return friendlyMake;
         }
 
-        private Make? ValidateMake(string userValue)
+        internal void ValidateMake(string userInput)
         {
-
-            Make currentMake;
-
-            if (Enum.TryParse(userValue, out currentMake))
+            try
             {
-                return currentMake;
-            }
 
-            return null;
+                bool isNumeric = int.TryParse(userInput, out int userValue);
+                bool isDefined = Enum.IsDefined(typeof(EnumMake), userValue);
+
+                Make = (isNumeric && isDefined) ? (EnumMake)userValue : Make;
+
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("\nHouve um erro na conversão do valor informado.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("\nErro desconhecido:");
+                Console.WriteLine(e.Message);
+            }
 
         }
 
-        private void ShowModelMenu()
+        internal void ShowModelMenu()
         {
-
-            Console.Clear();
 
             Console.WriteLine("Escolha um modelo de carro");
-            
-            var enumValues = Enum.GetValues(typeof(Model));
-            foreach (Model item in enumValues)
+
+            var enumValues = Enum.GetValues(typeof(EnumModel));
+
+            foreach (EnumModel item in enumValues)
             {
-                Console.WriteLine($"{(int)item} - {GetFriendlyModel(item)}");
+                if (item != EnumModel.None)
+                {
+                    Console.WriteLine($"{item:D} - {GetFriendlyModel(item)}");
+                }
             }
 
         }
 
-        private string GetFriendlyModel(Model currentItem)
+        internal string GetFriendlyModel(EnumModel currentItem)
         {
 
             string friendlyModel;
 
             switch (currentItem)
             {
-                case Model.NewBolide:
+                case EnumModel.NewBolide:
                     friendlyModel = "Novo Bólide";
                     break;
 
-                case Model.Megane:
+                case EnumModel.Megane:
                     friendlyModel = "Mégane";
                     break;
 
-                case Model.Clio:
+                case EnumModel.Clio:
                     friendlyModel = "Clio";
                     break;
 
-                case Model.Captur:
+                case EnumModel.Captur:
                     friendlyModel = "Captur";
                     break;
 
-                case Model.F40:
+                case EnumModel.F40:
                     friendlyModel = "F40";
                     break;
 
-                case Model.California:
+                case EnumModel.California:
                     friendlyModel = "Califórnia";
                     break;
 
@@ -249,57 +244,73 @@ namespace E03_Cars
 
         }
 
-        private Model ValidateModel(string userValue)
+        internal void ValidateModel(string userInput)
         {
 
-            Console.Clear();
+            try {
 
-            return Model.California;
-        }
+                bool isNumeric = int.TryParse(userInput, out int userValue);
+                bool isDefined = Enum.IsDefined(typeof(EnumModel), userValue);
+                Model = (isNumeric && isDefined) ? (EnumModel)userValue : Model;
 
-        private void ShowColorMenu()
-        {
-
-            Console.Clear();
-
-            Console.WriteLine("\nEscolha uma cor");
-            
-            var enumValues = Enum.GetValues(typeof(Color));
-            foreach (Color item in enumValues)
+            }
+            catch (FormatException)
             {
-                Console.WriteLine($"{(int)item} - {GetFriendlyColor(item)}");
+                Console.WriteLine("\nHouve um erro na conversão do valor informado.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("\nErro desconhecido:");
+                Console.WriteLine(e.Message);
             }
 
         }
 
-        private string GetFriendlyColor(Color currentItem)
+        internal void ShowColorMenu()
+        {
+
+            Console.WriteLine("\nEscolha uma cor");
+
+            var enumValues = Enum.GetValues(typeof(EnumColor));
+
+            foreach (EnumColor item in enumValues)
+            {
+                if (item != EnumColor.None)
+                {
+                    Console.WriteLine($"{item:D} - {GetFriendlyColor(item)}");
+                }
+            }
+
+        }
+
+        internal string GetFriendlyColor(EnumColor currentItem)
         {
 
             string friendlyColor;
 
             switch (currentItem)
             {
-                case Color.Black:
+                case EnumColor.Black:
                     friendlyColor = "Preto";
                     break;
 
-                case Color.White:
+                case EnumColor.White:
                     friendlyColor = "Branco";
                     break;
 
-                case Color.Red:
+                case EnumColor.Red:
                     friendlyColor = "Vermelho";
                     break;
 
-                case Color.Silver:
+                case EnumColor.Silver:
                     friendlyColor = "Cinzento";
                     break;
 
-                case Color.Yellow:
+                case EnumColor.Yellow:
                     friendlyColor = "Amarelo";
                     break;
 
-                case Color.Blue:
+                case EnumColor.Blue:
                     friendlyColor = "Azul";
                     break;
 
@@ -312,40 +323,183 @@ namespace E03_Cars
 
         }
 
-        private Color ValidateColor(string userValue)
+        internal void ValidateColor(string userInput)
         {
-            return Color.Black;
+
+            try {
+
+                bool isNumeric = int.TryParse(userInput, out int userValue);
+                bool isDefined = Enum.IsDefined(typeof(EnumColor), userValue);
+
+                Color = (isNumeric && isDefined) ? (EnumColor)userValue : Color;
+
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("\nHouve um erro na conversão do valor informado.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("\nErro desconhecido:");
+                Console.WriteLine(e.Message);
+            }
+
         }
 
-        private string ValidateLicense(string userValue)
+        internal string ValidateLicense(string userValue)
         {
-            return userValue;
+
+            /*
+                Matrículas válidas:
+                * de 00-00-AA a 00-00-ZZ
+                * de 00-AA-00 a 00-AA-ZZ
+                * de AA-00-00 a AA-00-ZZ
+                * de AA-AA-00 a AA-AA-ZZ
+            
+                Podem ser ignorados os separadoes.
+                Podem ser utilizados espaços ' ' como separadores
+                Exemplos de inputs:
+                    * AA-00-01
+                    * AB 52 BC
+                    * Ac-26 09 (apesar de não haver padrão, aceitaremos este input
+            */
+
+            // Acho que seria melhor usar Regular Expressions (se eu soubesse como...)
+
+            string newValue = userValue;
+
+            try
+            {
+
+                // 1. Remove caracteres inválidos
+                foreach (char c in newValue)
+                {
+                    if (!char.IsLetterOrDigit(c))
+                    {
+                        newValue = newValue.Remove(newValue.IndexOf(c), 1);
+                    }
+                }
+
+
+                // 2. Verificar se restaram 6 caraceteres
+                if (newValue.Length > 6)
+                    throw new FormatException("Valor de entrada inválido.");
+
+                // 3. Separa em partes de 2
+                string[] licenseParts = new string[3];
+
+                for (int i = 2; i <= newValue.Length; i += 2)
+                {
+                    licenseParts[(i / 2) - 1] = newValue.Substring(i - 2, 2);
+                }
+
+                // 4. Valida se cada parte possui apenas um tipo de dado: numérico ou caractere
+                foreach (var item in licenseParts)
+                {
+                    if (!IsValidLicensePart(item))
+                    {
+                        throw new FormatException($"Valor de entrada inválido. Parte \'{item}\' não é válida!");
+                    }
+                }
+
+                // 5. Unir os grupos com separador '-' entre eles
+                newValue = string.Join("-", licenseParts);
+
+                // 6. Padronizar com uso de Uppercase
+                newValue = newValue.ToUpper();
+
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+                return License;
+            }
+
+            return newValue;
+
         }
 
-        private int ValidateCC(string userValue)
+        private bool IsValidLicensePart(string licencePart)
         {
-            return Convert.ToInt16(userValue);
+
+            byte numericCount = 0;
+
+            foreach (char c in licencePart)
+            {
+                if (char.IsNumber(c))
+                {
+                    numericCount += 1;
+                }
+            }
+
+            bool result = (numericCount == 0 || numericCount == 2) ? true : false;
+
+            return result;
+
         }
 
-        private double ValidateSpeed(string userValue)
+        internal string ValidateCC(string userInput)
         {
-            return Convert.ToDouble(userValue);
+
+            int userValue;
+            bool isNumeric = int.TryParse(userInput, out userValue);
+
+            return (isNumeric) ? userInput : CubicCapacity;
+
         }
 
-        private DateTime ValidateRegistrationDate(string userValue)
+        internal int ValidateSpeed(string userInput)
         {
-            return Convert.ToDateTime(userValue);
+            int userValue;
+            bool isNumeric = int.TryParse(userInput, out userValue);
+
+            return (isNumeric) ? userValue : Speed;
+
+        }
+
+        internal DateTime ValidateRegistrationDate(string userValue)
+        {
+
+            // 1. Data deve estar no formato válido
+            bool isValidDate = DateTime.TryParse(userValue, out DateTime newDate);
+
+            // 2. Data deve ser, no máximo, a data de hoje
+            if (isValidDate)
+            {
+                isValidDate = (newDate <= DateTime.Now) ? true : false;
+            }
+
+            newDate = (isValidDate) ? newDate : RegistrationDate;
+
+            return newDate;
+
         }
 
         public override string ToString()
         {
 
-            // TODO: Adicionar mais informação e melhor formatação
-            return "Carro criado!";
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(GetFriendlyMake(Make));
+            sb.Append(" / ");
+            sb.Append(GetFriendlyModel(Model));
+            sb.Append(", ");
+            sb.Append(GetFriendlyColor(Color));
+            sb.Append(", ");
+            sb.Append(CubicCapacity);
+            sb.Append(" cc, velocidade ");
+            sb.Append(Speed);
+            sb.Append(" km/h, registado em ");
+            sb.Append(RegistrationDate);
+            sb.Append(" com a matrícula ");
+            sb.Append(License);
+            sb.Append(".");
+
+            return sb.ToString();
 
         }
 
-        public void Stop()
+        internal void Stop()
         {
             
             Speed = 0;
@@ -353,7 +507,7 @@ namespace E03_Cars
 
         }
 
-        public void Accelerate(double speed)
+        internal void Accelerate(int speed)
         {
 
             Console.Write($"\nA acelelrar de {Speed} para ");
@@ -361,17 +515,21 @@ namespace E03_Cars
             Console.WriteLine($"{Speed}...");
 
         }
-        
-        public void Decelerate(double speed)
+
+        internal void Decelerate(int speed)
         {
+
             Console.Write($"\nA desacelelrar de {Speed} para ");
             Speed -= speed;
             Console.WriteLine($"{Speed}...");
+
         }
 
         #endregion
 
         #region Destructor
+        
+        // Para ver a mansagem do destrutor, correr com Ctrl+F5
 
         ~Car()
         {
