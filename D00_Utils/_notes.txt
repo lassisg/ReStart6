@@ -166,6 +166,28 @@ List<...> = substituir a ArrayList; é fortemente tipada; Generics
 
 
 ------------------------------------------------------------------------------------------------------------------------
+Dictionary - demo
+------------------------------------------------------------------------------------------------------------------------
+
+Pedir na consola um novo valor
+Ver te tem menos de 2 caracteres
+    Dizer que é nome errado
+
+Se for nome válido
+    Se existir
+        Dizer que é nome duplicado
+
+    Se não existir
+        Usando o valor, criar a chave: 2 primeiros caracteres à esquerda em maíusculas
+        
+		Pesquisar a nova chave
+            Se não existir
+                Adicionar a nova linha com o valor inserido na consola e a chave calculada
+            Se existir
+                Adicionar a nova linha com o valo inserido na consola e a chave com o nº incrementado (ex: FR2, FR3)
+
+
+------------------------------------------------------------------------------------------------------------------------
 Carateres especiais na Consola
 ------------------------------------------------------------------------------------------------------------------------
 // Ativar o suporte a Unicode na consola
