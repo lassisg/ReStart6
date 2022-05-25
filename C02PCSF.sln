@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D06_EstruturasCondicionais"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D07_EstruturasCiclicas", "D07_EstruturasCiclicas\D07_EstruturasCiclicas.csproj", "{26C666E7-95E3-4816-A9AC-C1B852086888}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D08_EstruturasDados", "D08_EstruturasDados\D08_EstruturasDados.csproj", "{8646436C-BCAE-4104-A9CD-6D4A8A70C1D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D09_Classes", "D09_Classes\D09_Classes.csproj", "{DDE64560-10DE-4634-ADE9-CC9A6CA5B308}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{26C666E7-95E3-4816-A9AC-C1B852086888}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26C666E7-95E3-4816-A9AC-C1B852086888}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26C666E7-95E3-4816-A9AC-C1B852086888}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8646436C-BCAE-4104-A9CD-6D4A8A70C1D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8646436C-BCAE-4104-A9CD-6D4A8A70C1D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8646436C-BCAE-4104-A9CD-6D4A8A70C1D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8646436C-BCAE-4104-A9CD-6D4A8A70C1D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDE64560-10DE-4634-ADE9-CC9A6CA5B308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDE64560-10DE-4634-ADE9-CC9A6CA5B308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDE64560-10DE-4634-ADE9-CC9A6CA5B308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDE64560-10DE-4634-ADE9-CC9A6CA5B308}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
