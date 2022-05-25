@@ -153,6 +153,18 @@ Matriz ou multi-dimensional array: várias linhas x várias colunas
 Estruturas de dados: COLLECTIONS
 ------------------------------------------------------------------------------------------------------------------------
 
+
+Collections: lista de valores
+
+ArrayList = substituir vetores; não é fortemente tipada (permite elementos de tipos diferentes)
+
+List<...> = substituir a ArrayList; é fortemente tipada; Generics
+	List<fatura>
+	List<clientes>
+	List<comida>
+	List<int>
+
+
 ------------------------------------------------------------------------------------------------------------------------
 Carateres especiais na Consola
 ------------------------------------------------------------------------------------------------------------------------
@@ -161,6 +173,7 @@ Carateres especiais na Consola
 Console.WriteLine("á é í ó ú ç ã â");
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 Console.WriteLine("á é í ó ú ç ã â");
+
 
 
 
