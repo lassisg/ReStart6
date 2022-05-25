@@ -192,6 +192,35 @@ namespace E03_Cars
             return false;
         }
 
+        internal void ExecuteAction(string action)
+        {
+
+            switch (action)
+            {
+                case "1":
+                    CreateCar();
+                    break;
+                case "2":
+                    Stop();
+                    break;
+
+                case"3":
+                    Accelerate();
+                    break;
+
+                case"4":
+                    Decelerate();
+                    break;
+
+                default:
+                    break;
+
+            }
+
+            Console.ReadLine();
+
+        }
+
         internal void CreateCar()
         {
 
@@ -478,7 +507,7 @@ namespace E03_Cars
             int userValue;
             bool isNumeric = int.TryParse(userInput, out userValue);
 
-            return (isNumeric) ? userValue : Speed;
+            return (isNumeric) ? userValue : 0;
 
         }
 
@@ -532,8 +561,10 @@ namespace E03_Cars
 
         }
 
-        internal void Accelerate(int speed)
+        internal void Accelerate()
         {
+            string inputSpeed = ReadSpeed();
+            int speed = ValidateSpeed(inputSpeed);
 
             Console.Write($"\nA acelelrar de {Speed} para ");
             Speed += speed;
@@ -541,13 +572,23 @@ namespace E03_Cars
 
         }
 
-        internal void Decelerate(int speed)
+        internal void Decelerate()
         {
+            string inputSpeed = ReadSpeed();
+            int speed = ValidateSpeed(inputSpeed);
 
             Console.Write($"\nA desacelelrar de {Speed} para ");
             Speed -= speed;
             Console.WriteLine($"{Speed}...");
 
+        }
+
+        private string ReadSpeed()
+        {
+            Console.Write("Qual a velocidade a (des)acelerar? ");
+            string userInput = Console.ReadLine();
+
+            return userInput;
         }
 
         #endregion
