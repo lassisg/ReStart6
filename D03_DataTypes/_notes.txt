@@ -92,7 +92,10 @@ ao editar um variável string, na verdade criamos um novo espaço na memória pa
 
 Processo para destruir os reference types (objects)	-->	GC = Garbage Collector
 
+------------------------------------------------------------------------------------------------------------------------
 Classes
+------------------------------------------------------------------------------------------------------------------------
+
 
 	* Exemplos: Cliente, Fatura, Curso, Formando, ...
 
@@ -110,5 +113,63 @@ Classes
 		FormadorAoInscrever()
 		FormadorAoNascer()
 		ClienteAoFaturar()
+
+
+------------------------------------------------------------------------------------------------------------------------
+Precedência dos tipos de dados
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+1 nom
+nome meio
+ultimo nom
+dá nome completo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
