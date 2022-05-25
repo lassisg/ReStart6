@@ -44,7 +44,7 @@ namespace D07_EstruturasCiclicas
 
             #endregion
 
-            #region FOR v1: repetir x número de vezes
+            #region FOR v1: repetir x número de vezes, incremento
 
             Utils.PrintHeader("FOR v1", "\n\n");
 
@@ -56,7 +56,7 @@ namespace D07_EstruturasCiclicas
 
             #endregion
 
-            #region FOR v2
+            #region FOR v2: repetir x número de vezes, decremento
 
             Utils.PrintHeader("FOR v2", "\n\n");
 
@@ -68,15 +68,24 @@ namespace D07_EstruturasCiclicas
 
             #endregion
 
-            #region FOR v3
+            #region FOR v3: tabuada dos 7
 
-            Utils.PrintHeader("FOR v3", "\n\n");
+            Utils.PrintHeader("FOR v3 - TABUADA DOS 7", "\n\n");
+
+            for (int i = 1; i <= 10; i++)
+            {
+                Console.WriteLine($"7 x {i} = {7 * i}");
+            }
 
             #endregion
 
             #region FOREACH
 
+            // Primeiro ver estrutura de dados (arrays e collections)
+
             Utils.PrintHeader("FOREACH", "\n\n");
+
+
 
             #endregion
 
