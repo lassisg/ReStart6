@@ -34,7 +34,22 @@ namespace E02_NomeCompleto
         public void CreateFullName()
         {
 
-            FullName = $"{FirstName} {MiddleName} {LastName}";
+            if (FirstName.Length > 0)
+            {
+                FullName = $"{FirstName} ";
+            }
+
+            if (MiddleName.Length > 0)
+            {
+                FullName += $"{MiddleName} ";
+            }
+
+            if (LastName.Length > 0)
+            {
+                FullName += $"{LastName}";
+            }
+
+            FullName = FullName.Trim();
 
         }
 
