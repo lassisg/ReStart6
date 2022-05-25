@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace D03_DataTypes
 {
@@ -18,7 +14,7 @@ namespace D03_DataTypes
 
         #endregion
 
-        #region Properties (devem ser publicas)
+        #region Properties (devem ser publicas) : auto-implemented
 
         public int CursoID { get; set; }
         public string Nome { get; set; }
