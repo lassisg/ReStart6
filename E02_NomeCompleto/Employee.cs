@@ -31,25 +31,31 @@ namespace E02_NomeCompleto
 
         }
 
-        public void CreateFullName()
+        public void ValidateNames()
         {
 
             if (FirstName.Length > 0)
             {
-                FullName = $"{FirstName} ";
+                FirstName = $"{FirstName} ";
             }
 
             if (MiddleName.Length > 0)
             {
-                FullName += $"{MiddleName} ";
+                MiddleName = $"{MiddleName} ";
             }
 
             if (LastName.Length > 0)
             {
-                FullName += $"{LastName}";
+                LastName = $"{LastName}";
             }
 
-            FullName = FullName.Trim();
+        }
+
+        public void CreateFullName()
+        {
+
+            FullName = $"{FirstName}{MiddleName}{LastName}";
+            FullName = FullName.Trim(); 
 
         }
 
