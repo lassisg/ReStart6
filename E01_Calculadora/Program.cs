@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace E01_Calculadora
 {
 
-    class Program
+    internal class Program
     {
 
         static void Main(string[] args)
@@ -13,19 +17,18 @@ namespace E01_Calculadora
             CalculadoraSimples calculadora = new CalculadoraSimples();
 
             // Invocar os métodos
-            calculadora.LerNumeros();
+            calculadora.ShowMenu();
 
-            calculadora.Somar();
-            calculadora.EscreverResultado();
+            if (calculadora.Operacao != 4)
+            {
 
-            calculadora.Subtrair();
-            calculadora.EscreverResultado();
+                calculadora.ReadNumbers();
+                calculadora.ExecuteOperation();
+                calculadora.ShowResult();
 
-            calculadora.Multiplicar();
-            calculadora.EscreverResultado();
-
-            calculadora.Dividir();
-            calculadora.EscreverResultado();
+            }
+            
+            Console.WriteLine("\nA terminar...");
 
             Console.ReadLine();
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using D00_Utils;
+using System;
 
 namespace E01_Calculadora
 {
@@ -10,17 +11,150 @@ namespace E01_Calculadora
         public double Numero01 { get; set; }
         public double Numero02 { get; set; }
         public double Resultado { get; set; }
-        public string Operacao { get; set; }
-        public string Simbolo { get; set; }
+        public byte Operacao { get; set; }
+        public string[,] MenuOptions { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        public CalculadoraSimples()
+        {
+            Numero01 =0; 
+            Numero02 =0;
+            Resultado = 0;
+            Operacao = 0;
+            MakeMenu();
+
+        }
+
+        public CalculadoraSimples(int numero01, int numero02)
+        {
+            Numero01 = numero01;
+            Numero02 = numero02;
+            Resultado = 0;
+            Operacao = 0;
+            MakeMenu();
+        }
+
+        public CalculadoraSimples(int numero01, int numero02, byte operacao)
+        {
+            Numero01 = numero01;
+            Numero02 = numero02;
+            Resultado = 0;
+            Operacao = operacao;
+            MakeMenu();
+        }
 
         #endregion
 
         #region Methods
 
-        public void LerNumeros()
+        private void MakeMenu()
         {
 
-            Console.Write("Digite o número 1: ");
+            MenuOptions = new string[,]
+            {
+                { "1", "Adição"},
+                { "2", "Subtração"},
+                { "3", "Multiplicação"},
+                { "4", "Divisão"},
+                { "x", "Sair"}
+            };
+
+        }
+
+        public void ShowMenu() 
+        {
+            bool isValidOption = true;
+
+            Utils.PrintHeader("Calculadora Simples");
+            
+            do
+            {
+                
+                if (!isValidOption)
+                {
+
+                    Utils.PrintHeader("Calculadora Simples");
+                    ShowWarning();
+                
+                }
+                
+                Utils.PrintSubHeader("Escolha uma das opções abaixo.");
+
+                for (int i = 0; i < MenuOptions.GetLength(0); i++)
+                {
+                    Console.WriteLine($"{MenuOptions[i, 0]} - {MenuOptions[i, 1]}");
+                }
+
+                Console.Write($"\nOpção selecionada: ");
+
+                string selectedOption = ReadSelectedOption();
+
+                isValidOption = ValidateOption(selectedOption);
+
+
+            } while (!isValidOption);
+
+        }
+
+        private void ShowWarning()
+        {
+
+            Console.Write($"\n{new string('-', 8)}>");
+            Console.Write($"{new string(' ', 8)}Por favor selecione uma opção válida{new string(' ', 8)}");
+            Console.Write($"<{new string('-', 8)}\n");
+
+        }
+
+        private string ReadSelectedOption()
+        {
+
+            return Console.ReadLine();
+
+        }
+
+        private bool ValidateOption(string selectedOption)
+        {
+
+            bool isValidOption = true;
+
+            switch (selectedOption)
+            {
+                case "1":
+                    Operacao = 0;
+                    break;
+
+                case "2":
+                    Operacao = 1;
+                    break;
+
+                case "3":
+                    Operacao = 2;
+                    break;
+
+                case "4":
+                    Operacao = 3;
+                    break;
+
+                case "x":
+                    Operacao = 4;
+                    break;
+                
+                default:
+                    isValidOption = false;
+                    break;
+            }
+
+            return isValidOption;
+
+        }
+
+        public void ReadNumbers()
+        {
+
+            Console.Write("\nDigite o número 1: ");
             Numero01 = Convert.ToDouble(Console.ReadLine());
 
             Console.Write("Digite o número 2: ");
@@ -28,48 +162,61 @@ namespace E01_Calculadora
 
         }
 
-        public void Somar()
+        public void ExecuteOperation()
+        {
+            switch (Operacao)
+            {
+
+                case 1:
+                    Subtratct();
+                    break;
+
+                case 2:
+                    Multiply();
+                    break;
+
+                case 3:
+                    Divide();
+                    break;
+
+                default:
+                    Add();
+                    break;
+            }
+        }
+
+        private void Add()
         {
 
-            Operacao = "adição";
-            Simbolo = "+";
             Resultado = Numero01 + Numero02;
-
-            // EscreverResultado();     // Não chamar aqui porque já foge de sua responsabilidade ! ! !
 
         }
 
-        public void Subtrair()
+        private void Subtratct()
         {
 
-            Operacao = "subtração";
-            Simbolo = "-";
             Resultado = Numero01 - Numero02;
 
         }
 
-        public void Multiplicar()
+        private void Multiply()
         {
 
-            Operacao = "multiplicação";
-            Simbolo = "*";
             Resultado = Numero01 * Numero02;
 
         }
 
-        public void Dividir()
+        private void Divide()
         {
 
-            Operacao = "divisão";
-            Simbolo = "/";
             Resultado = Numero01 / Numero02;
 
         }
 
-        public void EscreverResultado()
+        public void ShowResult()
         {
 
-            Console.WriteLine($"\nResultado da operação de {Operacao}: {Numero01} {Simbolo} {Numero02} = {Resultado}");
+            Console.WriteLine($"\nResultado da operação de \'{MenuOptions[Operacao, 1]}\': {Resultado}");
 
         }
 
