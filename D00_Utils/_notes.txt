@@ -228,6 +228,19 @@ Métodos
     Desacelerar: decrementa a velocidade com o valor de desaceleração
 
 
+------------------------------------------------------------------------------------------------------------------------
+Structs vs Classes
+------------------------------------------------------------------------------------------------------------------------
+
+Classes
+	Reference types
+	Allocated on the heap and garbage-collected
+	Assignments of lalrge reference types are cheaper than assignments of large value types
+
+Structs
+	Value types
+	Allocated on the stack
+	Allocations and de-allocations of value types are in general cheaper than allocation and de-allocation of
 
 
 
