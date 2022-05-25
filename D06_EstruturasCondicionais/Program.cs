@@ -1,4 +1,5 @@
-﻿using System;
+﻿using D00_Utils;
+using System;
 
 namespace D06_EstruturasCondicionais
 {
@@ -12,6 +13,9 @@ namespace D06_EstruturasCondicionais
             #region Variáveis
 
             int numero = 0;
+            int valor01 = 1;
+            int valor02 = 2;
+            bool resultado;
 
             #endregion
 
@@ -27,11 +31,13 @@ namespace D06_EstruturasCondicionais
                 Console.WriteLine("O número é 100");
             }
 
+            Utils.CleanConsole();
+
             #endregion
 
             #region IF ... ELSE
 
-            Utils.PrintHeader("IF ... ELSE", "\n\n");
+            Utils.PrintHeader("IF ... ELSE");
 
             if (numero == 100)
             {
@@ -42,11 +48,43 @@ namespace D06_EstruturasCondicionais
                 Console.WriteLine("O número não é 100");
             }
 
+            Utils.CleanConsole();
+
+            #endregion
+
+            #region Operador Ternário
+
+            Utils.PrintHeader("Operador Ternário");
+
+            // Desafio: ver se os 2 valores são iguais
+
+            Utils.PrintSubHeader("Versão clássica");
+            // Verrsão clássica com IF...ELSE
+            if (valor01 == valor02)
+            {
+                resultado = true;
+            }
+            else
+            {
+                resultado = false;
+            }
+
+            Console.WriteLine($"valor01 = valor02 ? {resultado}");
+
+            // Versão com operador ternário
+            Utils.PrintSubHeader("Versão com operador ternário");
+            
+            resultado = (valor01 == valor02) ? true : false;
+
+            Console.WriteLine($"valor01 = valor02 ? {resultado}");
+
+            Utils.CleanConsole();
+
             #endregion
 
             #region IFs encadeados
 
-            Utils.PrintHeader("IFs encadeados", "\n\n");
+            Utils.PrintHeader("IFs encadeados");
 
             if (numero == 0)
             {
@@ -71,11 +109,13 @@ namespace D06_EstruturasCondicionais
                 }
             }
 
+            Utils.CleanConsole();
+
             #endregion
 
             #region IF ... ELSEIF
 
-            Utils.PrintHeader("IF ... ELSEIF", "\n\n");
+            Utils.PrintHeader("IF ... ELSEIF");
 
             if (numero == 0)
             {
@@ -94,11 +134,13 @@ namespace D06_EstruturasCondicionais
                 Console.WriteLine("O número não é 0, nem 10, nem 15");
             }
 
+            Utils.CleanConsole();
+
             #endregion
 
             #region SWITCH
 
-            Utils.PrintHeader("SWITCH", "\n\n");
+            Utils.PrintHeader("SWITCH");
 
             switch (numero)
             {
@@ -119,9 +161,9 @@ namespace D06_EstruturasCondicionais
                     break;
             }
 
-            #endregion
+            Utils.CleanConsole();
 
-            Console.ReadLine();
+            #endregion
 
         }
 

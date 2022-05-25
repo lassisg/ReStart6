@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using D00_Utils;
+using System;
 
 namespace D07_EstruturasCiclicas
 {
@@ -18,7 +15,6 @@ namespace D07_EstruturasCiclicas
             string nome = string.Empty;
 
             #endregion
-
 
             #region WHILE: pode nunca fazer
 
@@ -85,7 +81,7 @@ namespace D07_EstruturasCiclicas
 
             Utils.PrintHeader("FOREACH", "\n\n");
 
-
+            Console.WriteLine("Verificar \'D08_EstruturasDados\'...");
 
             #endregion
 
