@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{315FFCED-96F4-4453-8851-492D4887634E}</ProjectGuid>
+    <ProjectGuid>{BB1439C1-3F5B-4463-AD88-09CC660337A4}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>E01_Calculadora</RootNamespace>
-    <AssemblyName>E01_Calculadora</AssemblyName>
+    <RootNamespace>D03_DataTypes</RootNamespace>
+    <AssemblyName>D03_DataTypes</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
