@@ -11,57 +11,43 @@ namespace E03_Cars
         static void Main(string[] args)
         {
 
-
             #region Variables
 
             List<Car> cars = new List<Car>();
-            string selectedOption = "";
+            Car myCar = new Car();
             bool validOption = true;
 
             #endregion
 
             #region Methods
+
             try
             {
-                
-                // TODO: Adicionar loop para adicionar carro ou acelerar, desacelerar e parar
+                string selectedOption;
+
                 do
                 {
 
                     Car.ShowMenu(validOption, cars.Count > 0);
-                        
+
                     selectedOption = Car.ReadSelectedOption();
 
                     if (selectedOption.ToLower() != "x")
                     {
                         validOption = Car.ValidateOption(selectedOption, cars.Count > 0);
 
-                        // 4. Execute selection (if valid selection)
                         if (validOption)
                         {
-                            Car.ExecuteAction(selectedOption);
+                            myCar.ExecuteAction(selectedOption);
+                            if (cars.Count == 0)
+                            {
+                                cars.Add(myCar);
+                            }
                         }
 
                     }
 
-                } while (selectedOption.ToLower() != "x" );
-
-                Console.WriteLine("Exited menu.");
-
-                //Car myCar = new Car();
-                //myCar.CreateCar();
-
-                //Console.Clear();
-
-                //Console.WriteLine(myCar.ToString());
-
-                //Console.ReadLine();
-
-                //myCar.Accelerate(90);
-
-                //myCar.Decelerate(20);
-
-                //myCar.Stop();
+                } while (selectedOption.ToLower() != "x");
 
             }
             catch (FormatException)

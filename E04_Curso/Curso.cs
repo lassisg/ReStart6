@@ -77,6 +77,7 @@ namespace E04_Curso
             return nomeCurso.ToUpper();
 
         }
+
         private List<string> ReadInputs()
         {
 
@@ -121,7 +122,6 @@ namespace E04_Curso
             {
                 CursoID = listaCursos.Count + 1;
             }
-
 
             nomeCurso = userInputs[1];
             if (nomeCurso != string.Empty)
