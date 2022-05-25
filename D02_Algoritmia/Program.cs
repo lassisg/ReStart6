@@ -12,16 +12,34 @@ namespace D02_Algoritmia
 
         static void Main(string[] args)
         {
+
             /*
-            D02_Algoritmia.E01_MediaAritmetica.CalcularMediaAritmetica();
-            D02_Algoritmia.E02_MaiorIdade.AnalisarMaioridade01();
-            D02_Algoritmia.E02_MaiorIdade.AnalisarMaioridade02();
-            D02_Algoritmia.E03_MaiorNumero.CalcularMaiorNumero();
-            D02_Algoritmia.E04_MaiorIdadeRepeticao.AnalisarMaioridade();
-            D02_Algoritmia.E05_InscricaoCurso.InscreverCurso01();
-            */
+            E01_MediaAritmetica.CalcularMediaAritmetica();
+
+            Console.Clear();
+
+            E02_MaiorIdade.AnalisarMaioridade01();
             
-            D02_Algoritmia.E05_InscricaoCurso.InscreverCurso02();
+            Console.Clear();
+
+            E02_MaiorIdade.AnalisarMaioridade02();
+            
+            Console.Clear();
+
+            E03_MaiorNumero.CalcularMaiorNumero();
+            
+            Console.Clear();
+
+            E04_MaiorIdadeRepeticao.AnalisarMaioridade();
+            
+            Console.Clear();
+
+            E05_InscricaoCurso.InscreverCurso01();
+            */
+
+            Console.Clear();
+
+            E05_InscricaoCurso.InscreverCurso02();
 
         }
 
