@@ -55,8 +55,5 @@
     <None Include="App.config" />
     <None Include="M02OOP_C01_E01_LeandroGabriel_v1.docx" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="_notes.txt" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
