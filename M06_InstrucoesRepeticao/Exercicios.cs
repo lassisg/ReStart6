@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace M06_InstrucoesRepeticao
 {
@@ -206,8 +204,11 @@ namespace M06_InstrucoesRepeticao
             List<int> valores = new List<int>();
             int inputValue;
 
+            Console.WriteLine();
+
             do
             {
+                // Sem validação porque não é o objetivo do exercício
                 Console.Write("Digite um número: ");
                 userInput = Console.ReadLine();
 
@@ -219,7 +220,7 @@ namespace M06_InstrucoesRepeticao
 
             } while (userInput != "0");
 
-            Console.WriteLine($"O valor máximo é {valores.Max()} e o mínimo é {valores.Min()}");
+            Console.WriteLine($"\nO valor máximo é {valores.Max()} e o mínimo é {valores.Min()}");
 
         }
 
@@ -234,6 +235,26 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\nnúmero lido for zero.";
 
             Utils.PrintSubHeader(subHeader);
+
+            string userInput;
+            int soma = 0;
+
+            Console.WriteLine();
+
+            do
+            {
+                // Sem validação porque não é o objetivo do exercício
+                Console.Write("Digite um número inteiro positivo: ");
+                userInput = Console.ReadLine();
+
+                if (userInput != "0" && userInput != String.Empty)
+                {
+                    soma += int.Parse(userInput);
+                }
+
+            } while (userInput != "0");
+
+            Console.WriteLine($"\nA soma dos valores é {soma}");
 
         }
 
