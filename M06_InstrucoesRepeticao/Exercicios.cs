@@ -316,7 +316,6 @@ namespace M06_InstrucoesRepeticao
             int inputValue;
             int soma = 0;
 
-
             // Sem validação porque não é o objetivo do exercício
             Console.Write("\nDigite um número inteiro: ");
             userInput = Console.ReadLine();
@@ -426,6 +425,44 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\nidosos, conforme a média calculada.";
 
             Utils.PrintSubHeader(subHeader);
+
+            string userInput, classification;
+            int inputValue;
+            List<int> listaIdades = new List<int>();
+            double mediaIdade;
+
+            Console.WriteLine();
+
+            do
+            {
+                // Sem validação porque não é o objetivo do exercício
+                Console.Write("Digite sua idade (digite 0 para sair): ");
+                userInput = Console.ReadLine();
+
+                if (userInput != "0" && userInput != string.Empty)
+                {
+                    inputValue = int.Parse(userInput);
+                    listaIdades.Add(inputValue);
+                }
+
+            } while (userInput != "0");
+
+            mediaIdade = listaIdades.Average();
+
+            if (mediaIdade <= 25)
+            {
+                classification = "jovens";
+            }
+            else if (mediaIdade <= 60)
+            {
+                classification = "adultos";
+            }
+            else
+            {
+                classification = "idosos";
+            }
+
+            Console.WriteLine($"\nOs funcionários da empresa são {classification}, porque a média de idade é {mediaIdade}.");
 
         }
 
