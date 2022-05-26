@@ -20,8 +20,8 @@ namespace M06_InstrucoesRepeticao
             //Exercicios.ExecutarExercicio09();
             //Exercicios.ExecutarExercicio10();
             //Exercicios.ExecutarExercicio11();
-            Exercicios.ExecutarExercicio12();
-            //Exercicios.ExecutarExercicio13();
+            //Exercicios.ExecutarExercicio12();
+            Exercicios.ExecutarExercicio13();
             //Exercicios.ExecutarExercicio14();
             //Exercicios.ExecutarExercicio15();
             //Exercicios.ExecutarExercicio16();

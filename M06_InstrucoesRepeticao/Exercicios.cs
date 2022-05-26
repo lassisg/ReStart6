@@ -484,6 +484,27 @@ namespace M06_InstrucoesRepeticao
 
             Utils.PrintSubHeader(subHeader);
 
+            string userInput;
+            int inputValue;
+            double basePrice = 50;
+            double currentPrice;
+            double totalPrice = 0;
+
+            Console.WriteLine("Quantas noites dormiu no hotel?");
+            userInput = Console.ReadLine();
+
+            // Sem validação porque não é o objetivo do exercício
+            inputValue = int.Parse(userInput);
+
+            for (int i = 1; i <= inputValue; i++)
+            {
+                currentPrice = basePrice / i;
+                totalPrice += currentPrice;
+                Console.WriteLine($"O preço da {i}ª noite é: {currentPrice:c}");
+            }
+
+            Console.WriteLine($"Preço Total é: {totalPrice:c}");
+
         }
 
         internal static void ExecutarExercicio14()
