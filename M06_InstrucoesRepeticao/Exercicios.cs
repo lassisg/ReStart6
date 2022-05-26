@@ -47,6 +47,18 @@ namespace M06_InstrucoesRepeticao
 
             Utils.PrintSubHeader(subHeader);
 
+            int length = 50;
+
+            for (int i = 1; i < length; i++)
+            {
+                bool isOdd = (i % 2 != 0) ? true : false;
+
+                if (isOdd)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+
         }
 
         internal static void ExecutarExercicio03()

@@ -9,8 +9,8 @@ namespace M06_InstrucoesRepeticao
 
             Utils.SetUTF8Encoding();
 
-            Exercicios.ExecutarExercicio01();
-            //Exercicios.ExecutarExercicio02();
+            //Exercicios.ExecutarExercicio01();
+            Exercicios.ExecutarExercicio02();
             //Exercicios.ExecutarExercicio03();
             //Exercicios.ExecutarExercicio04();
             //Exercicios.ExecutarExercicio05();
