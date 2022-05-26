@@ -312,8 +312,31 @@ namespace M06_InstrucoesRepeticao
 
             Utils.PrintSubHeader(subHeader);
 
+            string userInput;
+            int inputValue;
+            int soma = 0;
 
 
+            // Sem validação porque não é o objetivo do exercício
+            Console.Write("\nDigite um número inteiro: ");
+            userInput = Console.ReadLine();
+            
+            bool isInteger = int.TryParse(userInput, out inputValue);
+
+            if (!isInteger)
+            {
+                Console.WriteLine("Erro! Format inválido!");
+            }
+            else
+            {
+
+                foreach (char c in userInput.ToCharArray())
+                {
+                    soma += int.Parse(c.ToString());
+                }
+            }
+            
+            Console.WriteLine($"\nA soma dos dígitos de {userInput} é {soma}.");
 
         }
 
