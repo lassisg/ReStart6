@@ -74,6 +74,39 @@ namespace M06_InstrucoesRepeticao
 
             Utils.PrintSubHeader(subHeader);
 
+            int soma = 0;
+            int limite = 100;
+
+            for (int i = 4; i < limite; i+=3)
+            {
+                soma += i;
+            }
+
+            Console.WriteLine($"\nSoma, utilizando 'for': {soma}");
+
+            soma = 0;
+            int j = 4;
+
+            while (j < limite)
+            {
+                soma += j;
+                j += 3;
+            }
+
+            Console.WriteLine($"\nSoma, utilizando 'while': {soma}");
+
+            soma = 0;
+            j = 4;
+
+            do
+            {
+                soma += j;
+                j += 3;
+            }
+            while (j < limite);
+
+            Console.WriteLine($"\nSoma, utilizando 'do': {soma}");
+
         }
 
         internal static void ExecutarExercicio04()
