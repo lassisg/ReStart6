@@ -192,6 +192,7 @@ namespace M06_InstrucoesRepeticao
 
         internal static void ExecutarExercicio06()
         {
+
             Utils.PrintHeader("Exercício 6");
             string subHeader;
             // ----------------------------------------------------------------------
@@ -200,6 +201,25 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\nmínimo. O programa termina quando o número lido for zero.";
 
             Utils.PrintSubHeader(subHeader);
+
+            string userInput;
+            List<int> valores = new List<int>();
+            int inputValue;
+
+            do
+            {
+                Console.Write("Digite um número: ");
+                userInput = Console.ReadLine();
+
+                if (userInput != "0" && userInput != String.Empty)
+                {
+                    inputValue = int.Parse(userInput);
+                    valores.Add(inputValue);
+                }
+
+            } while (userInput != "0");
+
+            Console.WriteLine($"O valor máximo é {valores.Max()} e o mínimo é {valores.Min()}");
 
         }
 
