@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace M06_InstrucoesRepeticao
 {
@@ -271,6 +272,34 @@ namespace M06_InstrucoesRepeticao
 
             Utils.PrintSubHeader(subHeader);
 
+            string userInput;
+            List<double> alturas = new List<double>();
+            double inputValue;
+
+            Console.WriteLine();
+
+            do
+            {
+                // Sem validação porque não é o objetivo do exercício
+                Console.Write("Digite a altura de um funcionário (digite '0' para sair): ");
+                userInput = Console.ReadLine();
+
+                if (userInput != "0" && userInput != String.Empty)
+                {
+                    inputValue = double.Parse(userInput);
+                    alturas.Add(inputValue);
+                }
+
+            } while (userInput != "0");
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("\nEstatísticas:");
+            sb.AppendLine($"  • Altura do funcionário mais baixo: {alturas.Min()}");
+            sb.AppendLine($"  • Altura do funcionário mais alto: {alturas.Max()}");
+            sb.AppendLine($"  • Altura média dos funcionários: {alturas.Average()}");
+
+            Console.WriteLine(sb.ToString());
         }
 
         internal static void ExecutarExercicio09()
@@ -282,6 +311,9 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\nsoma dos seus dígitos.";
 
             Utils.PrintSubHeader(subHeader);
+
+
+
 
         }
 
