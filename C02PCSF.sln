@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D17_Structs", "D17_Structs\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E04_Curso", "E04_Curso\E04_Curso.csproj", "{3A04E904-B0C2-4471-977E-F157CAFBA3BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M06_InstrucoesRepeticao", "M06_InstrucoesRepeticao\M06_InstrucoesRepeticao.csproj", "{816F2FE9-DB84-49B6-8231-0B4C0269CB07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,10 @@ Global
 		{3A04E904-B0C2-4471-977E-F157CAFBA3BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A04E904-B0C2-4471-977E-F157CAFBA3BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A04E904-B0C2-4471-977E-F157CAFBA3BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{816F2FE9-DB84-49B6-8231-0B4C0269CB07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{816F2FE9-DB84-49B6-8231-0B4C0269CB07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{816F2FE9-DB84-49B6-8231-0B4C0269CB07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{816F2FE9-DB84-49B6-8231-0B4C0269CB07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
