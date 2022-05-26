@@ -352,25 +352,37 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\n\nusing System;";
             subHeader += "\nnamespace MODULO6_Exercicios";
             subHeader += "\n{";
-            subHeader += "\n\tclass Program";
-            subHeader += "\n\t{";
-            subHeader += "\n\t\tstatic void Main(string[] args)";
-            subHeader += "\n\t\t{";
-            subHeader += "\n\t\t\tint n;";
-            subHeader += "\n\t\t\tRandom rnd = new Random();";
-            subHeader += "\n\t\t\tint numeroSecreto = rnd.Next(1, 6);";
-            subHeader += "\n\t\t\tdo";
-            subHeader += "\n\t\t\t{";
-            subHeader += "\n\t\t\t\tConsole.WriteLine(\"Introduza um nº: \");";
-            subHeader += "\n\t\t\t\tn = Convert.ToInt32(Console.ReadLine());";
-            subHeader += "\n\t\t\t}";
-            subHeader += "\n\t\t\twhile (numeroSecreto != n);";
-            subHeader += "\n\t\t\tConsole.WriteLine(\"Acertou!\");";
-            subHeader += "\n\t\t}";
-            subHeader += "\n\t}";
+            subHeader += "\n    class Program";
+            subHeader += "\n    {";
+            subHeader += "\n        static void Main(string[] args)";
+            subHeader += "\n        {";
+            subHeader += "\n            int n;";
+            subHeader += "\n            Random rnd = new Random();";
+            subHeader += "\n            int numeroSecreto = rnd.Next(1, 6);";
+            subHeader += "\n            do";
+            subHeader += "\n            {";
+            subHeader += "\n                Console.WriteLine(\"Introduza um nº: \");";
+            subHeader += "\n                n = Convert.ToInt32(Console.ReadLine());";
+            subHeader += "\n            }";
+            subHeader += "\n            while (numeroSecreto != n);";
+            subHeader += "\n            Console.WriteLine(\"Acertou!\");";
+            subHeader += "\n        }";
+            subHeader += "\n    }";
             subHeader += "\n}";
 
             Utils.PrintSubHeader(subHeader);
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("\nÉ instanciado um objeto Random na variável 'rnd'.");
+            sb.Append("O método 'Next' de 'rbd' retorna un número aleatório entre 1 e 6,");
+            sb.AppendLine("que é atribuído à variável 'numeroSecreto'.");
+            sb.AppendLine("\nEm seguida, entra em um ciclo em que pede ao utilizador que digite um nº.");
+            sb.AppendLine("\nEnquanto o utilizador digitar um nº diferente do 'numeroSecreto', permanece no ciclo.");
+            sb.AppendLine("Se o utilizador digitar um número igual ao 'numeroSecreto', sai do ciclo e escreve a mensagem:");
+            sb.AppendLine("'Acertou!'");
+
+            Console.WriteLine(sb.ToString());
 
         }
 
