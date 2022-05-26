@@ -396,6 +396,22 @@ namespace M06_InstrucoesRepeticao
 
             Utils.PrintSubHeader(subHeader);
 
+            int n;
+            int errorCount = -1;
+
+            Random rnd = new Random();
+            int numeroSecreto = rnd.Next(1, 6);
+            do
+            {
+                errorCount++;
+
+                Console.WriteLine("Introduza um nº: ");
+                n = Convert.ToInt32(Console.ReadLine());
+            }
+            while (numeroSecreto != n);
+            
+            Console.WriteLine($"\nAcertou!\nMas errou {errorCount} vezes...");
+
         }
 
         internal static void ExecutarExercicio12()
