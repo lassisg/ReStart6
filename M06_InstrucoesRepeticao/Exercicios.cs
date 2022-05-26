@@ -111,6 +111,7 @@ namespace M06_InstrucoesRepeticao
 
         internal static void ExecutarExercicio04()
         {
+
             Utils.PrintHeader("Exercício 4");
             string subHeader;
             // ----------------------------------------------------------------------
@@ -122,7 +123,7 @@ namespace M06_InstrucoesRepeticao
 
             int num01, num02, menor, maior;
 
-            // Sem validação porque nõa é o objetivo do exercício
+            // Sem validação porque não é o objetivo do exercício
             Console.Write("\nDigite o 1º número inteiro: ");
             num01 = int.Parse(Console.ReadLine());
 
@@ -149,6 +150,7 @@ namespace M06_InstrucoesRepeticao
 
         internal static void ExecutarExercicio05()
         {
+
             Utils.PrintHeader("Exercício 5");
             string subHeader;
             // ----------------------------------------------------------------------
@@ -156,6 +158,35 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\nnúmeros.";
 
             Utils.PrintSubHeader(subHeader);
+
+            int num01, num02, menor, maior, soma;
+
+            // Sem validação porque não é o objetivo do exercício
+            Console.Write("\nDigite o 1º número inteiro: ");
+            num01 = int.Parse(Console.ReadLine());
+
+            Console.Write("Digite o 2º número inteiro: ");
+            num02 = int.Parse(Console.ReadLine());
+
+
+            if (num01 == num02)
+            {
+                Console.WriteLine("\nOs números são iguais");
+            }
+            else
+            {
+                menor = (num01 < num02) ? num01 : num02;
+                maior = (num01 > num02) ? num01 : num02;
+                soma = 0;
+
+                for (int i = menor + 1; i < maior; i++)
+                {
+                    soma += i;
+                }
+
+                Console.WriteLine($"A soma é {soma}");
+
+            }
 
         }
 
