@@ -114,11 +114,36 @@ namespace M06_InstrucoesRepeticao
             Utils.PrintHeader("Exercício 4");
             string subHeader;
             // ----------------------------------------------------------------------
-            subHeader = "screva um programa que receba dois números inteiros e gere";
+            subHeader = "Escreva um programa que receba dois números inteiros e gere";
             subHeader += "\nos números inteiros que estão no intervalo compreendidos";
             subHeader += "\npor eles.";
 
             Utils.PrintSubHeader(subHeader);
+
+            int num01, num02, menor, maior;
+
+            // Sem validação porque nõa é o objetivo do exercício
+            Console.Write("\nDigite o 1º número inteiro: ");
+            num01 = int.Parse(Console.ReadLine());
+
+            Console.Write("Digite o 2º número inteiro: ");
+            num02 = int.Parse(Console.ReadLine());
+
+
+            if (num01 == num02)
+            {
+                Console.WriteLine("\nOs números são iguais");
+            }
+            else
+            {
+                menor = (num01 < num02) ? num01 : num02;
+                maior = (num01 > num02) ? num01 : num02;
+
+                for (int i = menor + 1; i < maior; i++)
+                {
+                    Console.WriteLine(i);
+                }
+            }
 
         }
 
