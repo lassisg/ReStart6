@@ -26,6 +26,8 @@ namespace M06_InstrucoesRepeticao
             //Exercicios.ExecutarExercicio15();
             //Exercicios.ExecutarExercicio16();
 
+            Utils.CleanConsole();
+
         }
     }
 }

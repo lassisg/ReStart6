@@ -12,6 +12,7 @@ namespace M06_InstrucoesRepeticao
     {
         internal static void ExecutarExercicio01()
         {
+
             Utils.PrintHeader("Exercício 1");
             string subHeader;
             // ----------------------------------------------------------------------
@@ -20,11 +21,24 @@ namespace M06_InstrucoesRepeticao
 
             Utils.PrintSubHeader(subHeader);
 
+            int largura = 40;
+            int comprimento = 10;
+            char border = '0';
+
+            Console.WriteLine(new string(border, largura));
+
+            for (int i = 1; i < (comprimento - 1); i++)
+            {
+                Console.WriteLine($"{border}{new string(' ', largura - 2)}{border}");
+            }
+
+            Console.WriteLine(new string(border, largura));
 
         }
 
         internal static void ExecutarExercicio02()
         {
+
             Utils.PrintHeader("Exercício 2");
             string subHeader;
             // ----------------------------------------------------------------------
@@ -37,6 +51,7 @@ namespace M06_InstrucoesRepeticao
 
         internal static void ExecutarExercicio03()
         {
+
             Utils.PrintHeader("Exercício 3");
             string subHeader;
             // ----------------------------------------------------------------------
