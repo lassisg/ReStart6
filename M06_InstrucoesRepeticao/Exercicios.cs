@@ -227,6 +227,7 @@ namespace M06_InstrucoesRepeticao
 
         internal static void ExecutarExercicio07()
         {
+
             Utils.PrintHeader("Exercício 7");
             string subHeader;
             // ----------------------------------------------------------------------
@@ -261,6 +262,7 @@ namespace M06_InstrucoesRepeticao
 
         internal static void ExecutarExercicio08()
         {
+
             Utils.PrintHeader("Exercício 8");
             string subHeader;
             // ----------------------------------------------------------------------
@@ -304,6 +306,7 @@ namespace M06_InstrucoesRepeticao
 
         internal static void ExecutarExercicio09()
         {
+
             Utils.PrintHeader("Exercício 9");
             string subHeader;
             // ----------------------------------------------------------------------
@@ -387,6 +390,7 @@ namespace M06_InstrucoesRepeticao
 
         internal static void ExecutarExercicio11()
         {
+
             Utils.PrintHeader("Exercício 11");
             string subHeader;
             // ----------------------------------------------------------------------
@@ -415,6 +419,7 @@ namespace M06_InstrucoesRepeticao
 
         internal static void ExecutarExercicio12()
         {
+
             Utils.PrintHeader("Exercício 12");
             string subHeader;
             // ----------------------------------------------------------------------
@@ -468,6 +473,7 @@ namespace M06_InstrucoesRepeticao
 
         internal static void ExecutarExercicio13()
         {
+
             Utils.PrintHeader("Exercício 13");
             string subHeader;
             // ----------------------------------------------------------------------
@@ -509,6 +515,7 @@ namespace M06_InstrucoesRepeticao
 
         internal static void ExecutarExercicio14()
         {
+
             Utils.PrintHeader("Exercício 14");
             string subHeader;
             // ----------------------------------------------------------------------
@@ -521,6 +528,23 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\ntaxas de crescimento.";
 
             Utils.PrintSubHeader(subHeader);
+
+            double populacaoA = 80000;
+            double populacaoB = 200000;
+            double taxaCrescimentoA = 0.03;
+            double taxaCrescimentoB = 0.015;
+            int anos = 0;
+
+            while (populacaoB > populacaoA)
+            {
+                populacaoA += populacaoA * taxaCrescimentoA;
+                populacaoB += populacaoB * taxaCrescimentoB;
+                anos++;
+            }
+
+            Console.WriteLine($"\nSeriam necessários {anos} anos para que a" +
+                $" população do país A igualasse" +
+                $" ou ultrapassasse a população do país B.");
 
         }
 
