@@ -562,6 +562,52 @@ namespace M06_InstrucoesRepeticao
 
             Utils.PrintSubHeader(subHeader);
 
+            string userInput;
+            int entradas = 0;
+            int tipoBilhete = 0;
+            int custoTotal = 0;
+
+            // Sem validação porque não é o objetivo do exercício
+            Console.Write("Digite o nº de entradas que deseja comprar: ");
+            userInput = Console.ReadLine();
+            entradas = int.Parse(userInput);
+
+            for (int i = 1; i <= entradas; i++)
+            {
+                Console.WriteLine($"\nQual é o tipo do {i}º bilhete?");
+                Console.WriteLine("1 - Crianças até aos 4 anos");
+                Console.WriteLine("2 - Crianças dos 4 aos 12 anos");
+                Console.WriteLine("3 - Crianças dos 12 aos 17 anos");
+                Console.WriteLine("4 - Adultos");
+                userInput = Console.ReadLine();
+
+                tipoBilhete = int.Parse(userInput);
+
+                switch (tipoBilhete)
+                {
+                    case 1:
+                        break;
+
+                    case 2:
+                        custoTotal += 6;
+                        break;
+
+                    case 3:
+                        custoTotal += 12;
+                        break;
+
+                    case 4:
+                        custoTotal += 18;
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+
+            Console.WriteLine($"\nO custo total é {custoTotal:c}");
+
         }
 
         internal static void ExecutarExercicio16()
