@@ -119,6 +119,41 @@ namespace M09_Strings
 
             Utils.PrintSubHeader(subHeader);
 
+            string userInput, frase;
+            char letra;
+
+            Console.Write("Digite uma frase: ");
+            frase = Console.ReadLine();
+
+            Console.Write("\nDigite um carctere para buscar na frase: ");
+            letra = char.Parse(Console.ReadLine());
+
+            int indice = GetCharIndex(frase, letra);
+
+            if (indice == -1)
+            {
+                Console.WriteLine($"\nA letra {letra} não foi encontrada na frase.");
+            }
+            else
+            {
+                Console.WriteLine($"\nA letra '{letra}' foi encontrada no índice {indice}.");
+            }
+
+        }
+
+        private static int GetCharIndex(string word, char letter)
+        {
+
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (word[i] == letter)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+
         }
 
         internal static void ExecutarExercicio06()
