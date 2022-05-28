@@ -216,8 +216,39 @@ namespace M08_VectorsMatrices
 
             Utils.PrintSubHeader(subHeader);
 
-            
+            int[] vetor01 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            int[] vetor02 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            int[] vetor03 = new int[] { 9, 8, 7, 6, 5, 4, 3, 2, 1 };
+            string negacao;
 
+            bool tweens = CheckTweenVectors(vetor01, vetor02);
+            negacao = tweens ? "" : "não ";
+            Console.WriteLine($"\nOs vetores 1 e 2 {negacao}são iguais.");
+
+            tweens = CheckTweenVectors(vetor01, vetor03);
+            negacao = tweens ? "" : "não ";
+            Console.WriteLine($"\nOs vetores 1 e 3 {negacao}são iguais.");
+
+            tweens = CheckTweenVectors(vetor02, vetor03);
+            negacao = tweens ? "" : "não ";
+            Console.WriteLine($"\nOs vetores 2 e 3 {negacao}são iguais.");
+
+        }
+
+        private static bool CheckTweenVectors(int[] vetor01, int[] vetor02)
+        {
+            bool tweens = true;
+
+            for (int i = 0; i < vetor01.Length; i++)
+            {
+                if (vetor01[i] != vetor02[i])
+                {
+                    tweens = false;
+                    break;
+                }
+            }
+
+            return tweens;
         }
 
         internal static void ExecutarExercicio08()
