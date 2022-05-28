@@ -16,6 +16,11 @@ namespace M09_Strings
 
             Utils.PrintSubHeader(subHeader);
 
+            Console.Write("Digite seu nome: ");
+            string myName = Console.ReadLine();
+
+            Console.WriteLine($"\nSeu nome é: {myName}");
+
         }
 
         internal static void ExecutarExercicio02()
