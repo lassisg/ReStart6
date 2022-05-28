@@ -262,7 +262,38 @@ namespace M08_VectorsMatrices
 
             Utils.PrintSubHeader(subHeader);
 
+            int colunas = 4, linhas = 3;
+            int[,] matriz = new int[linhas, colunas];
+            string userInput;
 
+            for (int i = 0; i < linhas; i++)
+            {
+                for (int j = 0; j < colunas; j++)
+                {
+                    Console.WriteLine($"Digite o valor do elemento na posição ({i+1}, {j+1}) da matriz: ");
+                    userInput = Console.ReadLine();
+
+                    _ = int.TryParse(userInput, out matriz[i, j]);
+                }
+            }
+
+            Console.WriteLine("\nA matriz desenhada é:");
+            string linha;
+
+            for (int i = 0; i < linhas; i++)
+            {
+                linha = "";
+
+                for (int j = 0; j < colunas; j++)
+                {
+                    linha += $"{matriz[i, j]}  ";
+                }
+
+                linha = linha.Trim();
+
+                Console.WriteLine($"{linha}");
+
+            }
 
         }
 
