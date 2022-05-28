@@ -167,6 +167,42 @@ namespace M09_Strings
 
             Utils.PrintSubHeader(subHeader);
 
+            string frase;
+            char letra;
+
+            Console.Write("Digite uma frase: ");
+            frase = Console.ReadLine();
+
+            Console.Write("\nDigite um carctere para buscar na frase: ");
+            letra = char.Parse(Console.ReadLine());
+
+            int contagem = GetCharCount(frase, letra);
+
+            if (contagem == 0)
+            {
+                Console.WriteLine($"\nA letra {letra} não foi encontrada na frase.");
+            }
+            else
+            {
+                Console.WriteLine($"\nA letra '{letra}' foi encontrada {contagem} vezes na frase.");
+            }
+
+        }
+
+        private static int GetCharCount(string sentence, char letter)
+        {
+            int count = 0;
+
+            for (int i = 0; i < sentence.Length; i++)
+            {
+                if (sentence[i] == letter)
+                {
+                    count += 1;
+                }
+            }
+
+            return count;
+
         }
 
         internal static void ExecutarExercicio07()
