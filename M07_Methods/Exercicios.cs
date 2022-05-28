@@ -134,7 +134,29 @@ namespace M07_Methods
 
             Utils.PrintSubHeader(subHeader);
 
+            string userInput;
+            double num01, num02, max;
 
+            Console.Write("\nDigite um número: ");
+            userInput = Console.ReadLine();
+
+            _ = double.TryParse(userInput, out num01);
+
+            Console.Write("\nDigite outro número: ");
+            userInput = Console.ReadLine();
+
+            _ = double.TryParse(userInput, out num02);
+
+            max = GetGreaterOf(num01, num02);
+
+            Console.Write($"\nO maior entre os 2 números é: {max}");
+
+        }
+
+        private static double GetGreaterOf(double num01, double num02)
+        {
+            double max = (num01 > num02) ? num01 : num02;
+            return max;
         }
 
         internal static void ExecutarExercicio06()
