@@ -1,5 +1,6 @@
 ﻿using D00_Utils;
 using System;
+using System.Text;
 
 namespace M09_Strings
 {
@@ -276,6 +277,13 @@ namespace M09_Strings
 
 
             Utils.PrintSubHeader(subHeader);
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("\nO método substitui todos os caracteres desde o indice inicial");
+            sb.AppendLine("até o final de uma strgin pelo caractere introduzido.");
+
+            Console.WriteLine(sb.ToString());
 
         }
 
