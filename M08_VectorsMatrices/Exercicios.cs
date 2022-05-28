@@ -1,6 +1,5 @@
 ﻿using D00_Utils;
 using System;
-using System.Linq;
 
 namespace M08_VectorsMatrices
 {
@@ -88,6 +87,7 @@ namespace M08_VectorsMatrices
             Utils.PrintSubHeader(subHeader);
 
             int[] vetor = new int[10];
+            int max = 0, indice = 0;
 
             for (int i = 0; i < vetor.Length; i++)
             {
@@ -96,8 +96,11 @@ namespace M08_VectorsMatrices
                 Console.WriteLine(vetor[i]);
             }
 
-            int max = vetor.Max();
-            int indice = Array.IndexOf(vetor, max);
+            for (int i = 0; i < vetor.Length; i++)
+            {
+                max = (max > vetor[i]) ? max : vetor[i];
+                indice = (max > vetor[i]) ? indice : i;
+            }
 
             Console.WriteLine($"\nO maior valor é {max}, no índice {indice}");
 
