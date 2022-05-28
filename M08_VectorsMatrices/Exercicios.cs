@@ -145,7 +145,29 @@ namespace M08_VectorsMatrices
 
             Utils.PrintSubHeader(subHeader);
 
+            string userInput;
+            double[] vetor = new double[100];
+            double soma = 0;
 
+            Console.Write("Quantos números deseja introduzir? ");
+            userInput = Console.ReadLine();
+
+            _ = int.TryParse(userInput, out int totalNumbers);
+
+            for (int i = 0; i < totalNumbers; i++)
+            {
+                Console.Write("Digite um número real: ");
+                userInput = Console.ReadLine();
+
+                _ = double.TryParse(userInput, out vetor[i]);
+            }
+
+            for (int i = 0; i < totalNumbers; i++)
+            {
+                soma += vetor[i];
+            }
+
+            Console.WriteLine($"\nA soma dos valores do vetor é: {soma}");
 
         }
 
