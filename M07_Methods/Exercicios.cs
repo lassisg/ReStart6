@@ -5,6 +5,7 @@ namespace M07_Methods
 {
     internal class Exercicios
     {
+
         internal static void ExecutarExercicio01()
         {
 
@@ -38,7 +39,36 @@ namespace M07_Methods
 
             Utils.PrintSubHeader(subHeader);
 
+            string userInput;
+            int num01, num02;
+            int soma;
+            bool num01isInteger, num02isInteger;
 
+            Console.Write($"Digite o 1º número inteiro: ");
+            userInput = Console.ReadLine();
+            num01isInteger = int.TryParse(userInput, out num01);
+
+            Console.Write($"Digite o 2º número inteiro: ");
+            userInput = Console.ReadLine();
+            num02isInteger = int.TryParse(userInput, out num02);
+
+            soma = (num01isInteger && num02isInteger) ? SomaDoisNumeros(num01, num02) : 0;
+
+            if (soma > 0)
+            {
+                Console.WriteLine($"\nA soma dos números {num01} e {num02} é: {soma}");
+            }
+            else
+            {
+                Console.WriteLine($"\nNão foi possível efetuar a soma. Ao menos um dos números não está no formato correto.");
+            }
+
+
+        }
+
+        private static int SomaDoisNumeros(int num01, int num02)
+        {
+            return (num01 + num02);
         }
 
         internal static void ExecutarExercicio03()
@@ -54,6 +84,7 @@ namespace M07_Methods
 
 
         }
+
 
         internal static void ExecutarExercicio04()
         {
