@@ -171,7 +171,35 @@ namespace M07_Methods
 
             Utils.PrintSubHeader(subHeader);
 
+            string userInput;
+            double hipotenusa;
 
+            Console.Write("Digite o comprimento de uma aresta do triângulo: ");
+            userInput= Console.ReadLine();
+
+            _ = double.TryParse(userInput, out double aresta01);
+
+            Console.Write("Digite o comprimento de outra aresta do triângulo: ");
+            userInput = Console.ReadLine();
+
+            _ = double.TryParse(userInput, out double aresta02);
+
+            if (aresta01 > 0 && aresta02 > 0)
+            {
+                hipotenusa = GetHipotenusa(aresta01, aresta02);
+                Console.WriteLine($"\nHipotenusa é: {hipotenusa}");
+            }
+            else
+            {
+                Console.WriteLine($"\nNão foi possível calcular. Ao menos uma das arestas possui valor inválido.");
+            }
+
+        }
+
+        private static double GetHipotenusa(double aresta01, double aresta02)
+        {
+            double result = Math.Sqrt(Math.Pow(aresta01, 2) + Math.Pow(aresta02, 2));
+            return result;
         }
 
         internal static void ExecutarExercicio07()
