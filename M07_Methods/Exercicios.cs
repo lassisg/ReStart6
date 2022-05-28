@@ -1,11 +1,8 @@
 ﻿using D00_Utils;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace M07_Methods
-{ 
+{
     internal class Exercicios
     {
         internal static void ExecutarExercicio01()
@@ -18,7 +15,16 @@ namespace M07_Methods
 
             Utils.PrintSubHeader(subHeader);
 
+            Console.Write("Digite o seu nome: ");
+            string name = Console.ReadLine();
 
+            SayHello(name);
+
+        }
+
+        private static void SayHello(string name)
+        {
+            Console.WriteLine($"\nOlá, {name}.");
         }
 
         internal static void ExecutarExercicio02()
