@@ -183,8 +183,25 @@ namespace M08_VectorsMatrices
 
             Utils.PrintSubHeader(subHeader);
 
+            int numero = 4;
+            int[] vetor = new int[] { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 45 };
 
+            int totalNinV = GetNinV(vetor, numero);
 
+            Console.WriteLine($"\nO número {numero} ocorre {totalNinV} no vetor V.");
+
+        }
+
+        private static int GetNinV(int[] vetor, int numero)
+        {
+            int totalN = 0;
+
+            for (int i = 0; i < vetor.Length; i++)
+            {
+                totalN += (vetor[i] == numero) ? 1 : 0;
+            }
+
+            return (totalN != 0) ? totalN : -1;
         }
 
         internal static void ExecutarExercicio07()
