@@ -82,9 +82,24 @@ namespace M08_VectorsMatrices
             Utils.PrintHeader("Exercício 3");
             string subHeader;
             // ----------------------------------------------------------------------
-            subHeader = "Escrever um programa para encontrar o índice e o valor de maior valor.";
+            subHeader = "Escrever um programa para encontrar o índice e o valor de";
+            subHeader = "\nmaior valor.";
 
             Utils.PrintSubHeader(subHeader);
+
+            int[] vetor = new int[10];
+
+            for (int i = 0; i < vetor.Length; i++)
+            {
+                vetor[i] = (i == 0) ? 0 : vetor[i] + 1;
+                vetor[i] = (i <= 2) ? vetor[i] : vetor[i - 1] + vetor[i - 2];
+                Console.WriteLine(vetor[i]);
+            }
+
+            int max = vetor.Max();
+            int indice = Array.IndexOf(vetor, max);
+
+            Console.WriteLine($"\nO maior valor é {max}, no índice {indice}");
 
         }
 
