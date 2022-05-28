@@ -1,4 +1,5 @@
 ﻿using D00_Utils;
+using System;
 
 namespace M08_VectorsMatrices
 {
@@ -17,6 +18,23 @@ namespace M08_VectorsMatrices
 
             Utils.PrintSubHeader(subHeader);
 
+            int[] vetor = new int[10];
+
+            for (int i = 0; i < vetor.Length; i++)
+            {
+                vetor[i] = (i == 0) ? 0 : vetor[i] + 1;
+                vetor[i] = (i <= 2) ? vetor[i] : vetor[i - 1] + vetor[i - 2];
+                Console.WriteLine(vetor[i]);
+            }
+
+            (vetor[3], vetor[9]) = (vetor[9], vetor[3]);
+            
+            Console.WriteLine();
+
+            for (int i = 0; i < vetor.Length; i++)
+            {
+                Console.WriteLine(vetor[i]);
+            }
 
         }
 
