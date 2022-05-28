@@ -118,7 +118,19 @@ namespace M08_VectorsMatrices
 
             Utils.PrintSubHeader(subHeader);
 
-            
+            int[] vetor = new int[8];
+
+            for (int i = 0; i < vetor.Length; i++)
+            {
+                vetor[i] = (i == 0) ? 0 : vetor[i] + 1;
+                vetor[i] = (i <= 2) ? vetor[i] : vetor[i - 1] + vetor[i - 2];
+            }
+
+            foreach (var item in vetor)
+            {
+                Console.WriteLine(item);
+            }
+
 
         }
 
