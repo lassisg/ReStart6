@@ -88,6 +88,24 @@ namespace M09_Strings
 
             Utils.PrintSubHeader(subHeader);
 
+            string fulllName;
+
+            Console.Write("Digite seu nome completo: ");
+            fulllName = Console.ReadLine();
+
+            string[] nameParts = fulllName.Split();
+
+            foreach (string item in nameParts)
+            {
+                int nameIndex = Array.IndexOf(nameParts, item);
+                if (nameIndex % 2 == 0)
+                {
+                    nameParts[nameIndex] = item.ToUpper();
+                }
+            }
+
+            Console.WriteLine($"\n{string.Join(" ", nameParts)}");
+
         }
 
         internal static void ExecutarExercicio05()

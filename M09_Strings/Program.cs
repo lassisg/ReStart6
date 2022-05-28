@@ -15,8 +15,8 @@ namespace M09_Strings
             //Exercicios.ExecutarExercicio01();
             //Exercicios.ExecutarExercicio02();
             //Exercicios.ExecutarExercicio03();
-            Exercicios.ExecutarExercicio04();
-            //Exercicios.ExecutarExercicio05();
+            //Exercicios.ExecutarExercicio04();
+            Exercicios.ExecutarExercicio05();
             //Exercicios.ExecutarExercicio06();
             //Exercicios.ExecutarExercicio07();
             //Exercicios.ExecutarExercicio08();
