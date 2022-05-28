@@ -216,6 +216,21 @@ namespace M09_Strings
 
             Utils.PrintSubHeader(subHeader);
 
+            string userInput01, userInput02;
+
+            Console.Write("Digite alguma coisa: ");
+            userInput01 = Console.ReadLine();
+
+            Console.Write("Digite outra coisa: ");
+            userInput02 = Console.ReadLine();
+
+            Console.WriteLine($"\n{JoinInputs(userInput01, userInput02)}");
+
+        }
+
+        private static string JoinInputs(string input01, string input02)
+        {
+            return string.Concat(input01, input02);
         }
 
         internal static void ExecutarExercicio08()
