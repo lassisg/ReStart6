@@ -213,8 +213,31 @@ namespace M07_Methods
 
             Utils.PrintSubHeader(subHeader);
 
-            
+            string userInput;
+            bool isInteger;
+            int digits;
 
+            Console.Write("\nDigite um número inteiro positivo: ");
+            userInput = Console.ReadLine();
+
+            isInteger = int.TryParse(userInput, out int inputValue);
+
+            if (isInteger)
+            {
+                digits = GetDigits(inputValue);
+                Console.WriteLine($"\nO número {userInput} possui {digits} dígitos.");
+            }
+            else
+            {
+                Console.WriteLine($"\nO valor digitado não é um númeor inteiro positivo.");
+            }
+
+        }
+
+        private static int GetDigits(int integerInput)
+        {
+            int result = integerInput.ToString().Length;
+            return result;
         }
 
         internal static void ExecutarExercicio08()
