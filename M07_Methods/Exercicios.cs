@@ -82,7 +82,28 @@ namespace M07_Methods
 
             Utils.PrintSubHeader(subHeader);
 
+            char symbolToPrint = '*';
+            string userInput;
 
+            Console.Write("Qual símbolo deseja imprimir em tela? (default = '*') ");
+            userInput = Console.ReadLine();
+            
+            symbolToPrint = (userInput == string.Empty) ? symbolToPrint : userInput.ToCharArray()[0];
+
+
+            Console.Write($"Quantas vezes deseja repetir o símbolo '{symbolToPrint}'? (default = 1) ");
+            userInput = Console.ReadLine();
+            
+            _ = int.TryParse(userInput, out int inputValue);
+            inputValue = inputValue > 0 ? inputValue : 1;
+
+            PrintSymbols(symbolToPrint, inputValue);
+
+        }
+
+        private static void PrintSymbols(char symbol, int reps)
+        {
+            Console.WriteLine(new String(symbol, reps));
         }
 
 
