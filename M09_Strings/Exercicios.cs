@@ -34,6 +34,21 @@ namespace M09_Strings
 
             Utils.PrintSubHeader(subHeader);
 
+            string fullName;
+
+            Console.Write("Digite seu nome completo: ");
+            fullName = Console.ReadLine();
+
+            string[] names = fullName.Split();
+
+            if (names.Length < 2)
+            {
+                Console.WriteLine($"\nOlá, {names[0]}");
+            }
+            else
+            {
+                Console.WriteLine($"\nOlá, {names[0]} {names[names.Length - 1]}");
+            }
 
         }
 
