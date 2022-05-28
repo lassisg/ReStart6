@@ -1,5 +1,6 @@
 ﻿using D00_Utils;
 using System;
+using System.Text;
 
 namespace M07_Methods
 {
@@ -274,6 +275,16 @@ namespace M07_Methods
             subHeader += "\n}";
 
             Utils.PrintSubHeader(subHeader);
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("\nÉ instanciado um objeto Random na variável 'rnd'.");
+            sb.Append("Pede ao utilizador que digite nº de vezer que deseja repetir a operação a seguir.");
+            sb.AppendLine("\nDentro da estrutura cíclica 'for', é chamado o método 'Exemplo()', que retorna um valor aleatória entre 1 e 7.");
+            sb.AppendLine("Se o valor retornado deo método 'Exemplo()' for iguala à 6, adiciona 1 ao contador.");
+            sb.AppendLine("Após o término das repetições, imprime mensagem com a informação de quantas vezes ocorreu o nº 6.");
+
+            Console.WriteLine(sb.ToString());
 
         }
 
