@@ -85,13 +85,13 @@ namespace M07_Methods
             char symbolToPrint = '*';
             string userInput;
 
-            Console.Write("Qual símbolo deseja imprimir em tela? (default = '*') ");
+            Console.Write("\nQual símbolo deseja imprimir em tela? (default = '*') ");
             userInput = Console.ReadLine();
             
             symbolToPrint = (userInput == string.Empty) ? symbolToPrint : userInput.ToCharArray()[0];
 
 
-            Console.Write($"Quantas vezes deseja repetir o símbolo '{symbolToPrint}'? (default = 1) ");
+            Console.Write($"\nQuantas vezes deseja repetir o símbolo '{symbolToPrint}'? (default = 1) ");
             userInput = Console.ReadLine();
             
             _ = int.TryParse(userInput, out int inputValue);
@@ -119,6 +119,7 @@ namespace M07_Methods
 
             Utils.PrintSubHeader(subHeader);
 
+            Console.WriteLine("\nExercício completo em 'E01_Calculadora'.");
 
         }
 
