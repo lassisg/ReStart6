@@ -1,5 +1,6 @@
 ﻿using D00_Utils;
 using System;
+using System.Linq;
 
 namespace M08_VectorsMatrices
 {
@@ -49,7 +50,29 @@ namespace M08_VectorsMatrices
 
             Utils.PrintSubHeader(subHeader);
 
+            int[] vetor = new int[7];
+            int soma = 0;
+            int produto = 1;
+            double media;
 
+            for (int i = 0; i < vetor.Length; i++)
+            {
+                vetor[i] = i + 1;
+                vetor[i] = (i > 3) ? vetor[vetor.Length - i-1] : vetor[i];
+                Console.WriteLine(vetor[i]);
+            }
+
+            for (int i = 0; i < vetor.Length; i++)
+            {
+                soma += vetor[i];
+                produto *= vetor[i];
+            }
+
+            media = soma / vetor.Length;
+
+            Console.WriteLine($"\nMédia: {media}");
+            Console.WriteLine($"Soma: {soma}");
+            Console.WriteLine($"Produto: {produto}");
 
         }
 
