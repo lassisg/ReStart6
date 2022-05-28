@@ -550,6 +550,7 @@ namespace M06_InstrucoesRepeticao
 
         internal static void ExecutarExercicio15()
         {
+
             Utils.PrintHeader("Exercício 15");
             string subHeader;
             // ----------------------------------------------------------------------
@@ -620,6 +621,30 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\ndos que pertencerem ao intervalo [10,20].";
 
             Utils.PrintSubHeader(subHeader);
+
+            string userInput;
+            int currentNumber = 1;
+            int inputValue;
+            int product = 1;
+            bool isNumeric, isValid;
+
+            do
+            {
+                Console.Write($"Digite o {currentNumber}º número inteiro entre 10 e 30: ");
+                userInput = Console.ReadLine();
+
+                isNumeric = int.TryParse(userInput, out inputValue);
+
+                if (isNumeric)
+                {
+                    isValid = (inputValue >= 10 && inputValue <= 30) ? true : false;
+                    product *= (isValid && inputValue <= 20) ? inputValue : 1;
+                    currentNumber += isValid ? 1 : 0;
+                }
+
+            } while (currentNumber <= 3);
+
+            Console.WriteLine($"O produto dos números entre 10 e 20 é: {product}");
 
         }
 

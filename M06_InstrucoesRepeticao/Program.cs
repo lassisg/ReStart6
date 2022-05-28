@@ -23,8 +23,8 @@ namespace M06_InstrucoesRepeticao
             //Exercicios.ExecutarExercicio12();
             //Exercicios.ExecutarExercicio13();
             //Exercicios.ExecutarExercicio14();
-            Exercicios.ExecutarExercicio15();
-            //Exercicios.ExecutarExercicio16();
+            //Exercicios.ExecutarExercicio15();
+            Exercicios.ExecutarExercicio16();
 
             Utils.CleanConsole();
 
