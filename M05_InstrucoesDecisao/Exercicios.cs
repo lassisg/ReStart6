@@ -1,12 +1,8 @@
-﻿using System;
-using D00_Utils;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
+﻿using D00_Utils;
+using System;
 using System.Collections;
-using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Linq;
 
 namespace M05_InstrucoesDecisao
 {
