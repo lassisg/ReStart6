@@ -59,10 +59,21 @@ namespace M09_Strings
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever e testar um programa que peça o nome e apelidos, um de cada";
-            subHeader = "\nvez, e que junte tudo numa única string.";
+            subHeader += "\nvez, e que junte tudo numa única string.";
 
             Utils.PrintSubHeader(subHeader);
 
+            string firstName, surnames, fullName;
+
+            Console.Write("Digite seu 1º nome: ");
+            firstName = Console.ReadLine();
+
+            Console.Write("Digite seus apelidos: ");
+            surnames = Console.ReadLine();
+
+            fullName = $"{firstName} {surnames}";
+
+            Console.WriteLine($"\nSeu nome completo é: {fullName}");
 
         }
 

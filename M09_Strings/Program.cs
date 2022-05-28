@@ -13,9 +13,9 @@ namespace M09_Strings
             Utils.SetUTF8Encoding();
 
             //Exercicios.ExecutarExercicio01();
-            Exercicios.ExecutarExercicio02();
+            //Exercicios.ExecutarExercicio02();
             //Exercicios.ExecutarExercicio03();
-            //Exercicios.ExecutarExercicio04();
+            Exercicios.ExecutarExercicio04();
             //Exercicios.ExecutarExercicio05();
             //Exercicios.ExecutarExercicio06();
             //Exercicios.ExecutarExercicio07();
