@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace RSGymPT
@@ -43,6 +44,7 @@ namespace RSGymPT
             Session = false;
             Commands = BuildCommands();
         }
+
 
         private List<Command> BuildCommands()
         {
@@ -336,18 +338,8 @@ namespace RSGymPT
 
         private bool ValidateCommand(string command)
         {
-            Command teste = Commands.Find(c => c.TheCommand == command);
-            Command teste2;
-
-            foreach (Command c in Commands)
-            {
-                if (c.TheCommand == command)
-                {
-                    teste2 = c;
-                }
-            }
-
-            bool isValid = (teste.TheCommand == null) ? false : true;
+            Command currentCommand = Commands.Find(c => c.TheCommand == command);
+            bool isValid = (currentCommand.TheCommand == null) ? false : true;
 
             return isValid;
         }
