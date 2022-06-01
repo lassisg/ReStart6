@@ -45,7 +45,6 @@ namespace RSGymPT
             Commands = BuildCommands();
         }
 
-
         private List<Command> BuildCommands()
         {
 
@@ -346,16 +345,32 @@ namespace RSGymPT
 
         private bool ValidateArguments(string[] commandArgs)
         {
+            CommandOption currentOption = new CommandOption();
+            bool hasAllArguments;
+            bool isValidArgument = false;
+
             if (commandArgs.Length == 1)
+                return isValidArgument;
+            
+            int currentCommandArguments = Commands.Find(c => c.TheCommand == commandArgs[0]).Options.Count;
+            hasAllArguments = commandArgs.Length - 1 == currentCommandArguments;
+
+            if (!hasAllArguments)
+                return isValidArgument;
+
+            // TODO: Validate if correct arguments
+            for (int i = 1; i < commandArgs.Length; i++)
             {
-                return false;
+                currentOption.Option = char.Parse(commandArgs[i].Split(' ')[0]);
+                isValidArgument = Commands.Find(c => c.TheCommand == commandArgs[0])
+                    .Options.Find(o => o.Option == currentOption.Option).Option != 0;
+
+                if (!isValidArgument)
+                    return isValidArgument;
+            
             }
-            else
-            {
-                // TODO: Validate arguments
-                Console.WriteLine("Há argumentos...");
-            }
-            return true;
+            
+            return isValidArgument;
         }
 
         private void Clear()
