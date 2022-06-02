@@ -33,7 +33,7 @@ namespace RSGymPT
 
         internal List<Command> Commands { get; set; }
         internal bool Session { get; set; }
-        public List<User> ActiveUsers { get; set; }
+        internal User ActiveUser { get; set; }
 
         #endregion
 
@@ -77,6 +77,12 @@ namespace RSGymPT
                         commandOptions.Find(c => c.Option == 'p')
                     },
                     Example = "login -u {username} -p {password}"
+                },
+                new Command(){
+                    TheCommand = "logout",
+                    Description = "Faz o login da aplicação.",
+                    Options = new List<CommandOption>(),
+                    Example = "logout"
                 },
                 new Command(){
                     TheCommand = "request",
@@ -229,6 +235,13 @@ namespace RSGymPT
                     Login(args);
                     break;
 
+                case "logout":
+                    if (!SessionActive())
+                        throw new UnauthorizedAccessException("Não há utilizador com sessão ativa.");
+
+                    Logout();
+                    break;
+
                 case "request":
                     if (!SessionActive())
                         throw new UnauthorizedAccessException();
@@ -311,32 +324,40 @@ namespace RSGymPT
 
         private bool SessionActive()
         {
-            if (ActiveUsers == null)
+            if (ActiveUser == null)
                 return false;
 
             return true;
         }
 
-        private void Login(string[] args)
+        private void Logout()
         {
-            if (UserExists(args))
-            {
-                // TODO: Code login
-                Console.WriteLine("existe");
-            }
-            else
-            {
-                throw new UnauthorizedAccessException("Utilizador não localizado. Verfique os dados de login.");
-            }
+            ActiveUser = null;
+            Session = false;
         }
 
-        private bool UserExists(string[] args)
+        private void Login(string[] args)
+        {
+            User currentUser = new User();
+            currentUser.UserName = args[1].Split()[1];
+            currentUser.Password = args[2].Split()[1];
+
+            if (!ValidateCredentials(currentUser))
+                throw new UnauthorizedAccessException("Utilizador ou palavra passe errado. Verfique os dados de login.");
+
+            if (SessionActive())
+                throw new UnauthorizedAccessException("Não foi possível efetuar o login. Já há um utilizador com sessão ativa.");
+
+            ActiveUser = currentUser;
+            Session = true;
+        }
+
+        private bool ValidateCredentials(User user)
         {
             List<User> users = GetUsers();
-            string currentUser = args[1].Split()[1];
-            bool userExists = users.Exists(u => u.UserName == currentUser);
-            
-            return true;
+            bool validCredentials = users.Exists(u => u.UserName == user.UserName && u.Password == user.Password);
+
+            return validCredentials;
         }
 
         private bool ValidateCommand(string command)
