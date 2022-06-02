@@ -225,7 +225,7 @@ namespace RSGymPT
                 case "login":
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
-
+                    
                     Login(args);
                     break;
 
@@ -236,6 +236,7 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
+                    // TODO: Code request
                     Console.WriteLine("AddRequest();");
                     
                     break;
@@ -247,6 +248,7 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
+                    // TODO: Code cancel
                     Console.WriteLine("CancelRequest();");
                     
                     break;
@@ -258,6 +260,7 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
+                    // TODO: Code finish
                     Console.WriteLine("FinishRequest();");
                     
                     break;
@@ -269,7 +272,8 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
-                    Console.WriteLine("AddRequest();");
+                    // TODO: Code message
+                    Console.WriteLine("AddMessage();");
                     
                     break;
 
@@ -280,6 +284,7 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
+                    // TODO: Code myrequest
                     Console.WriteLine("GetRequest();");
                     
                     break;
@@ -291,6 +296,7 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
+                    // TODO: Code requests
                     Console.WriteLine("ListRequests();");
                     
                     break;
@@ -315,6 +321,7 @@ namespace RSGymPT
         {
             if (UserExists(args))
             {
+                // TODO: Code login
                 Console.WriteLine("existe");
             }
             else
@@ -325,9 +332,10 @@ namespace RSGymPT
 
         private bool UserExists(string[] args)
         {
-            // TODO: Add validation
             List<User> users = GetUsers();
-
+            string currentUser = args[1].Split()[1];
+            bool userExists = users.Exists(u => u.UserName == currentUser);
+            
             return true;
         }
 
