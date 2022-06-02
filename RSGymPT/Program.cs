@@ -33,22 +33,37 @@ namespace RSGymPT
                 }
                 catch (UnauthorizedAccessException e)
                 {
-                    Console.WriteLine(e.Message);
+                    WriteErrorMessage(e.Message);
                     exitApplication = false;
                 }
                 catch (ArgumentException e)
                 {
-                    Console.WriteLine(e.Message);
+                    WriteErrorMessage(e.Message);
                     exitApplication = false;
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    WriteErrorMessage(e.Message);
                     exitApplication = false;
                 }
 
             } while (!exitApplication);
 
+        }
+
+        private static void WriteErrorMessage(string message)
+        {
+            string separator = new String('-', 7);
+
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            Console.WriteLine("\nERRO:");
+            
+            Console.ResetColor();
+            
+            Console.WriteLine(message);
+            
+            Console.WriteLine($"{separator}\n");
         }
 
     }
