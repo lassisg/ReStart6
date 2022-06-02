@@ -206,11 +206,7 @@ namespace RSGymPT
             bool isExit = false;
 
             if (!commandExists)
-            {
-                // TODO: Print error message
-                Console.WriteLine("Comando inválido!\n");
-                return false;
-            }
+                throw new NotSupportedException("Comando inválido!");
 
             switch (args[0])
             {
@@ -358,7 +354,6 @@ namespace RSGymPT
             if (!hasAllArguments)
                 return isValidArgument;
 
-            // TODO: Validate if correct arguments
             for (int i = 1; i < commandArgs.Length; i++)
             {
                 currentOption.Option = char.Parse(commandArgs[i].Split(' ')[0]);
