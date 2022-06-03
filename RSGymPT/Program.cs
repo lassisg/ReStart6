@@ -24,8 +24,11 @@ namespace RSGymPT
                 {
                     // Fiz split no '-' porque me permite separar o comando no índice 0
                     //   - As opções estarão nos índices seguintes (quando houver)
-                    string[] appCommands = userInput.Split('-').Select(c => c.Trim()).ToArray();
-                    
+                    string[] appCommands = userInput
+                        .Split('-')
+                        .Select(c => c.Trim())
+                        .ToArray();
+
                     // Não validei se o comando era 'exit' por questão de responsabilidade do método.
                     // Isto deve ocorrer na CLI
                     exitApplication = myApp.Run(appCommands);
