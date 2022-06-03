@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace RSGymPT
 {
@@ -249,8 +249,7 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
-                    // TODO: Code request
-                    Console.WriteLine("AddRequest();");
+                    AddRequest(args);
                     
                     break;
 
@@ -319,6 +318,57 @@ namespace RSGymPT
             }
 
             return isExit;
+
+        }
+
+        private void AddRequest(string[] args)
+        {
+            bool hasError = false;
+            string errorMessage = string.Empty;
+            StringBuilder sb = new StringBuilder();
+
+            string name = args[1]
+                .Split(new[] { ' ' }, 2)[1]
+                .Replace("\"", "");
+
+            string patternName = "[^\"]*[a-zA-Z]+[^\"]*$";
+            Regex rgName = new Regex(patternName);
+            Match nameMatch = rgName.Match(name);
+            if (!nameMatch.Success)
+            {
+                errorMessage = "Formato do nome inválido.";
+                sb.AppendLine(errorMessage);
+                hasError = true;
+            }
+
+            string eventDate = args[2].Split()[1];
+            string patternDate = @"^(0[1-9]|[12][0-9]|3[01])([ /.])(0[1-9]|1[012])([ /.])(19|20)\d\d$";
+            Regex rgDate = new Regex(patternDate);
+            Match dateMatch = rgDate.Match(eventDate);
+            if (!dateMatch.Success)
+            {
+                errorMessage = "Formato da data inválido.";
+                sb.AppendLine(errorMessage);
+                hasError = true;
+            }
+
+            string eventHour = args[3].Split()[1];
+            string patternHour = @"^([0-1][0-9]|2[0-3]):[0-5][0-9]$";
+            Regex rgHour = new Regex(patternHour);
+            Match hourMatch = rgHour.Match(eventHour);
+            if (!hourMatch.Success)
+            {
+                errorMessage = "Formato da hora inválido.";
+                sb.AppendLine(errorMessage);
+                hasError = true;
+            }
+
+            if (hasError)
+                throw new FormatException(sb.ToString());
+
+            Console.WriteLine(name);
+            Console.WriteLine(eventDate);
+            Console.WriteLine(eventHour);
 
         }
 
