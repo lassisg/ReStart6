@@ -9,7 +9,6 @@ namespace RSGymPT
     internal class CLI
     {
 
-
         #region Structs
 
         internal struct Command
@@ -24,6 +23,7 @@ namespace RSGymPT
         {
             internal char Option;           // u, p, n, d, h, r, s, a
             internal string Description;    // username, password, name, day, hour, request nº, subject
+            internal bool NeedsValue;       // identifica se o parâmetro precisa de um valor (requests -a não precisa)
             internal string Value;          // Reads from command input
         }
 
@@ -98,7 +98,7 @@ namespace RSGymPT
                     TheCommand = "cancel",
                     Description = "Anula o pedido.",
                     Options = new List<CommandOption>{
-                        commandOptions.Find(c => c.Option == 'n')
+                        commandOptions.Find(c => c.Option == 'r')
                     },
                     Example = "cancel -r {nº pedido}"
                 },
@@ -106,7 +106,7 @@ namespace RSGymPT
                     TheCommand = "finish",
                     Description = "Mensagem automática com estado 'aula concluída', data e horas automáticas.",
                     Options = new List<CommandOption>{
-                        commandOptions.Find(c => c.Option == 'n')
+                        commandOptions.Find(c => c.Option == 'r')
                     },
                     Example = "finish -r {nº pedido}"
                 },
@@ -114,7 +114,7 @@ namespace RSGymPT
                     TheCommand = "message",
                     Description = "Mensagem a informar o motivo, data e horas automáticas.",
                     Options = new List<CommandOption>{
-                        commandOptions.Find(c => c.Option == 'n'),
+                        commandOptions.Find(c => c.Option == 'r'),
                         commandOptions.Find(c => c.Option == 's')
                     },
                     Example = "message -r {nº pedido} -s {assunto}"
@@ -123,7 +123,7 @@ namespace RSGymPT
                     TheCommand = "myrequest",
                     Description = "Lista o pedido efetuado. Validar a existência do pedido.",
                     Options = new List<CommandOption>{
-                        commandOptions.Find(c => c.Option == 'n')
+                        commandOptions.Find(c => c.Option == 'r')
                     },
                     Example = "myrequest -r {nº pedido}"
                 },
@@ -148,41 +148,49 @@ namespace RSGymPT
                 new CommandOption {
                     Option = 'u',
                     Description = "Utilzador",
+                    NeedsValue = true,
                     Value = string.Empty
                 },
                 new CommandOption {
                     Option = 'p',
                     Description = "Palavra passe",
+                    NeedsValue = true,
                     Value = string.Empty
                 },
                 new CommandOption {
                     Option = 'n',
                     Description = "Nome",
+                    NeedsValue = true,
                     Value = string.Empty
                 },
                 new CommandOption {
                     Option = 'd',
                     Description = "Data",
+                    NeedsValue = true,
                     Value = string.Empty
                 },
                 new CommandOption {
                     Option = 'h',
                     Description = "hora",
+                    NeedsValue = true,
                     Value = string.Empty
                 },
                 new CommandOption {
                     Option = 'r',
                     Description = "nº pedido",
+                    NeedsValue = true,
                     Value = string.Empty
                 },
                 new CommandOption {
                     Option = 's',
                     Description = "Assunto",
+                    NeedsValue = true,
                     Value = string.Empty
                 },
                 new CommandOption {
                     Option = 'a',
                     Description = "Todos",
+                    NeedsValue = false,
                     Value = string.Empty
                 }
             };
@@ -191,7 +199,7 @@ namespace RSGymPT
 
         #endregion
 
-        #region Methods
+        #region General Methods
 
         private List<User> GetUsers()
         {
@@ -209,6 +217,7 @@ namespace RSGymPT
         internal bool Run(string[] args)
         {
             bool commandExists = ValidateCommand(args[0]);
+            string inputValuesMessage = string.Empty;
             bool isExit = false;
 
             if (!commandExists)
@@ -249,8 +258,14 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
-                    AddRequest(args);
-                    
+                    // TODO: Remove repetition
+                    string requestValuesMessage = RequestHasValidInput(args);
+                    if (requestValuesMessage != string.Empty)
+                        throw new FormatException(requestValuesMessage);
+
+                    // TODO: Code request
+                    Console.WriteLine("ListRequests();");
+
                     break;
 
                 case "cancel":
@@ -260,6 +275,11 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
+                    // TODO: Remove repetition
+                    string cancelValueMessage = CancelHasValidInput(args);
+                    if (cancelValueMessage != string.Empty)
+                        throw new FormatException(cancelValueMessage);
+                    
                     // TODO: Code cancel
                     Console.WriteLine("CancelRequest();");
                     
@@ -271,6 +291,11 @@ namespace RSGymPT
 
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
+
+                    // TODO: Remove repetition
+                    string finishValueMessage = FinishHasValidInput(args);
+                    if (finishValueMessage != string.Empty)
+                        throw new FormatException(finishValueMessage);
 
                     // TODO: Code finish
                     Console.WriteLine("FinishRequest();");
@@ -284,6 +309,11 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
+                    // TODO: Remove repetition
+                    string messageValuesMessage = MessageHasValidInput(args);
+                    if (messageValuesMessage != string.Empty)
+                        throw new FormatException(messageValuesMessage);
+
                     // TODO: Code message
                     Console.WriteLine("AddMessage();");
                     
@@ -295,6 +325,11 @@ namespace RSGymPT
 
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
+
+                    // TODO: Remove repetition
+                    string myRequestValueMessage = MyRequestHasValidInput(args);
+                    if (myRequestValueMessage != string.Empty)
+                        throw new FormatException(myRequestValueMessage);
 
                     // TODO: Code myrequest
                     Console.WriteLine("GetRequest();");
@@ -310,7 +345,6 @@ namespace RSGymPT
 
                     // TODO: Code requests
                     Console.WriteLine("ListRequests();");
-                    
                     break;
 
                 default:
@@ -321,70 +355,9 @@ namespace RSGymPT
 
         }
 
-        private void AddRequest(string[] args)
-        {
-            bool hasError = false;
-            string errorMessage = string.Empty;
-            StringBuilder sb = new StringBuilder();
-
-            string name = args[1]
-                .Split(new[] { ' ' }, 2)[1]
-                .Replace("\"", "");
-
-            string patternName = "[^\"]*[a-zA-Z]+[^\"]*$";
-            Regex rgName = new Regex(patternName);
-            Match nameMatch = rgName.Match(name);
-            if (!nameMatch.Success)
-            {
-                errorMessage = "Formato do nome inválido.";
-                sb.AppendLine(errorMessage);
-                hasError = true;
-            }
-
-            string eventDate = args[2].Split()[1];
-            string patternDate = @"^(0[1-9]|[12][0-9]|3[01])([ /.])(0[1-9]|1[012])([ /.])(19|20)\d\d$";
-            Regex rgDate = new Regex(patternDate);
-            Match dateMatch = rgDate.Match(eventDate);
-            if (!dateMatch.Success)
-            {
-                errorMessage = "Formato da data inválido.";
-                sb.AppendLine(errorMessage);
-                hasError = true;
-            }
-
-            string eventHour = args[3].Split()[1];
-            string patternHour = @"^([0-1][0-9]|2[0-3]):[0-5][0-9]$";
-            Regex rgHour = new Regex(patternHour);
-            Match hourMatch = rgHour.Match(eventHour);
-            if (!hourMatch.Success)
-            {
-                errorMessage = "Formato da hora inválido.";
-                sb.AppendLine(errorMessage);
-                hasError = true;
-            }
-
-            if (hasError)
-                throw new FormatException(sb.ToString());
-
-            Console.WriteLine(name);
-            Console.WriteLine(eventDate);
-            Console.WriteLine(eventHour);
-
-        }
-
-        private bool SessionActive()
-        {
-            if (ActiveUser == null)
-                return false;
-
-            return true;
-        }
-
-        private void Logout()
-        {
-            ActiveUser = null;
-            Session = false;
-        }
+        #endregion
+        
+        #region Command methods
 
         private void Login(string[] args)
         {
@@ -402,49 +375,10 @@ namespace RSGymPT
             Session = true;
         }
 
-        private bool ValidateCredentials(User user)
+        private void Logout()
         {
-            List<User> users = GetUsers();
-            bool validCredentials = users.Exists(u => u.UserName == user.UserName && u.Password == user.Password);
-
-            return validCredentials;
-        }
-
-        private bool ValidateCommand(string command)
-        {
-            Command currentCommand = Commands.Find(c => c.TheCommand == command);
-            bool isValid = (currentCommand.TheCommand == null) ? false : true;
-
-            return isValid;
-        }
-
-        private bool ValidateArguments(string[] commandArgs)
-        {
-            CommandOption currentOption = new CommandOption();
-            bool hasAllArguments;
-            bool isValidArgument = false;
-
-            if (commandArgs.Length == 1)
-                return isValidArgument;
-            
-            int currentCommandArguments = Commands.Find(c => c.TheCommand == commandArgs[0]).Options.Count;
-            hasAllArguments = commandArgs.Length - 1 == currentCommandArguments;
-
-            if (!hasAllArguments)
-                return isValidArgument;
-
-            for (int i = 1; i < commandArgs.Length; i++)
-            {
-                currentOption.Option = char.Parse(commandArgs[i].Split(' ')[0]);
-                isValidArgument = Commands.Find(c => c.TheCommand == commandArgs[0])
-                    .Options.Find(o => o.Option == currentOption.Option).Option != 0;
-
-                if (!isValidArgument)
-                    return isValidArgument;
-            
-            }
-            
-            return isValidArgument;
+            ActiveUser = null;
+            Session = false;
         }
 
         private void Clear()
@@ -487,6 +421,189 @@ namespace RSGymPT
 
             Console.WriteLine(sb.ToString());
 
+        }
+
+        #endregion
+
+        #region Validation methods
+        
+        // TODO: Improve input values validation
+
+        private string RequestHasValidInput(string[] args)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string name = args[1].Split(new[] { ' ' }, 2)[1].Replace("\"", "");
+            string eventDate = args[2].Split()[1];
+            string eventHour = args[3].Split()[1];
+
+            if (!IsValidText(name))
+                sb.AppendLine("Formato do nome inválido.");
+            
+            if (!IsValidDate(eventDate))
+                sb.AppendLine("Formato da data inválido.");
+
+            if (!IsValidHour(eventHour))
+                sb.AppendLine("Formato da hora inválido.");
+
+            return sb.ToString();
+
+        }
+
+        private string CancelHasValidInput(string[] args)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string requestNumber = args[1].Split()[1];
+
+            if (!IsValidRequest(requestNumber))
+                sb.AppendLine("Formato do nº do pedido inválido.");
+
+            return sb.ToString();
+
+        }
+
+        private string FinishHasValidInput(string[] args)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string requestNumber = args[1].Split()[1];
+
+            if (!IsValidRequest(requestNumber))
+                sb.AppendLine("Formato do nº do pedido inválido.");
+
+            return sb.ToString();
+
+        }
+
+        private string MessageHasValidInput(string[] args)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string requestNumber = args[1].Split()[1];
+            string subject = args[2].Split(new[] { ' ' }, 2)[1].Replace("\"", "");
+
+            if (!IsValidRequest(requestNumber))
+                sb.AppendLine("Formato do nº do pedido inválido.");
+
+            if (!IsValidText(subject))
+                sb.AppendLine("Formato do assunto inválido.");
+
+            return sb.ToString();
+
+        }
+        
+        private string MyRequestHasValidInput(string[] args)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string requestNumber = args[1].Split()[1];
+
+            if (!IsValidRequest(requestNumber))
+                sb.AppendLine("Formato do nº do pedido inválido.");
+
+            return sb.ToString();
+
+        }
+
+        private bool IsValidText(string inputText)
+        {
+            string textPattern = "[^\"]*[a-zA-Z]+[^\"]*$";
+            Regex rgText = new Regex(textPattern);
+            Match textMatch = rgText.Match(inputText);
+
+            return textMatch.Success;
+        }
+
+        private bool IsValidDate(string inputDate)
+        {
+            string datePattern = @"^(0[1-9]|[12][0-9]|3[01])([ /.])(0[1-9]|1[012])([ /.])(19|20)\d\d$";
+            Regex rgDate = new Regex(datePattern);
+            Match dateMatch = rgDate.Match(inputDate);
+            
+            return dateMatch.Success;
+        }
+
+        private bool IsValidHour(string inputHour)
+        {
+            string hourPattern = @"^([0-1][0-9]|2[0-3]):[0-5][0-9]$";
+            Regex rgHour = new Regex(hourPattern);
+            Match hourMatch = rgHour.Match(inputHour);
+
+            return hourMatch.Success;
+        }
+
+        private bool IsValidRequest(string inputRequest)
+        {
+            string requestPattern = @"^\d{1,7}$";
+            Regex rgRequest = new Regex(requestPattern);
+            Match requestMatch = rgRequest.Match(inputRequest);
+
+            return requestMatch.Success;
+        }
+
+        private bool SessionActive()
+        {
+            if (ActiveUser == null)
+                return false;
+
+            return true;
+        }
+
+        private bool ValidateCredentials(User user)
+        {
+            List<User> users = GetUsers();
+            bool validCredentials = users.Exists(u => u.UserName == user.UserName && u.Password == user.Password);
+
+            return validCredentials;
+        }
+
+        private bool ValidateCommand(string command)
+        {
+            Command currentCommand = Commands.Find(c => c.TheCommand == command);
+            bool isValid = (currentCommand.TheCommand == null) ? false : true;
+
+            return isValid;
+        }
+
+        private bool ValidateArguments(string[] commandArgs)
+        {
+            CommandOption currentOption = new CommandOption();
+            bool hasAllArguments;
+            bool isValidArgument = false;
+
+            // Valida se o apenas o comando existe, sem os parâmetros
+            if (commandArgs.Length == 1)
+                return isValidArgument;
+            
+            // Valida se possui a quantidade correta de parâmetros
+            int currentCommandArguments = Commands.Find(c => c.TheCommand == commandArgs[0]).Options.Count;
+            hasAllArguments = commandArgs.Length - 1 == currentCommandArguments;
+
+            if (!hasAllArguments)
+                return isValidArgument;
+
+            for (int i = 1; i < commandArgs.Length; i++)
+            {
+                // Valida se os parâmetros utilizados correspondem aos parâmetros esperados
+                currentOption.Option = char.Parse(commandArgs[i].Split(' ')[0]);
+                isValidArgument = Commands.Find(c => c.TheCommand == commandArgs[0])
+                    .Options.Find(o => o.Option == currentOption.Option).Option != 0;
+
+                if (!isValidArgument)
+                    return isValidArgument;
+
+                // Valida se os parâmetros utilizados possuem valor associado
+                if (currentOption.NeedsValue)
+                    isValidArgument = commandArgs[i].Split().Length > 1;
+                else
+                    isValidArgument = commandArgs[i].Split().Length == 1;
+
+                if (!isValidArgument)
+                    return isValidArgument;
+            }
+            
+            return isValidArgument;
         }
 
         #endregion
