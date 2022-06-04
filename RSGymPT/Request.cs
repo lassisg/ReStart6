@@ -14,10 +14,11 @@ namespace RSGymPT
 
         internal enum EnumStatus
         {
-            None,
-            Active,
-            Completed,
-            Canceled
+            NaN,
+            Agendado,
+            Finalizado,
+            Falta,
+            Cancelado
         }
 
         #endregion
@@ -25,10 +26,12 @@ namespace RSGymPT
         #region Properties
 
         internal int Id { get; set; }
-        internal string RequestNumber { get; set; }
-        internal DateTime RequestDate { get; set; }
         public string TrainerName { get; set; }
-        public EnumStatus RequestStatus { get; set; }
+        internal DateTime RequestDate { get; set; }
+        internal EnumStatus RequestStatus { get; set; }
+        internal DateTime CompletedAt { get; set; }
+        internal string Message { get; set; }
+        internal DateTime MessageAt { get; set; }
 
         #endregion
 
@@ -36,18 +39,24 @@ namespace RSGymPT
 
         internal Request()
         {
-            RequestNumber = string.Empty;
+            Id = 0;
             RequestDate = DateTime.MinValue;
             TrainerName = string.Empty;
-            RequestStatus = EnumStatus.None;
+            RequestStatus = EnumStatus.NaN;
+            CompletedAt = DateTime.MinValue;
+            Message = string.Empty;
+            MessageAt = DateTime.MinValue;
         }
 
-        internal Request(string requestNumber, DateTime requestDate, string trainerName, EnumStatus requestStatus)
+        internal Request(int id, DateTime requestDate, string trainerName, EnumStatus requestStatus)
         {
-            RequestNumber = requestNumber;
+            Id = id;
             RequestDate = requestDate;
             TrainerName = trainerName;
             RequestStatus = requestStatus;
+            CompletedAt= DateTime.MinValue;
+            Message = string.Empty;
+            MessageAt = DateTime.MinValue;
         }
 
         #endregion

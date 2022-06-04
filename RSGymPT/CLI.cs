@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -9,6 +10,10 @@ namespace RSGymPT
 
     internal class CLI
     {
+
+        List<User> Users;
+        List<Request> Requests;
+
         #region Enums
 
         enum EnumArgumentType
@@ -56,6 +61,7 @@ namespace RSGymPT
         {
             Session = false;
             Commands = BuildCommands();
+            LoadData();
         }
 
         private List<Command> BuildCommands()
@@ -214,14 +220,18 @@ namespace RSGymPT
 
         #region General Methods
 
-        private List<User> GetUsers()
+        private void LoadData()
+        {
+            LoadUsers();
+            LoadRequests();
+        }
+
+        private void LoadUsers()
         {
             // TODO: Change values
-            List<User> users = new List<User>()
-            {
-                new User(1, "1", "1"),
-                new User(2, "2", "2")
-            };
+            Users = new List<User>();
+            Users.Add(new User(1, "1", "1", new List<Request>()));
+            Users.Add(new User(2, "2", "2", new List<Request>()));
 
             //List<User> users = new List<User>();
             //string filePath = $"users.csv";
@@ -241,9 +251,11 @@ namespace RSGymPT
             //            values[2].Replace("\"", "")));
             //    }
             //}
+        }
 
-            return users;
-
+        private void LoadRequests()
+        {
+            Requests = new List<Request>();
         }
 
         internal bool Run(string[] args)
@@ -297,11 +309,10 @@ namespace RSGymPT
 
                     errorMessage = HasValidArgumentValues(arguments);
                     if (errorMessage != string.Empty)
-                        throw new ArgumentException();   
-                    
-                    // TODO: Code request
-                    Console.WriteLine("CreateRequest();");
+                        throw new ArgumentException();
 
+                    CreateRequest(arguments);
+                    
                     break;
 
                 case "cancel":
@@ -317,8 +328,7 @@ namespace RSGymPT
                     if (errorMessage != string.Empty)
                         throw new ArgumentException();
 
-                    // TODO: Code cancel
-                    Console.WriteLine("CancelRequest();");
+                    CancelRequest(arguments);
                     
                     break;
 
@@ -335,8 +345,7 @@ namespace RSGymPT
                     if (errorMessage != string.Empty)
                         throw new ArgumentException();
 
-                    // TODO: Code finish
-                    Console.WriteLine("FinishRequest();");
+                    FinishRequest(arguments);
                     
                     break;
 
@@ -354,8 +363,7 @@ namespace RSGymPT
                     if (errorMessage != string.Empty)
                         throw new ArgumentException();
 
-                    // TODO: Code message
-                    Console.WriteLine("AddMessage();");
+                    SendMessage(arguments);
                     
                     break;
 
@@ -372,9 +380,9 @@ namespace RSGymPT
                     if (errorMessage != string.Empty)
                         throw new ArgumentException();
 
-                    // TODO: Code myrequest
-                    Console.WriteLine("GetRequest();");
-                    
+                    GetRequest(int.Parse(arguments.Values.ElementAt(0)));
+                    Console.WriteLine();
+
                     break;
 
                 case "requests":
@@ -384,8 +392,9 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
-                    // TODO: Code requests
-                    Console.WriteLine("ListRequests();");
+                    ListRequests();
+                    Console.WriteLine();
+
                     break;
 
                 default:
@@ -454,7 +463,7 @@ namespace RSGymPT
             if (SessionActive())
                 throw new UnauthorizedAccessException("Não foi possível efetuar o login. Já há um utilizador com sessão ativa.");
 
-            ActiveUser = currentUser;
+            ActiveUser = Users.Find(u => u.UserName == currentUser.UserName);
             Session = true;
         }
 
@@ -464,33 +473,155 @@ namespace RSGymPT
             Session = false;
         }
 
-        private void Request()
+        private void CreateRequest(Dictionary<EnumArgumentType, string> arguments)
         {
+            // TODO: Não pode haver pedidos duplicados. Validar PT + data
+            // TODO: Não pode criar pedidos no passado
+            Request newRequest = new Request
+            {
+                Id = Requests.Count() == 0 ? 1 : Requests.Max(r => r.Id) + 1,
+                TrainerName = arguments.Values.ElementAt(0),
+                RequestDate = DateTime.Parse($"{arguments.Values.ElementAt(1)} {arguments.Values.ElementAt(2)}"),
+                RequestStatus = Request.EnumStatus.Agendado
+            };
+
+            Requests.Add(newRequest);
+            ActiveUser.Requests.Add(newRequest);
+            
+            StringBuilder successMessage = new StringBuilder();
+            successMessage.Append($"Pedido {newRequest.Id} ");
+            successMessage.Append($"criado para {newRequest.RequestDate:dd/MM/yyyy HH:mm} ");
+            successMessage.AppendLine($"com o treinador {newRequest.TrainerName}.");
+
+            Console.WriteLine(successMessage.ToString());
+        }
+
+        private void CancelRequest(Dictionary<EnumArgumentType, string> arguments)
+        {
+            
+            StringBuilder message = new StringBuilder();
+            int requestId = int.Parse(arguments.Values.ElementAt(0));
+            Request requestToCancel = ActiveUser.Requests.Find(r => r.Id == requestId);
+
+            if (requestToCancel is null)
+            {
+                message.Append($"O pedido {requestId} não foi localizado na sua lista de pedidos.");
+            }
+            else if (requestToCancel.RequestStatus != Request.EnumStatus.Agendado)
+            {
+                message.Append($"O pedido {requestToCancel.Id} não pôde ser cancelado porque não está ativo.");
+            }
+            else
+            {
+                requestToCancel.RequestStatus = Request.EnumStatus.Cancelado;
+
+                message.Append($"O pedido {requestToCancel.Id}, ");
+                message.Append($"de {requestToCancel.RequestDate:dd/MM/yyyy HH:mm}, ");
+                message.AppendLine($"foi cancelado.");
+            }
+
+            Console.WriteLine(message.ToString());
 
         }
 
-        private void Cancel()
+        private void FinishRequest(Dictionary<EnumArgumentType, string> arguments)
         {
 
+            StringBuilder message = new StringBuilder();
+            int requestId = int.Parse(arguments.Values.ElementAt(0));
+            Request requestToComplete = ActiveUser.Requests.Find(r => r.Id == requestId);
+
+            if (requestToComplete is null)
+            {
+                message.Append($"O pedido {requestId} não foi localizado na sua lista de pedidos.");
+            }
+            else if (requestToComplete.RequestStatus != Request.EnumStatus.Agendado)
+            {
+                message.Append($"O pedido {requestToComplete.Id} não pôde ser finalizado porque não está ativo.");
+            }
+            else
+            {
+                requestToComplete.RequestStatus = Request.EnumStatus.Finalizado;
+                requestToComplete.CompletedAt = DateTime.Now;
+
+                message.Append($"O pedido {requestToComplete.Id}, ");
+                message.Append($"de {requestToComplete.RequestDate}, ");
+                message.AppendLine($"foi finalizado em {requestToComplete.CompletedAt:dd/MM/yyyy HH:mm}.");
+            }
+
+            Console.WriteLine(message.ToString());
         }
 
-        private void Finish()
+        private void SendMessage(Dictionary<EnumArgumentType, string> arguments)
         {
+            StringBuilder statusMessage = new StringBuilder();
+            int requestId = int.Parse(arguments.Values.ElementAt(0));
+            string message = arguments.Values.ElementAt(1);
+            Request requestToComunicate = ActiveUser.Requests.Find(r => r.Id == requestId);
 
+            if (requestToComunicate is null)
+            {
+                statusMessage.Append($"O pedido {requestId} não foi localizado na sua lista de pedidos.");
+            }
+            else if (requestToComunicate.RequestStatus != Request.EnumStatus.Agendado)
+            {
+                statusMessage.Append($"Não foi possível cominucar falta para o pedido {requestToComunicate.Id} porque ele não está ativo.");
+            }
+            else
+            {
+                requestToComunicate.RequestStatus = Request.EnumStatus.Falta;
+                requestToComunicate.Message = message;
+                requestToComunicate.MessageAt = DateTime.Now;
+
+                statusMessage.Append($"O pedido {requestToComunicate.Id}, ");
+                statusMessage.Append($"de {requestToComunicate.RequestDate}, ");
+                statusMessage.Append($"foi marcado como {requestToComunicate.RequestStatus}, ");
+                statusMessage.Append($"em {requestToComunicate.MessageAt:dd/MM/yyyy HH:mm}, ");
+                statusMessage.AppendLine("com a mensagem:");
+                statusMessage.AppendLine($"'{requestToComunicate.Message}'.");
+            }
+
+            Console.WriteLine(statusMessage.ToString());
         }
 
-        private void Message()
+        private void GetRequest(int requestId)
         {
+            StringBuilder message = new StringBuilder();
+            Request requestToShow = ActiveUser.Requests.Find(r => r.Id == requestId);
 
-        }
+            if (requestToShow is null)
+            {
+                message.Append($"O pedido {requestId} não foi localizado na sua lista de pedidos.");
+            }
+            else
+            {
+                message.AppendLine("");
+                message.AppendLine("Detalhes do pedido:");
+                message.Append("- Nº:".PadRight(13));
+                message.AppendLine($"{requestToShow.Id}");
+                message.Append("- Treinador:".PadRight(13));
+                message.AppendLine($"{requestToShow.TrainerName}");
+                message.Append("- Data:".PadRight(13));
+                message.AppendLine($"{requestToShow.RequestDate:dd/MM/yyyy}");
+                message.Append("- Hora:".PadRight(13));
+                message.AppendLine($"{requestToShow.RequestDate:HH:mm}");
+                message.Append("- Status:".PadRight(13));
+                message.Append($"{requestToShow.RequestStatus}");
+                if (requestToShow.RequestStatus == Request.EnumStatus.Finalizado)
+                {
+                    message.Append($" (finalizada em {requestToShow.CompletedAt:dd/MM/yyyy HH:mm})");
+                }
+            }
 
-        private void GetRequest()
-        {
-
+            Console.WriteLine(message.ToString());
         }
 
         private void ListRequests()
         {
+            foreach (var request in ActiveUser.Requests)
+            {
+                GetRequest(request.Id);
+            };
 
         }
 
@@ -584,8 +715,7 @@ namespace RSGymPT
 
         private bool ValidateCredentials(User user)
         {
-            List<User> users = GetUsers();
-            bool validCredentials = users.Exists(u => u.UserName == user.UserName && u.Password == user.Password);
+            bool validCredentials = Users.Exists(u => u.UserName == user.UserName && u.Password == user.Password);
 
             return validCredentials;
         }
