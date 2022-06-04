@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace RSGymPT
 {
@@ -23,7 +24,10 @@ namespace RSGymPT
                 {
                     // Fiz split no '-' porque me permite separar o comando no índice 0
                     //   - As opções estarão nos índices seguintes (quando houver)
-                    string[] appCommands = userInput.Split('-');
+                    string[] appCommands = userInput
+                        .Split('-')
+                        .Select(c => c.Trim())
+                        .ToArray();
 
                     // Não validei se o comando era 'exit' por questão de responsabilidade do método.
                     // Isto deve ocorrer na CLI
@@ -32,22 +36,37 @@ namespace RSGymPT
                 }
                 catch (UnauthorizedAccessException e)
                 {
-                    Console.WriteLine(e.Message);
+                    WriteErrorMessage(e.Message);
                     exitApplication = false;
                 }
                 catch (ArgumentException e)
                 {
-                    Console.WriteLine(e.Message);
+                    WriteErrorMessage(e.Message);
                     exitApplication = false;
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    WriteErrorMessage(e.Message);
                     exitApplication = false;
                 }
 
             } while (!exitApplication);
 
+        }
+
+        private static void WriteErrorMessage(string message)
+        {
+            string separator = new String('-', 7);
+
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            Console.WriteLine("\nERRO:");
+            
+            Console.ResetColor();
+            
+            Console.WriteLine(message);
+            
+            Console.WriteLine($"{separator}\n");
         }
 
     }

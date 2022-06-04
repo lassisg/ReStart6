@@ -12,6 +12,7 @@ namespace RSGymPT
 
         #region Properties
 
+        internal int Id { get; set; }
         internal string UserName { get; set; }
         internal string Password { get; set; }
         public List<Request> Requests { get; set; }
@@ -22,20 +23,23 @@ namespace RSGymPT
 
         internal User()
         {
+            Id = 0;
             UserName = string.Empty;
             Password = string.Empty;
             List<Request> requests = new List<Request>();
         }
 
-        internal User (string userName, string password)
+        internal User (int id, string userName, string password)
         {
+            Id = id;
             UserName = userName;
             Password = password;
             List<Request> requests = new List<Request>();
         }
 
-        internal User(string userName, string password, List<Request> requests)
+        internal User(int id, string userName, string password, List<Request> requests)
         {
+            Id = id;
             UserName = userName;
             Password = password;
             Requests = requests;
