@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -8,7 +9,19 @@ namespace RSGymPT
 
     internal class CLI
     {
+        #region Enums
 
+        enum EnumArgumentType
+        {
+            None,
+            Text,
+            Date,
+            Hour,
+            Request
+        }
+        
+        #endregion
+        
         #region Structs
 
         internal struct Command
@@ -204,11 +217,30 @@ namespace RSGymPT
         private List<User> GetUsers()
         {
             // TODO: Change values
-            List<User> users = new List<User>
+            List<User> users = new List<User>()
             {
-                new User("1", "1"),
-                new User("2", "2")
+                new User(1, "1", "1"),
+                new User(2, "2", "2")
             };
+
+            //List<User> users = new List<User>();
+            //string filePath = $"users.csv";
+            //StreamReader reader = null;
+            //if (File.Exists(filePath))
+            //{
+            //    reader = new StreamReader(File.OpenRead(filePath));
+            //    string line = reader.ReadLine();
+            //    List<string> listA = new List<string>();
+            //    while (!reader.EndOfStream)
+            //    {
+            //        line = reader.ReadLine();
+            //        string[] values = line.Split(',');
+            //        users.Add(new User(
+            //            int.Parse(values[0]), 
+            //            values[1].Replace("\"",""), 
+            //            values[2].Replace("\"", "")));
+            //    }
+            //}
 
             return users;
 
@@ -217,8 +249,9 @@ namespace RSGymPT
         internal bool Run(string[] args)
         {
             bool commandExists = ValidateCommand(args[0]);
-            string inputValuesMessage = string.Empty;
             bool isExit = false;
+            string errorMessage;
+            Dictionary<EnumArgumentType, string> arguments = new Dictionary<EnumArgumentType, string>();
 
             if (!commandExists)
                 throw new NotSupportedException("Comando inválido!");
@@ -258,13 +291,16 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
-                    // TODO: Remove repetition
-                    string requestValuesMessage = RequestHasValidInput(args);
-                    if (requestValuesMessage != string.Empty)
-                        throw new FormatException(requestValuesMessage);
+                    arguments.Add(EnumArgumentType.Text, args[1].Split(new[] { ' ' }, 2)[1].Replace("\"", ""));
+                    arguments.Add(EnumArgumentType.Date, args[2].Split()[1]);
+                    arguments.Add(EnumArgumentType.Hour, args[3].Split()[1]);
 
+                    errorMessage = HasValidArgumentValues(arguments);
+                    if (errorMessage != string.Empty)
+                        throw new ArgumentException();   
+                    
                     // TODO: Code request
-                    Console.WriteLine("ListRequests();");
+                    Console.WriteLine("CreateRequest();");
 
                     break;
 
@@ -275,11 +311,12 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
-                    // TODO: Remove repetition
-                    string cancelValueMessage = CancelHasValidInput(args);
-                    if (cancelValueMessage != string.Empty)
-                        throw new FormatException(cancelValueMessage);
-                    
+                    arguments.Add(EnumArgumentType.Request, args[1].Split()[1]);
+
+                    errorMessage = HasValidArgumentValues(arguments);
+                    if (errorMessage != string.Empty)
+                        throw new ArgumentException();
+
                     // TODO: Code cancel
                     Console.WriteLine("CancelRequest();");
                     
@@ -292,10 +329,11 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
-                    // TODO: Remove repetition
-                    string finishValueMessage = FinishHasValidInput(args);
-                    if (finishValueMessage != string.Empty)
-                        throw new FormatException(finishValueMessage);
+                    arguments.Add(EnumArgumentType.Request, args[1].Split()[1]);
+
+                    errorMessage = HasValidArgumentValues(arguments);
+                    if (errorMessage != string.Empty)
+                        throw new ArgumentException();
 
                     // TODO: Code finish
                     Console.WriteLine("FinishRequest();");
@@ -309,10 +347,12 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
-                    // TODO: Remove repetition
-                    string messageValuesMessage = MessageHasValidInput(args);
-                    if (messageValuesMessage != string.Empty)
-                        throw new FormatException(messageValuesMessage);
+                    arguments.Add(EnumArgumentType.Request, args[1].Split()[1]);
+                    arguments.Add(EnumArgumentType.Text, args[2].Split(new[] { ' ' }, 2)[1].Replace("\"", ""));
+
+                    errorMessage = HasValidArgumentValues(arguments);
+                    if (errorMessage != string.Empty)
+                        throw new ArgumentException();
 
                     // TODO: Code message
                     Console.WriteLine("AddMessage();");
@@ -326,10 +366,11 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
 
-                    // TODO: Remove repetition
-                    string myRequestValueMessage = MyRequestHasValidInput(args);
-                    if (myRequestValueMessage != string.Empty)
-                        throw new FormatException(myRequestValueMessage);
+                    arguments.Add(EnumArgumentType.Request, args[1].Split()[1]);
+
+                    errorMessage = HasValidArgumentValues(arguments);
+                    if (errorMessage != string.Empty)
+                        throw new ArgumentException();
 
                     // TODO: Code myrequest
                     Console.WriteLine("GetRequest();");
@@ -356,35 +397,8 @@ namespace RSGymPT
         }
 
         #endregion
-        
+
         #region Command methods
-
-        private void Login(string[] args)
-        {
-            User currentUser = new User();
-            currentUser.UserName = args[1].Split()[1];
-            currentUser.Password = args[2].Split()[1];
-
-            if (!ValidateCredentials(currentUser))
-                throw new UnauthorizedAccessException("Utilizador ou palavra passe errado. Verfique os dados de login.");
-
-            if (SessionActive())
-                throw new UnauthorizedAccessException("Não foi possível efetuar o login. Já há um utilizador com sessão ativa.");
-
-            ActiveUser = currentUser;
-            Session = true;
-        }
-
-        private void Logout()
-        {
-            ActiveUser = null;
-            Session = false;
-        }
-
-        private void Clear()
-        {
-            Console.Clear();
-        }
 
         private void Help()
         {
@@ -423,86 +437,104 @@ namespace RSGymPT
 
         }
 
+        private void Clear()
+        {
+            Console.Clear();
+        }
+
+        private void Login(string[] args)
+        {
+            User currentUser = new User();
+            currentUser.UserName = args[1].Split()[1];
+            currentUser.Password = args[2].Split()[1];
+
+            if (!ValidateCredentials(currentUser))
+                throw new UnauthorizedAccessException("Utilizador ou palavra passe errado. Verfique os dados de login.");
+
+            if (SessionActive())
+                throw new UnauthorizedAccessException("Não foi possível efetuar o login. Já há um utilizador com sessão ativa.");
+
+            ActiveUser = currentUser;
+            Session = true;
+        }
+
+        private void Logout()
+        {
+            ActiveUser = null;
+            Session = false;
+        }
+
+        private void Request()
+        {
+
+        }
+
+        private void Cancel()
+        {
+
+        }
+
+        private void Finish()
+        {
+
+        }
+
+        private void Message()
+        {
+
+        }
+
+        private void GetRequest()
+        {
+
+        }
+
+        private void ListRequests()
+        {
+
+        }
+
         #endregion
 
         #region Validation methods
-        
-        // TODO: Improve input values validation
 
-        private string RequestHasValidInput(string[] args)
+        private string HasValidArgumentValues(Dictionary<EnumArgumentType, string> arguments)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder errorMessage = new StringBuilder();
 
-            string name = args[1].Split(new[] { ' ' }, 2)[1].Replace("\"", "");
-            string eventDate = args[2].Split()[1];
-            string eventHour = args[3].Split()[1];
+            foreach (KeyValuePair<EnumArgumentType, string> argument in arguments)
+            {
+                switch (argument.Key)
+                {
+                    case EnumArgumentType.None:
+                        break;
 
-            if (!IsValidText(name))
-                sb.AppendLine("Formato do nome inválido.");
-            
-            if (!IsValidDate(eventDate))
-                sb.AppendLine("Formato da data inválido.");
+                    case EnumArgumentType.Text:
+                        if (!IsValidText(argument.Value))
+                            errorMessage.AppendLine("Formato do nome inválido.");
+                        break;
 
-            if (!IsValidHour(eventHour))
-                sb.AppendLine("Formato da hora inválido.");
+                    case EnumArgumentType.Date:
+                        if (!IsValidDate(argument.Value))
+                            errorMessage.AppendLine("Formato da data inválido.");
+                        break;
 
-            return sb.ToString();
+                    case EnumArgumentType.Hour:
+                        if (!IsValidHour(argument.Value))
+                            errorMessage.AppendLine("Formato da hora inválido.");
+                        break;
 
-        }
+                    case EnumArgumentType.Request:
+                        if (!IsValidRequest(argument.Value))
+                            errorMessage.AppendLine("Formato do nº do pedido inválido.");
+                        break;
 
-        private string CancelHasValidInput(string[] args)
-        {
-            StringBuilder sb = new StringBuilder();
+                    default:
+                        break;
+                }
+            }
 
-            string requestNumber = args[1].Split()[1];
-
-            if (!IsValidRequest(requestNumber))
-                sb.AppendLine("Formato do nº do pedido inválido.");
-
-            return sb.ToString();
-
-        }
-
-        private string FinishHasValidInput(string[] args)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            string requestNumber = args[1].Split()[1];
-
-            if (!IsValidRequest(requestNumber))
-                sb.AppendLine("Formato do nº do pedido inválido.");
-
-            return sb.ToString();
-
-        }
-
-        private string MessageHasValidInput(string[] args)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            string requestNumber = args[1].Split()[1];
-            string subject = args[2].Split(new[] { ' ' }, 2)[1].Replace("\"", "");
-
-            if (!IsValidRequest(requestNumber))
-                sb.AppendLine("Formato do nº do pedido inválido.");
-
-            if (!IsValidText(subject))
-                sb.AppendLine("Formato do assunto inválido.");
-
-            return sb.ToString();
-
-        }
-        
-        private string MyRequestHasValidInput(string[] args)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            string requestNumber = args[1].Split()[1];
-
-            if (!IsValidRequest(requestNumber))
-                sb.AppendLine("Formato do nº do pedido inválido.");
-
-            return sb.ToString();
+            return errorMessage.ToString();
 
         }
 
@@ -568,7 +600,8 @@ namespace RSGymPT
 
         private bool ValidateArguments(string[] commandArgs)
         {
-            CommandOption currentOption = new CommandOption();
+            Command currentCommand = Commands.Find(c => c.TheCommand == commandArgs[0]);
+            char currentOption;
             bool hasAllArguments;
             bool isValidArgument = false;
 
@@ -577,7 +610,7 @@ namespace RSGymPT
                 return isValidArgument;
             
             // Valida se possui a quantidade correta de parâmetros
-            int currentCommandArguments = Commands.Find(c => c.TheCommand == commandArgs[0]).Options.Count;
+            int currentCommandArguments = currentCommand.Options.Count;
             hasAllArguments = commandArgs.Length - 1 == currentCommandArguments;
 
             if (!hasAllArguments)
@@ -586,15 +619,17 @@ namespace RSGymPT
             for (int i = 1; i < commandArgs.Length; i++)
             {
                 // Valida se os parâmetros utilizados correspondem aos parâmetros esperados
-                currentOption.Option = char.Parse(commandArgs[i].Split(' ')[0]);
-                isValidArgument = Commands.Find(c => c.TheCommand == commandArgs[0])
-                    .Options.Find(o => o.Option == currentOption.Option).Option != 0;
+                currentOption = char.Parse(commandArgs[i].Split(' ')[0]);
+                isValidArgument = currentCommand.Options
+                    .Find(o => o.Option == currentOption).Option != 0;
 
                 if (!isValidArgument)
                     return isValidArgument;
 
                 // Valida se os parâmetros utilizados possuem valor associado
-                if (currentOption.NeedsValue)
+                char providedOption = commandArgs[i].Split()[0].ToCharArray()[0];
+                bool needsValue = currentCommand.Options.Find(o => o.Option == providedOption).NeedsValue;
+                if (needsValue)
                     isValidArgument = commandArgs[i].Split().Length > 1;
                 else
                     isValidArgument = commandArgs[i].Split().Length == 1;
