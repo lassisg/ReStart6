@@ -49,7 +49,10 @@ namespace RSGymPT
 
         #region Methods
 
-
+        internal bool Login(string userName, string password)
+        {
+            return (userName == UserName && password == Password);
+        }
 
         #endregion
 

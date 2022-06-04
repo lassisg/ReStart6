@@ -50,7 +50,6 @@ namespace RSGymPT
         #region Properties
 
         internal List<Command> Commands { get; set; }
-        internal bool Session { get; set; }
         internal User ActiveUser { get; set; }
 
         #endregion
@@ -59,7 +58,6 @@ namespace RSGymPT
 
         internal CLI()
         {
-            Session = false;
             Commands = BuildCommands();
             LoadData();
         }
@@ -282,7 +280,18 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
                     
-                    Login(args);
+                    if (!UserExists(args[1].Split()[1]))
+                        throw new UnauthorizedAccessException("Utilizador ou palavra passe errado. Verfique os dados de login.");
+
+                    if (ActiveUser != null)
+                        throw new UnauthorizedAccessException("Não foi possível efetuar o login. Já há um utilizador com sessão ativa.");
+
+                    User currentUser = Users.Find(u => u.UserName == args[1].Split()[1]);
+                    bool loginSuccess = currentUser.Login(args[1].Split()[1], args[2].Split()[1]);
+
+                    if (loginSuccess)
+                        ActiveUser = currentUser;
+
                     break;
 
                 case "logout":
@@ -448,26 +457,14 @@ namespace RSGymPT
             Console.Clear();
         }
 
-        private void Login(string[] args)
+        private bool UserExists(string userName)
         {
-            User currentUser = new User();
-            currentUser.UserName = args[1].Split()[1];
-            currentUser.Password = args[2].Split()[1];
-
-            if (!ValidateCredentials(currentUser))
-                throw new UnauthorizedAccessException("Utilizador ou palavra passe errado. Verfique os dados de login.");
-
-            if (SessionActive())
-                throw new UnauthorizedAccessException("Não foi possível efetuar o login. Já há um utilizador com sessão ativa.");
-
-            ActiveUser = Users.Find(u => u.UserName == currentUser.UserName);
-            Session = true;
+            return Users.Exists(u => u.UserName == userName);
         }
 
         private void Logout()
         {
             ActiveUser = null;
-            Session = false;
         }
 
         private void CreateRequest(Dictionary<EnumArgumentType, string> arguments)
