@@ -260,13 +260,9 @@ namespace RSGymPT
 
         internal bool Run(string[] args)
         {
-            bool commandExists = ValidateCommand(args[0]);
             bool isExit = false;
             string errorMessage;
             Dictionary<EnumArgumentType, string> arguments = new Dictionary<EnumArgumentType, string>();
-
-            if (!commandExists)
-                throw new NotSupportedException("Comando inválido!");
 
             switch (args[0])
             {
@@ -398,6 +394,7 @@ namespace RSGymPT
                     break;
 
                 default:
+                    Help();
                     break;
             }
 
@@ -718,14 +715,6 @@ namespace RSGymPT
             bool validCredentials = Users.Exists(u => u.UserName == user.UserName && u.Password == user.Password);
 
             return validCredentials;
-        }
-
-        private bool ValidateCommand(string command)
-        {
-            Command currentCommand = Commands.Find(c => c.TheCommand == command);
-            bool isValid = (currentCommand.TheCommand == null) ? false : true;
-
-            return isValid;
         }
 
         private bool ValidateArguments(string[] commandArgs)
