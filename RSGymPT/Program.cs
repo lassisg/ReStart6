@@ -44,6 +44,11 @@ namespace RSGymPT
                     WriteErrorMessage(e.Message);
                     exitApplication = false;
                 }
+                catch (ApplicationException e)
+                {
+                    WriteErrorMessage(e.Message);
+                    exitApplication = false;
+                }
                 catch (Exception e)
                 {
                     WriteErrorMessage(e.Message);
