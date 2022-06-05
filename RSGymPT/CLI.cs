@@ -225,7 +225,7 @@ namespace RSGymPT
 
         private void LoadUsers()
         {
-            // TODO: Change values
+            // Valores utilizados para os utilizadores foram simplificados para agilizar os testes
             Users = new List<User>();
             Users.Add(new User(1, "1", "1", new List<Request>()));
             Users.Add(new User(2, "2", "2", new List<Request>()));
@@ -464,15 +464,26 @@ namespace RSGymPT
                 RequestStatus = Request.EnumStatus.Agendado
             };
 
-            Requests.Add(newRequest);
-            ActiveUser.Requests.Add(newRequest);
-            
-            StringBuilder successMessage = new StringBuilder();
-            successMessage.Append($"Pedido {newRequest.Id} ");
-            successMessage.Append($"criado para {newRequest.RequestDate:dd/MM/yyyy HH:mm} ");
-            successMessage.AppendLine($"com o treinador {newRequest.TrainerName}.");
+            StringBuilder message = new StringBuilder();
 
-            Console.WriteLine(successMessage.ToString());
+            // Classe Backed simula resposta do serviço de agendamento do ginásio
+            if (!Backend.ApproveRequest())
+            {
+                message.AppendLine("Pedido não foi aprovado pelo ginásio.");
+                message.Append("Tente outro período ou ");
+                message.AppendLine("entre em contacto por telefone ou email para fazer seu pedido.");
+            }
+            else
+            {
+                Requests.Add(newRequest);
+                ActiveUser.Requests.Add(newRequest);
+            
+                message.Append($"Pedido {newRequest.Id} ");
+                message.Append($"criado para {newRequest.RequestDate:dd/MM/yyyy HH:mm} ");
+                message.AppendLine($"com o treinador {newRequest.TrainerName}.");
+            }
+
+            Console.WriteLine(message.ToString());
         }
 
         private void CancelRequest(Dictionary<EnumArgumentType, string> arguments)
