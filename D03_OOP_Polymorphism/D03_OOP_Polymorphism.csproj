@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E576C2F1-3068-458D-84A6-F95C051A965E}</ProjectGuid>
+    <ProjectGuid>{DB45EB6E-C73D-4626-8D1F-F138D3AE5D2D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>D01_OOP_Encapsulation</RootNamespace>
-    <AssemblyName>D01_OOP_Encapsulation</AssemblyName>
+    <RootNamespace>D03_OOP_Polymorphism</RootNamespace>
+    <AssemblyName>D03_OOP_Polymorphism</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Course.cs" />
+    <Compile Include="CourseIT.cs" />
+    <Compile Include="CourseSoftSkills.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

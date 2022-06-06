@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E576C2F1-3068-458D-84A6-F95C051A965E}</ProjectGuid>
+    <ProjectGuid>{3206F813-3AE8-459A-A236-4D90580B99C2}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>D01_OOP_Encapsulation</RootNamespace>
-    <AssemblyName>D01_OOP_Encapsulation</AssemblyName>
+    <RootNamespace>D02_OOP_Inheritance</RootNamespace>
+    <AssemblyName>D02_OOP_Inheritance</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Course.cs" />
+    <Compile Include="CourseIT.cs" />
+    <Compile Include="CourseSoftSkills.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
