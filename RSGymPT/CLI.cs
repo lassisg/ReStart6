@@ -10,9 +10,6 @@ namespace RSGymPT
     internal class CLI
     {
 
-        List<User> Users;
-        List<Request> Requests;
-
         #region Enums
 
         enum EnumArgumentType
@@ -220,20 +217,13 @@ namespace RSGymPT
         private void LoadData()
         {
             LoadUsers();
-            LoadRequests();
         }
 
         private void LoadUsers()
         {
             // Valores utilizados para os utilizadores foram simplificados para agilizar os testes
-            Users = new List<User>();
-            Users.Add(new User(1, "1", "1", new List<Request>()));
-            Users.Add(new User(2, "2", "2", new List<Request>()));
-        }
-
-        private void LoadRequests()
-        {
-            Requests = new List<Request>();
+            User.userList.Add(new User(1, "1", "1", new List<Request>()));
+            User.userList.Add(new User(2, "2", "2", new List<Request>()));
         }
 
         internal bool Run(string[] args)
@@ -263,7 +253,7 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
                     
-                    User currentUser = Users.Find(u => u.UserName == args[1].Split()[1]);
+                    User currentUser = User.userList.Find(u => u.UserName == args[1].Split()[1]);
                     bool loginSuccess = false;
 
                     if (currentUser != null)
@@ -458,7 +448,7 @@ namespace RSGymPT
 
             Request newRequest = new Request
             {
-                Id = Requests.Count() == 0 ? 1 : Requests.Max(r => r.Id) + 1,
+                Id = Request.requestList.Count() == 0 ? 1 : Request.requestList.Max(r => r.Id) + 1,
                 TrainerName = name,
                 RequestDate = requestDate,
                 RequestStatus = Request.EnumStatus.Agendado
@@ -466,7 +456,7 @@ namespace RSGymPT
 
             StringBuilder message = new StringBuilder();
 
-            // Classe Backed simula resposta do serviço de agendamento do ginásio
+            // Classe Backend simula resposta do serviço de agendamento do ginásio
             if (!Backend.ApproveRequest())
             {
                 message.AppendLine("Pedido não foi aprovado pelo ginásio.");
@@ -475,7 +465,7 @@ namespace RSGymPT
             }
             else
             {
-                Requests.Add(newRequest);
+                Request.requestList.Add(newRequest);
                 ActiveUser.Requests.Add(newRequest);
             
                 message.Append($"Pedido {newRequest.Id} ");
@@ -723,9 +713,9 @@ namespace RSGymPT
 
             DateTime startDate = requestDate;
             DateTime finishDate = startDate.AddHours(1);
-            
+
             // Validação feita tendo em conta cada aula com duração de 1 hora
-            Request conflictedRequest = Requests.Find(r => 
+            Request conflictedRequest = ActiveUser.Requests.Find(r => 
                 (startDate >= r.RequestDate && startDate <= r.RequestDate.AddHours(1)) || 
                 (finishDate >= r.RequestDate && finishDate <= r.RequestDate.AddHours(1)));
 

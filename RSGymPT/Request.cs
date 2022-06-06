@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace RSGymPT
@@ -6,6 +7,8 @@ namespace RSGymPT
 
     internal class Request
     {
+
+        internal static List<Request> requestList = new List<Request>();
 
         #region Enums
 
