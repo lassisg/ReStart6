@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace D02_OOP_Inheritance
+﻿namespace D02_OOP_Inheritance
 {
 
     // Inheritance
@@ -31,6 +25,7 @@ namespace D02_OOP_Inheritance
         }
 
         #endregion
+
     }
 
 }

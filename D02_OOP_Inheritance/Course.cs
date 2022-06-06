@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace D02_OOP_Inheritance
 {
@@ -47,9 +43,9 @@ namespace D02_OOP_Inheritance
 
         #region Methods
 
-        internal void ListCourse()
+        internal void ListCourse(string message)
         {
-            Console.WriteLine($"Course ID: {CourseID}\nCourse name: {CourseName}");
+            Console.WriteLine(message);
         }
 
         #endregion
