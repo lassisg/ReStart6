@@ -10,11 +10,18 @@ namespace D01_OOP_Encapsulation
     internal class Course
     {
 
+        #region Fields
+
+        // Classic property, using fields
+        private string courseName;
+
+        #endregion
+        
         #region Properties
 
+        // Auto-implemented property
         internal int CourseID { get; set; }
 
-        private string courseName;
         internal string CourseName {
             get { return courseName; }
             set { courseName = value; }
