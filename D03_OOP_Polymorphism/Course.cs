@@ -43,9 +43,10 @@ namespace D03_OOP_Polymorphism
 
         #region Methods
 
-        internal void ListCourse(string message)
+        // Adds 'virtual' to allow overriding from derived classes
+        internal virtual void ListCourse()
         {
-            Console.WriteLine(message);
+            Console.WriteLine($"ID: {CourseID}; Name: {CourseName}");
         }
 
         #endregion

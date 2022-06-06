@@ -1,4 +1,6 @@
-﻿namespace D03_OOP_Polymorphism
+﻿using System;
+
+namespace D03_OOP_Polymorphism
 {
 
     internal class CourseIT : Course
@@ -24,6 +26,22 @@
         {
             Area = area;
             HasExam = hasExam;
+        }
+
+        #endregion
+
+        #region Methods
+
+        // Overload 1
+        internal void ListCourse(string area)
+        {
+            Console.WriteLine($"ID: {CourseID}; Name: {CourseName}; Area {area}");
+        }
+
+        // Overload 2
+        internal void ListCourse(string area, bool hasExam)
+        {
+            Console.WriteLine($"ID: {CourseID}; Name: {CourseName}; Area {area}; Exam: {hasExam}");
         }
 
         #endregion
