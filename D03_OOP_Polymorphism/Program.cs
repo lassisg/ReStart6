@@ -27,6 +27,8 @@ namespace D03_OOP_Polymorphism
 
             CourseIT course03 = new CourseIT(3, "Javascript Web Developer", "Dev", true);
             course03.ListCourse();
+            course03.ListCourse(course03.Area);
+            course03.ListCourse(course03.Area, course03.HasExam);
 
             Utils.CleanConsole();
 

@@ -39,7 +39,7 @@ namespace D03_OOP_Polymorphism
         }
 
         // Overload 2
-        internal void ListCourse(string area, bool hasExam)
+        internal void ListCourse(string area, bool? hasExam)
         {
             Console.WriteLine($"ID: {CourseID}; Name: {CourseName}; Area {area}; Exam: {hasExam}");
         }
