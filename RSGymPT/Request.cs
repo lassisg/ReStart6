@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGymPT
 {
@@ -63,7 +60,68 @@ namespace RSGymPT
 
         #region Methods
 
-        
+        internal string Cancel()
+        {
+            RequestStatus = EnumStatus.Cancelado;
+            
+            StringBuilder message = new StringBuilder();
+
+            message.AppendLine($"O pedido {Id}, de {RequestDate:dd/MM/yyyy HH:mm}, foi cancelado.");
+
+            return message.ToString();
+        }
+
+        internal string Finish()
+        {
+            RequestStatus = EnumStatus.Finalizado;
+            CompletedAt = DateTime.Now;
+            Message = "Aula concluída";
+
+            StringBuilder message = new StringBuilder();
+
+            message.Append($"O pedido {Id}, de {RequestDate:dd/MM/yyyy}, ");
+            message.AppendLine($"foi finalizado em {CompletedAt:dd/MM/yyyy HH:mm}.");
+
+            return message.ToString();
+        }
+
+        internal string CommunicateAbsence(string subject)
+        {
+            RequestStatus = EnumStatus.Falta;
+            CompletedAt = DateTime.Now;
+            Message = subject;
+
+            StringBuilder message = new StringBuilder();
+
+            message.Append($"O pedido {Id}, de {RequestDate}, foi marcado como {RequestStatus}, ");
+            message.AppendLine($"em {MessageAt:dd/MM/yyyy HH:mm}, com a mensagem:");
+            message.AppendLine($"'{Message}'.");
+
+            return message.ToString();
+        }
+
+        internal string Get()
+        {
+            StringBuilder message = new StringBuilder();
+
+            message.AppendLine("");
+            message.AppendLine("Detalhes do pedido:");
+            message.Append("- Nº:".PadRight(13));
+            message.AppendLine($"{Id}");
+            message.Append("- Treinador:".PadRight(13));
+            message.AppendLine($"{TrainerName}");
+            message.Append("- Data:".PadRight(13));
+            message.AppendLine($"{RequestDate:dd/MM/yyyy}");
+            message.Append("- Hora:".PadRight(13));
+            message.AppendLine($"{RequestDate:HH:mm}");
+            message.Append("- Status:".PadRight(13));
+            message.Append($"{RequestStatus}");
+            
+            if (RequestStatus == EnumStatus.Finalizado)
+                message.Append($" (finalizada em {CompletedAt:dd/MM/yyyy HH:mm})");
+
+            return message.ToString();
+        }
 
         #endregion
 

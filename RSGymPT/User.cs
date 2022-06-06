@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace RSGymPT
 {
@@ -49,7 +45,10 @@ namespace RSGymPT
 
         #region Methods
 
-
+        internal bool Login(string userName, string password)
+        {
+            return (userName == UserName && password == Password);
+        }
 
         #endregion
 
