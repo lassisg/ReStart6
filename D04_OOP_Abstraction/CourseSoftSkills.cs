@@ -23,11 +23,13 @@ namespace D04_OOP_Abstraction
         internal CourseSoftSkills() : base()
         {
             Area = string.Empty;
+            Classification = string.Empty;
         }
 
-        internal CourseSoftSkills(int courseID, string courseName, string area) : base(courseID, courseName)
+        internal CourseSoftSkills(int courseID, string courseName, string area, string classification) : base(courseID, courseName)
         {
             Area = area;
+            Classification = classification;
         }
 
         #endregion
