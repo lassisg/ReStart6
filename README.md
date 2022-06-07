@@ -10,4 +10,14 @@ It is composed by several C# projects.
 
 Utility project, which has static methods that might be useful to other projects. 
 
-### D01_OOP_Encapsulations
+### D01_OOP_Encapsulation
+
+This project is a basic and simple example of how to use **encapsulation** in C#.
+
+### D02_OOP_Inheritance
+
+This project is a basic and simple example of how to use **inheritance** in C#.
+
+### D03_OOP_Polymorphism
+
+This project is a basic and simple example of how to use **polymorphism** in C#.
