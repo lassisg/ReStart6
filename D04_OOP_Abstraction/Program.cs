@@ -13,6 +13,7 @@ namespace D04_OOP_Abstraction
         static void Main(string[] args)
         {
 
+            Course course = new CourseSoftSkills();
 
 
         }

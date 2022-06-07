@@ -13,6 +13,7 @@ namespace D04_OOP_Abstraction
 
         internal int CourseID { get; set; }
         internal string CourseName { get ; set; }
+        internal abstract string Classification { get; set; }
 
         #endregion
 
