@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D03_OOP_Polymorphism", "D03
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D04_OOP_Abstraction", "D04_OOP_Abstraction\D04_OOP_Abstraction.csproj", "{41F43BA8-D4F4-4092-8159-2197EBED57A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E01_Calculator", "E01_Calculator\E01_Calculator.csproj", "{B58E28AB-24DE-40BB-B6E0-FA7A62CA0E75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{41F43BA8-D4F4-4092-8159-2197EBED57A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41F43BA8-D4F4-4092-8159-2197EBED57A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41F43BA8-D4F4-4092-8159-2197EBED57A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B58E28AB-24DE-40BB-B6E0-FA7A62CA0E75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B58E28AB-24DE-40BB-B6E0-FA7A62CA0E75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B58E28AB-24DE-40BB-B6E0-FA7A62CA0E75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B58E28AB-24DE-40BB-B6E0-FA7A62CA0E75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
