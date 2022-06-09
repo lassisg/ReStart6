@@ -26,6 +26,10 @@ This project is a basic and simple example of how to use **polymorphism** in C#.
 
 This project is a basic and simple example of how to use **absatraction** in C#.
 
+### D05_OOP_Interfaces
+
+This project is a basic and simple example of how to use **interfaces** in C#.
+
 ### E01_Calculator
 
 Exercise to practice OOP.
