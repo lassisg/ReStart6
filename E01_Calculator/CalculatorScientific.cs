@@ -173,7 +173,7 @@ namespace E01_Calculator
                 case EnumOperation.Remainder:
                     int value01 = Convert.ToInt16(Value01);
                     int value02 = Convert.ToInt16(Value02);
-                    GetDivisionMod(value01, value02);
+                    Result = GetDivisionMod(value01, value02);
                     break;
 
                 default:
@@ -229,9 +229,8 @@ namespace E01_Calculator
 
         internal static int GetDivisionMod(int dividend, int divisor)
         { 
-            // TODO: Review implementation
+
             Math.DivRem(dividend, divisor, out int result);
-            Result = Convert.ToDouble(result);
             return result;
 
         }
