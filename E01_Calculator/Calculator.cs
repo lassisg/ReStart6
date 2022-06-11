@@ -39,20 +39,6 @@ namespace E01_Calculator
 
         #region Methods
 
-        internal abstract void ShowMenu();
-        
-        internal abstract string ReadUserInput();
-
-        internal abstract bool ValidateOption(string selectedOption);
-
-        internal abstract void ReadNumbers(string inputString);
-
-        internal abstract double ValidateNumber(string inputString);
-
-        internal abstract void ExecuteOperation(string selectedOperation);
-
-        internal abstract void ShowResult();
-
         internal abstract double Sum(double value01, double value02);
         
         internal abstract double Subtract(double value01, double value02);
@@ -61,8 +47,6 @@ namespace E01_Calculator
         
         internal abstract double Divide(double value01, double value02);
 
-        internal abstract void WriteErrorMessage(string message);
-        
         #endregion
 
     }
