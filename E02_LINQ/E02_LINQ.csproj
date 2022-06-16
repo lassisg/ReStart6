@@ -47,6 +47,8 @@
     <Compile Include="D02_GreaterOrEqualToTen.cs" />
     <Compile Include="D03_ShorterNames.cs" />
     <Compile Include="D05_Clients.cs" />
+    <Compile Include="D06_Methods.cs" />
+    <Compile Include="D07_ExtensionMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
