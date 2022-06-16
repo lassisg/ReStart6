@@ -15,7 +15,7 @@ namespace D00_Utils
 
         }
 
-        public static void PrintHeader(string title, string newLines = "")
+        public static void PrintHeader(string title, string newLines = "", bool clearConsole = true)
         {
 
             string border = new string ('-', 70);
@@ -26,7 +26,11 @@ namespace D00_Utils
             sb.AppendLine(title.ToUpper());
             sb.AppendLine(border);
 
-            Console.Clear();
+            if (clearConsole)
+            {
+                Console.Clear();
+            }
+
             Console.Write(sb.ToString());
 
         }
