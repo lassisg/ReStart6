@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace E02_LINQ
 {
@@ -20,7 +22,7 @@ namespace E02_LINQ
         {
 
             internal string Name { get; set; }
-            internal string Location { get; set; }
+            internal City Location { get; set; }
             internal int Age { get; set; }
 
         }
@@ -45,12 +47,12 @@ namespace E02_LINQ
 
                 listClient = new List<Client>()
                 {
-                    new Client() { Name = "Amália", Location = "Porto", Age = 35 },
-                    new Client() { Name = "John", Location = "Londres", Age = 35 },
-                    new Client() { Name = "Charles", Location = "Londres", Age = 53 },
-                    new Client() { Name = "Lucy", Location = "Paris", Age = 21 },
-                    new Client() { Name = "José", Location = "Lisboa", Age = 37 },
-                    new Client() { Name = "Javi", Location = "Madrid", Age = 14 }
+                    new Client() { Name = "Amália", Location = listCity.ElementAt(0), Age = 35 },
+                    new Client() { Name = "John", Location = listCity.ElementAt(1), Age = 35 },
+                    new Client() { Name = "Charles", Location = listCity.ElementAt(1), Age = 53 },
+                    new Client() { Name = "Lucy", Location = listCity.ElementAt(2), Age = 21 },
+                    new Client() { Name = "José", Location = listCity.ElementAt(4), Age = 37 },
+                    new Client() { Name = "Javi", Location = listCity.ElementAt(3), Age = 14 }
                 };
 
             }
@@ -60,14 +62,8 @@ namespace E02_LINQ
                 // O nome dos clientes da cidade de Londres.
                 Utils.PrintSubHeader("Query Syntax");
 
-                // Versão com tipo da prop como classe
-                //var filteredList = from client in listClient
-                //                   where client.Location.Name == "Londres"
-                //                   select client;
-
-                // Versão com tipo da prop como string
                 var filteredList = from client in listClient
-                                   where client.Location == "Londres"
+                                   where client.Location.Name == "Londres"
                                    select client;
 
                 WriteList(filteredList);
@@ -79,11 +75,7 @@ namespace E02_LINQ
                 // O nome dos clientes da cidade de Londres.
                 Utils.PrintSubHeader("Method Syntax");
 
-                // Versão com tipo da prop como classe
-                //var filteredList = listClient.Where(c => c.Location.Name == "Londres");
-
-                // Versão com tipo da prop como string
-                var filteredList = listClient.Where(c => c.Location == "Londres");
+                var filteredList = listClient.Where(c => c.Location.Name == "Londres");
 
                 WriteList(filteredList);
             }
@@ -94,7 +86,7 @@ namespace E02_LINQ
                 Utils.PrintSubHeader("Query Syntax");
 
                 var filteredList = from client in listClient
-                                   where client.Location == "Lisboa" || client.Location == "Madrid"
+                                   where client.Location.Name == "Lisboa" || client.Location.Name == "Madrid"
                                    select client;
 
                 WriteList(filteredList);
@@ -105,7 +97,7 @@ namespace E02_LINQ
                 // O nome dos clientes da cidade de Lisboa ou de Madrid.
                 Utils.PrintSubHeader("Method Syntax");
 
-                var filteredList = listClient.Where(c => c.Location == "Lisboa" || c.Location == "Madrid");
+                var filteredList = listClient.Where(c => c.Location.Name == "Lisboa" || c.Location.Name == "Madrid");
 
                 WriteList(filteredList);
             }
@@ -121,7 +113,7 @@ namespace E02_LINQ
                                    orderby client.Age descending
                                    select client;
 
-               WriteNameAge(filteredList);
+                WriteNameAge(filteredList);
             }
 
             internal void ListAdultClientsMethod()
@@ -140,24 +132,7 @@ namespace E02_LINQ
                 // O nome dos clientes e o país de origem.
                 Utils.PrintSubHeader("Query Syntax");
 
-                var filteredList = from client in listClient
-                                   join city in listCity on client.Location equals city.Name
-                                   select new
-                                   {
-                                       client.Name,
-                                       city.Country
-                                   };
-
-                Console.WriteLine($"\n+{new string('-', 9)}+{new string('-', 12)}+");
-                Console.WriteLine($"{"| Nome".PadRight(9)} | {"País".PadRight(10)} |");
-                Console.WriteLine($"+{new string('-', 9)}+{new string('-', 12)}+");
-
-                foreach (var item in filteredList)
-                {
-                    Console.WriteLine($"| {item.Name.PadRight(7)} | {item.Country.PadRight(10)} |");
-                }
-
-                Console.WriteLine($"+{new string('-', 9)}+{new string('-', 12)}+");
+                WriteNameCountry(listClient);
 
             }
 
@@ -166,22 +141,7 @@ namespace E02_LINQ
                 // O nome dos clientes e o país de origem.
                 Utils.PrintSubHeader("Method Syntax");
 
-                var filteredList = listClient
-                    .Join(listCity, 
-                          c1 => c1.Location, 
-                          c2 => c2.Name, 
-                          (c1, c2) => new { c1.Name, c2.Country });
-
-                Console.WriteLine($"\n+{new string('-', 9)}+{new string('-', 12)}+");
-                Console.WriteLine($"{"| Nome".PadRight(9)} | {"País".PadRight(10)} |");
-                Console.WriteLine($"+{new string('-', 9)}+{new string('-', 12)}+");
-
-                foreach (var item in filteredList)
-                {
-                    Console.WriteLine($"| {item.Name.PadRight(7)} | {item.Country.PadRight(10)} |");
-                }
-
-                Console.WriteLine($"+{new string('-', 9)}+{new string('-', 12)}+");
+                WriteNameCountry(listClient);
 
             }
 
@@ -191,8 +151,7 @@ namespace E02_LINQ
                 Utils.PrintSubHeader("Query Syntax");
 
                 var filteredList = from client in listClient
-                                   join city in listCity on client.Location equals city.Name
-                                   where city.Name == "Londres"
+                                   where client.Location.Name == "Londres"
                                    select client;
 
                 Console.WriteLine($"Clientes que moram em Londres: {filteredList.Count()}");
@@ -203,11 +162,7 @@ namespace E02_LINQ
                 // O número de clientes que mora em Londres.
                 Utils.PrintSubHeader("Method Syntax");
 
-                var filteredList = listClient
-                    .Join(listCity.Where(c2 => c2.Name == "Londres"),
-                          c1 => c1.Location,
-                          c2 => c2.Name,
-                          (c1, c2) => new { c1.Name });
+                var filteredList = listClient.Where(c => c.Location.Name == "Londres");
 
                 Console.WriteLine($"Clientes que moram em Londres: {filteredList.Count()}");
             }
@@ -218,8 +173,7 @@ namespace E02_LINQ
                 Utils.PrintSubHeader("Query Syntax");
 
                 var filteredList = from client in listClient
-                                   join city in listCity on client.Location equals city.Name
-                                   where city.Name == "Londres"
+                                   where client.Location.Name == "Londres"
                                    orderby client.Age
                                    select client;
 
@@ -232,11 +186,8 @@ namespace E02_LINQ
                 Utils.PrintSubHeader("Method Syntax");
 
                 var filteredList = listClient
-                    .Join(listCity.Where(c2 => c2.Name == "Londres"),
-                          c1 => c1.Location,
-                          c2 => c2.Name,
-                          (c1, c2) => new { c1.Name , c1.Age})
-                    .OrderBy(c3 => c3.Age);
+                    .Where(c => c.Location.Name == "Londres")
+                    .OrderBy(c => c.Age);
 
                 Console.WriteLine($"O cliente mais novo em Londres é: {filteredList.ElementAt(0).Name}");
             }
@@ -263,9 +214,23 @@ namespace E02_LINQ
                 Console.WriteLine($"+{new string('-', 9)}+{new string('-', 7)}+");
             }
 
+            private void WriteNameCountry(IEnumerable<Client> filteredList)
+            {
+                Console.WriteLine($"\n+{new string('-', 9)}+{new string('-', 12)}+");
+                Console.WriteLine($"{"| Nome".PadRight(9)} | {"País".PadRight(10)} |");
+                Console.WriteLine($"+{new string('-', 9)}+{new string('-', 12)}+");
+
+                foreach (var item in filteredList)
+                {
+                    Console.WriteLine($"| {item.Name.PadRight(7)} | {item.Location.Country.PadRight(10)} |");
+                }
+
+                Console.WriteLine($"+{new string('-', 9)}+{new string('-', 12)}+");
+            }
 
         }
 
     }
 
 }
+
