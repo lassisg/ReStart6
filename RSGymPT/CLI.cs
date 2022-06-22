@@ -10,6 +10,9 @@ namespace RSGymPT
     internal class CLI
     {
 
+        internal List<User> Users;
+        internal List<Request> Requests;
+
         #region Enums
 
         enum EnumArgumentType
@@ -222,8 +225,11 @@ namespace RSGymPT
         private void LoadUsers()
         {
             // Valores utilizados para os utilizadores foram simplificados para agilizar os testes
-            User.userList.Add(new User(1, "1", "1", new List<Request>()));
-            User.userList.Add(new User(2, "2", "2", new List<Request>()));
+            Users = new List<User>
+            {
+                new User(1, "1", "1", new List<Request>()),
+                new User(2, "2", "2", new List<Request>())
+            };
         }
 
         internal bool Run(string[] args)
@@ -253,7 +259,7 @@ namespace RSGymPT
                     if (!ValidateArguments(args))
                         throw new ArgumentException("Parâmetros do comando incorretos.");
                     
-                    User currentUser = User.userList.Find(u => u.UserName == args[1].Split()[1]);
+                    User currentUser = Users.Find(u => u.UserName == args[1].Split()[1]);
                     bool loginSuccess = false;
 
                     if (currentUser != null)
@@ -442,13 +448,13 @@ namespace RSGymPT
             string hour = arguments.Values.ElementAt(2);
             DateTime requestDate = DateTime.Parse($"{date} {hour}");
 
-            bool isValidDate = ValidateRequestDate(requestDate, name);
+            bool isValidDate = ValidateRequestDate(requestDate);
             if (!isValidDate)
                 throw new ApplicationException("Período do pedido inválido.");
 
             Request newRequest = new Request
             {
-                Id = Request.requestList.Count() == 0 ? 1 : Request.requestList.Max(r => r.Id) + 1,
+                Id = Requests.Count() == 0 ? 1 : Requests.Max(r => r.Id) + 1,
                 TrainerName = name,
                 RequestDate = requestDate,
                 RequestStatus = Request.EnumStatus.Agendado
@@ -465,7 +471,7 @@ namespace RSGymPT
             }
             else
             {
-                Request.requestList.Add(newRequest);
+                Requests.Add(newRequest);
                 ActiveUser.Requests.Add(newRequest);
             
                 message.Append($"Pedido {newRequest.Id} ");
@@ -706,7 +712,7 @@ namespace RSGymPT
             return isValidArgument;
         }
 
-        private bool ValidateRequestDate(DateTime requestDate, string name)
+        private bool ValidateRequestDate(DateTime requestDate)
         {
             if (requestDate <= DateTime.Now)
                 throw new ApplicationException("O pedido não pode ser solicitado para data no passado.");

@@ -6,8 +6,6 @@ namespace RSGymPT
     internal class User
     {
 
-        internal static List<User> userList = new List<User>();
-
         #region Properties
 
         internal int Id { get; set; }
