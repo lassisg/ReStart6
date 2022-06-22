@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Backend.cs" />
+    <Compile Include="Command.cs" />
     <Compile Include="IRunnable.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="CLI.cs" />
