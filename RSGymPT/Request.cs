@@ -51,7 +51,7 @@ namespace RSGymPT
             RequestDate = requestDate;
             TrainerName = trainerName;
             RequestStatus = requestStatus;
-            CompletedAt= DateTime.MinValue;
+            CompletedAt = DateTime.MinValue;
             Message = string.Empty;
             MessageAt = DateTime.MinValue;
         }
