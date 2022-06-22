@@ -76,6 +76,7 @@ namespace RSGymPT
             RequestStatus = EnumStatus.Finalizado;
             CompletedAt = DateTime.Now;
             Message = "Aula concluída";
+            MessageAt = DateTime.Now;
 
             StringBuilder message = new StringBuilder();
 
@@ -90,6 +91,7 @@ namespace RSGymPT
             RequestStatus = EnumStatus.Falta;
             CompletedAt = DateTime.Now;
             Message = subject;
+            MessageAt = DateTime.Now;
 
             StringBuilder message = new StringBuilder();
 
@@ -119,6 +121,13 @@ namespace RSGymPT
             
             if (RequestStatus == EnumStatus.Finalizado)
                 message.Append($" (finalizada em {CompletedAt:dd/MM/yyyy HH:mm})");
+
+            if (Message != String.Empty)
+            {
+                message.Append("\n- Mensagem:".PadRight(13));
+                message.Append($"{Message}");
+                message.AppendLine($" (enviada em {MessageAt:dd/MM/yyyy HH:mm})");
+            }
 
             return message.ToString();
         }
