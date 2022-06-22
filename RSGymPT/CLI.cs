@@ -388,6 +388,9 @@ namespace RSGymPT
 
                     break;
 
+                case "":
+                    break;
+
                 default:
                     Help();
                     break;
