@@ -15,7 +15,7 @@ namespace RSGymPT
 
         #region Enums
 
-        enum EnumArgumentType
+        internal enum EnumArgumentType
         {
             None,
             Text,
@@ -667,6 +667,8 @@ namespace RSGymPT
 
         private bool ValidateArguments(string[] commandArgs)
         {
+            // TODO: Use Verbatim string literal to validate full command
+            // Ex: login -u username -p password  -> @"login -u \w{1} -p \w{1}"
             Command currentCommand = Commands.Find(c => c.TheCommand == commandArgs[0]);
             char currentOption;
             bool hasAllArguments;

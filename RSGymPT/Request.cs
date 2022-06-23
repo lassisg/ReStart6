@@ -23,7 +23,7 @@ namespace RSGymPT
         #region Properties
 
         internal int Id { get; set; }
-        public string TrainerName { get; set; }
+        internal string TrainerName { get; set; }
         internal DateTime RequestDate { get; set; }
         internal EnumStatus RequestStatus { get; set; }
         internal DateTime CompletedAt { get; set; }
