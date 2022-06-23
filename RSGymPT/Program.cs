@@ -15,6 +15,8 @@ namespace RSGymPT
             CLI myApp = new CLI();
             bool exitApplication;
 
+            Console.Title = "RSGymPT";
+
             do
             {
                 Console.Write("> ");
