@@ -168,7 +168,7 @@ namespace RSGymPT
 
         //            if (!ValidateArguments(args))
         //                throw new ArgumentException("Parâmetros do comando incorretos.");
-
+                    
         //            User currentUser = Users.Find(u => u.UserName == args[1].Split()[1]);
         //            bool loginSuccess = false;
 
@@ -181,9 +181,9 @@ namespace RSGymPT
 
         //            if (!loginSuccess) 
         //                throw new UnauthorizedAccessException("Utilizador ou palavra passe errado. Verfique os dados de login."); 
-
+                    
         //            ActiveUser = currentUser; 
-
+                        
         //            break;
 
         //        case "logout":
@@ -196,7 +196,7 @@ namespace RSGymPT
         //        case "request":
         //            if (!SessionActive())
         //                throw new UnauthorizedAccessException();
-
+                    
         //            if (!ValidateArguments(args))
         //                throw new ArgumentException("Parâmetros do comando incorretos.");
 
@@ -209,7 +209,7 @@ namespace RSGymPT
         //                throw new ArgumentException();
 
         //            CreateRequest(arguments);
-
+                    
         //            break;
 
         //        case "cancel":
@@ -226,7 +226,7 @@ namespace RSGymPT
         //                throw new ArgumentException();
 
         //            CancelRequest(arguments);
-
+                    
         //            break;
 
         //        case "finish":
@@ -243,7 +243,7 @@ namespace RSGymPT
         //                throw new ArgumentException();
 
         //            FinishRequest(arguments);
-
+                    
         //            break;
 
         //        case "message":
@@ -261,7 +261,7 @@ namespace RSGymPT
         //                throw new ArgumentException();
 
         //            SendMessage(arguments);
-
+                    
         //            break;
 
         //        case "myrequest":
@@ -306,96 +306,53 @@ namespace RSGymPT
 
         #region Command methods
 
-        internal bool Help()
+        private void Help()
         {
-            bool isExitApp = false;
+            StringBuilder sb = new StringBuilder();
 
-            Clear();
-            Commands.ForEach(command => Console.WriteLine(command.Help()));
-
-            return isExitApp;
-        }
-
-        internal bool Clear()
-        {
-            bool isExitApp = false;
-
-            Console.Clear();
-
-            return isExitApp;
-        }
-
-        internal bool Exit()
-        {
-            bool isExitApp = true;
-
-            Console.WriteLine("A encerrar a aplicação...");
-            Console.ReadKey();
-
-            return isExitApp;
-        }
-
-        internal bool Login(string[] args)
-        {
-            bool isExitApp = false;
-
-            if (SessionActive())
-                throw new UnauthorizedAccessException("Não foi possível efetuar o login. Já há um utilizador com sessão ativa.");
-
-            if (!ValidateArguments(args))
-                throw new ArgumentException("Parâmetros do comando incorretos.");
-
-            User currentUser = Users.Find(u => u.UserName == args[1].Split()[1]);
-            bool loginSuccess = false;
-
-            if (currentUser != null)
+            sb.AppendLine();
+            foreach (var command in Commands)
             {
-                string userName = args[1].Split()[1];
-                string password = args[2].Split()[1];
-                loginSuccess = currentUser.Login(userName, password);
+                sb.Append($"{command.TheCommand}".PadRight(12));
+                sb.AppendLine($"{command.Description}");
+
+                if (command.Options.Count > 0)
+                {
+
+                    sb.AppendLine();
+                    sb.Append("".PadRight(12));
+                    sb.AppendLine("Parâmetros:");
+
+                    foreach (var option in command.Options)
+                    {
+                        sb.Append("".PadRight(12));
+                        sb.Append($"  -{option.Option}".PadRight(7));
+                        sb.AppendLine($"{option.Description}");
+                    }
+                }
+
+                sb.AppendLine();
+                sb.Append("".PadRight(12));
+                sb.AppendLine("Examplo de uso:");
+                sb.Append("".PadRight(12));
+                sb.AppendLine($"  {command.Example}\n");
             }
 
-            if (!loginSuccess)
-                throw new UnauthorizedAccessException("Utilizador ou palavra passe errado. Verifique os dados de login.");
-
-            ActiveUser = currentUser;
-
-            return isExitApp;
+            Console.WriteLine(sb.ToString());
         }
 
-        internal bool Logout()
+        private void Clear()
         {
-            bool isExitApp = false;
+            Console.Clear();
+        }
 
-            if (!SessionActive())
-                throw new UnauthorizedAccessException("Não há utilizador com sessão ativa.");
-
+        private void Logout()
+        {
             ActiveUser = null;
-
-            return isExitApp;
         }
 
-        internal bool CreateRequest(string[] args)
+        private void CreateRequest(Dictionary<EnumArgumentType, string> arguments)
         {
-
-            bool isExitApp = false;
-
-
-            if (!SessionActive())
-                throw new UnauthorizedAccessException();
-
-            Dictionary<CLI.EnumArgumentType, string> arguments = new Dictionary<CLI.EnumArgumentType, string>();
-            if (!ValidateArguments(args))
-                throw new ArgumentException("Parâmetros do comando incorretos.");
-
-            arguments.Add(EnumArgumentType.Text, args[1].Split(new[] { ' ' }, 2)[1].Replace("\"", ""));
-            arguments.Add(EnumArgumentType.Date, args[2].Split()[1]);
-            arguments.Add(EnumArgumentType.Hour, args[3].Split()[1]);
-
-            string errorMessage = HasValidArgumentValues(arguments);
-            if (errorMessage != string.Empty)
-                throw new ArgumentException(errorMessage);
-
             string name = arguments.Values.ElementAt(0);
             string date = arguments.Values.ElementAt(1);
             string hour = arguments.Values.ElementAt(2);
@@ -433,23 +390,19 @@ namespace RSGymPT
             }
 
             Console.WriteLine(message.ToString());
-
-            return isExitApp;
         }
 
-        internal bool CancelRequest(string[] args)
+        internal void CancelRequest(Dictionary<EnumArgumentType, string> arguments)
         {
-
-            bool isExitApp = false;
 
             if (!SessionActive())
                 throw new UnauthorizedAccessException();
 
-            Dictionary<CLI.EnumArgumentType, string> arguments = new Dictionary<CLI.EnumArgumentType, string>();
-            if (!ValidateArguments(args))
-                throw new ArgumentException("Parâmetros do comando incorretos.");
+            // TODO: Review code
+            //if (!ValidateArguments(args))
+            //    throw new ArgumentException("Parâmetros do comando incorretos.");
 
-            arguments.Add(EnumArgumentType.Request, args[1].Split()[1]);
+            //arguments.Add(EnumArgumentType.Request, args[1].Split()[1]);
 
             string errorMessage = HasValidArgumentValues(arguments);
             if (errorMessage != string.Empty)
@@ -474,23 +427,19 @@ namespace RSGymPT
             }
 
             Console.WriteLine(message);
-
-            return isExitApp;
         }
 
-        internal bool FinishRequest(string[] args)
+        internal void FinishRequest(Dictionary<EnumArgumentType, string> arguments)
         {
-
-            bool isExitApp = false;
 
             if (!SessionActive())
                 throw new UnauthorizedAccessException();
 
-            Dictionary<CLI.EnumArgumentType, string> arguments = new Dictionary<CLI.EnumArgumentType, string>();
-            if (!ValidateArguments(args))
-                throw new ArgumentException("Parâmetros do comando incorretos.");
+            // TODO: Review code
+            //if (!ValidateArguments(args))
+            //    throw new ArgumentException("Parâmetros do comando incorretos.");
 
-            arguments.Add(EnumArgumentType.Request, args[1].Split()[1]);
+            //arguments.Add(EnumArgumentType.Request, args[1].Split()[1]);
 
             string errorMessage = HasValidArgumentValues(arguments);
             if (errorMessage != string.Empty)
@@ -514,24 +463,20 @@ namespace RSGymPT
             }
 
             Console.WriteLine(message);
-
-            return isExitApp;
         }
 
-        internal bool SendMessage(string[] args)
+        internal void SendMessage(Dictionary<EnumArgumentType, string> arguments)
         {
-
-            bool isExitApp = false;
 
             if (!SessionActive())
                 throw new UnauthorizedAccessException();
 
-            Dictionary<CLI.EnumArgumentType, string> arguments = new Dictionary<CLI.EnumArgumentType, string>();
-            if (!ValidateArguments(args))
-                throw new ArgumentException("Parâmetros do comando incorretos.");
+            // TODO: Review code
+            //if (!ValidateArguments(args))
+            //    throw new ArgumentException("Parâmetros do comando incorretos.");
 
-            arguments.Add(EnumArgumentType.Request, args[1].Split()[1]);
-            arguments.Add(EnumArgumentType.Text, args[2].Split(new[] { ' ' }, 2)[1].Replace("\"", ""));
+            //arguments.Add(EnumArgumentType.Request, args[1].Split()[1]);
+            //arguments.Add(EnumArgumentType.Text, args[2].Split(new[] { ' ' }, 2)[1].Replace("\"", ""));
 
             string errorMessage = HasValidArgumentValues(arguments);
             if (errorMessage != string.Empty)
@@ -549,7 +494,7 @@ namespace RSGymPT
             }
             else if (requestToCommunicate.RequestStatus != Request.EnumStatus.Agendado)
             {
-                message = $"Não foi possível comunicar falta para o pedido {requestToCommunicate.Id} porque ele não está ativo.";
+                message = $"Não foi possível cominucar falta para o pedido {requestToCommunicate.Id} porque ele não está ativo.";
             }
             else
             {
@@ -557,31 +502,28 @@ namespace RSGymPT
             }
 
             Console.WriteLine(message);
-
-            return isExitApp;
         }
 
-        internal bool GetRequest(string[] args)
+        internal void GetRequest(Dictionary<EnumArgumentType, string> arguments, int requestId)
         {
-
-            bool isExitApp = false;
-
 
             if (!SessionActive())
                 throw new UnauthorizedAccessException();
 
-            Dictionary<CLI.EnumArgumentType, string> arguments = new Dictionary<CLI.EnumArgumentType, string>();
-            if (!ValidateArguments(args))
-                throw new ArgumentException("Parâmetros do comando incorretos.");
+            // TODO: Review code
+            //if (!ValidateArguments(args))
+            //    throw new ArgumentException("Parâmetros do comando incorretos.");
 
-            arguments.Add(EnumArgumentType.Request, args[1].Split()[1]);
+            //arguments.Add(EnumArgumentType.Request, args[1].Split()[1]);
 
             string errorMessage = HasValidArgumentValues(arguments);
             if (errorMessage != string.Empty)
                 throw new ArgumentException(errorMessage);
 
+            //GetRequest(int.Parse(arguments.Values.ElementAt(0)));
+            //Console.WriteLine();
+
             string message;
-            int requestId = int.Parse(arguments.Values.ElementAt(0));
 
             Request requestToShow = ActiveUser.Requests.Find(r => r.Id == requestId);
             if (requestToShow is null)
@@ -594,28 +536,28 @@ namespace RSGymPT
             }
 
             Console.WriteLine(message);
-            Console.WriteLine();
-
-            return isExitApp;
         }
 
-        internal bool ListRequests(string[] args)
+        internal void ListRequests(Dictionary<EnumArgumentType, string> arguments)
         {
-
-            bool isExitApp = false;
 
             if (!SessionActive())
                 throw new UnauthorizedAccessException();
 
-            if (!ValidateArguments(args))
-                throw new ArgumentException("Parâmetros do comando incorretos.");
+            // TODO: Review code
+            //if (!ValidateArguments(args))
+            //    throw new ArgumentException("Parâmetros do comando incorretos.");
 
             if (ActiveUser.Requests.Count == 0)
-                throw new ArgumentException("Não há pedidos para listar.");
-
-            ActiveUser.Requests.ForEach(r => Console.WriteLine($"{r.Get()}\n"));
-
-            return isExitApp;
+            {
+                Console.WriteLine("Não há pedidos para listar.");
+                return;
+            }
+            
+            foreach (var request in ActiveUser.Requests)
+            {
+                GetRequest(arguments, request.Id);
+            }
         }
 
         #endregion
@@ -709,7 +651,7 @@ namespace RSGymPT
 
             // TODO: Use Verbatim string literal to validate full command
             // Ex: login -u username -p password  -> @"login -u \w{1} -p \w{1}"
-            
+            Command currentCommand = Commands.Find(c => c.TheCommand == commandArgs[0]);
             char currentOption;
             bool hasAllArguments;
             bool isValidArgument = false;
@@ -729,7 +671,7 @@ namespace RSGymPT
             {
                 // Verifica se os parâmetros utilizados correspondem aos parâmetros esperados
                 currentOption = char.Parse(commandArgs[i].Split(' ')[0]);
-                isValidArgument = currentCommand.Parameters.ContainsKey($"-{currentOption}");
+                isValidArgument = currentCommand.Parameters.ContainsValue($"-{currentOption}");
 
                 if (!isValidArgument)
                     throw new ArgumentException("Parâmetros inválidos. Por favor verifique o comando executado.");

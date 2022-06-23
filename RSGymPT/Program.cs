@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RSGymPT
@@ -33,9 +34,59 @@ namespace RSGymPT
                         .Select(c => c.Trim())
                         .ToArray();
 
-                    // Não validei se o comando era 'exit' por questão de responsabilidade do método.
-                    // Isto deve ocorrer na CLI
-                    exitApplication = myApp.Run(appCommands);
+                    switch (appCommands[0])
+                    {
+                        case "help":
+                            exitApplication = RunCommandWithoutArgs(myApp.Help);
+                            break;
+
+                        case "exit":
+                            exitApplication = RunCommandWithoutArgs(myApp.Exit);
+                            break;
+
+                        case "clear":
+                            exitApplication = RunCommandWithoutArgs(myApp.Clear);
+                            break;
+
+                        case "login":
+                            //exitApplication = RunCommandWithArgs(arguments, argumentId, myApp.Login);
+                            exitApplication = myApp.Login(appCommands);
+                            break;
+
+                        case "logout":
+                            exitApplication = RunCommandWithoutArgs(myApp.Logout);
+                            break;
+
+                        case "request":
+                            exitApplication = RunCommandWithArgs(appCommands, myApp.CreateRequest);
+                            break;
+
+                        case "cancel":
+                            exitApplication = RunCommandWithArgs(appCommands, myApp.CancelRequest);
+                            break;
+
+                        case "finish":
+                            exitApplication = RunCommandWithArgs(appCommands, myApp.FinishRequest);
+                            break;
+
+                        case "message":
+                            exitApplication = RunCommandWithArgs(appCommands, myApp.SendMessage);
+                            break;
+
+                        case "myrequest":
+                            exitApplication = RunCommandWithArgs(appCommands, myApp.GetRequest);
+                            Console.WriteLine();
+                            break;
+
+                        case "requests":
+                            exitApplication = RunCommandWithArgs(appCommands, myApp.ListRequests);
+                            Console.WriteLine();
+                            break;
+
+                        default:
+                            exitApplication = RunCommandWithoutArgs(myApp.Help);
+                            break;
+                    }
 
                 }
                 catch (UnauthorizedAccessException e)
@@ -62,6 +113,85 @@ namespace RSGymPT
             } while (!exitApplication);
 
         }
+
+        public delegate bool RunTheCommandWithArgs(string[] args);
+
+        public delegate bool RunTheCommandWithoutArgs();
+
+        public static bool RunCommandWithArgs(string[] args, RunTheCommandWithArgs operation)
+        {
+            bool result = operation(args);
+
+            return result;
+        }
+
+        public static bool RunCommandWithoutArgs(RunTheCommandWithoutArgs operation)
+        {
+            bool result = operation();
+
+            return result;
+        }
+
+        //internal static bool Run(CLI app, string[] args)
+        //{
+        //    bool isExit = false;
+        //    Dictionary<CLI.EnumArgumentType, string> arguments = new Dictionary<CLI.EnumArgumentType, string>();
+
+        //    switch (args[0])
+        //    {
+        //        case "help":
+        //            app.Help();
+        //            break;
+
+        //        case "exit":
+        //            isExit = app.Exit(); ;
+        //            break;
+
+        //        case "clear":
+        //            app.Clear();
+        //            break;
+
+        //        case "login":
+        //            app.Login(args);
+        //            break;
+
+        //        case "logout":
+        //            app.Logout();
+        //            break;
+
+        //        case "request":
+        //            app.CreateRequest(arguments);
+        //            break;
+
+        //        case "cancel":
+        //            app.CancelRequest(arguments);
+        //            break;
+
+        //        case "finish":
+        //            app.FinishRequest(arguments);
+        //            break;
+
+        //        case "message":
+        //            app.SendMessage(arguments);
+        //            break;
+
+        //        case "myrequest":
+        //            app.GetRequest(arguments, int.Parse(arguments.Values.ElementAt(0)));
+        //            Console.WriteLine();
+        //            break;
+
+        //        case "requests":
+        //            app.ListRequests(arguments);
+        //            Console.WriteLine();
+        //            break;
+
+        //        default:
+        //            app.Help();
+        //            break;
+        //    }
+
+        //    return isExit;
+        //}
 
         private static void WriteErrorMessage(string message)
         {
