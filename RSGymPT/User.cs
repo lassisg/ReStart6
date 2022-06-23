@@ -11,7 +11,7 @@ namespace RSGymPT
         internal int Id { get; set; }
         internal string UserName { get; set; }
         internal string Password { get; set; }
-        public List<Request> Requests { get; set; }
+        internal List<Request> Requests { get; set; }
 
         #endregion
 
