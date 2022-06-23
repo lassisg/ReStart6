@@ -82,6 +82,9 @@ namespace RSGymPT
                             exitApplication = RunCommandWithArgs(appCommands, myApp.ListRequests);
                             Console.WriteLine();
                             break;
+                        
+                        case "":
+                            break;
 
                         default:
                             exitApplication = RunCommandWithoutArgs(myApp.Help);
