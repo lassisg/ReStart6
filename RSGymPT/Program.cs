@@ -19,9 +19,7 @@ namespace RSGymPT
 
             do
             {
-                string prompt = (myApp.ActiveUser is null) ? "Guest" : myApp.ActiveUser.UserName;
-
-                Console.Write($"{prompt}> ");
+                Console.Write("> ");
                 string userInput = Console.ReadLine();
 
                 try
