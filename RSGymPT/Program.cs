@@ -19,7 +19,9 @@ namespace RSGymPT
 
             do
             {
-                Console.Write("> ");
+                string loggedUser = (myApp.ActiveUser is null) ? "guest" : myApp.ActiveUser.UserName.ToLower();
+                
+                Console.Write($"{loggedUser}> ");
                 string userInput = Console.ReadLine();
 
                 try
