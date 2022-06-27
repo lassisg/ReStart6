@@ -60,51 +60,50 @@ namespace RSGymPT
 
         #region Methods
 
-        internal string Cancel()
+        internal void Cancel()
         {
             RequestStatus = EnumStatus.Cancelado;
             
-            StringBuilder message = new StringBuilder();
+            //StringBuilder message = new StringBuilder();
 
-            message.AppendLine($"O pedido {Id}, de {RequestDate:dd/MM/yyyy HH:mm}, foi cancelado.");
+            //message.AppendLine($"O pedido {Id}, de {RequestDate:dd/MM/yyyy HH:mm}, foi cancelado.");
 
-            return message.ToString();
+            //return message.ToString();
         }
 
-        internal string Finish()
+        internal void Finish()
         {
             RequestStatus = EnumStatus.Finalizado;
             CompletedAt = DateTime.Now;
             Message = "Aula concluída";
 
-            StringBuilder message = new StringBuilder();
+            //StringBuilder message = new StringBuilder();
 
-            message.Append($"O pedido {Id}, de {RequestDate:dd/MM/yyyy}, ");
-            message.AppendLine($"foi finalizado em {CompletedAt:dd/MM/yyyy HH:mm}.");
+            //message.Append($"O pedido {Id}, de {RequestDate:dd/MM/yyyy}, ");
+            //message.AppendLine($"foi finalizado em {CompletedAt:dd/MM/yyyy HH:mm}.");
 
-            return message.ToString();
+            //return message.ToString();
         }
 
-        internal string CommunicateAbsence(string subject)
+        internal void CommunicateAbsence(string subject)
         {
             RequestStatus = EnumStatus.Falta;
             CompletedAt = DateTime.Now;
             Message = subject;
 
-            StringBuilder message = new StringBuilder();
+            //StringBuilder message = new StringBuilder();
 
-            message.Append($"O pedido {Id}, de {RequestDate}, foi marcado como {RequestStatus}, ");
-            message.AppendLine($"em {MessageAt:dd/MM/yyyy HH:mm}, com a mensagem:");
-            message.AppendLine($"'{Message}'.");
+            //message.Append($"O pedido {Id}, de {RequestDate}, foi marcado como {RequestStatus}, ");
+            //message.AppendLine($"em {MessageAt:dd/MM/yyyy HH:mm}, com a mensagem:");
+            //message.AppendLine($"'{Message}'.");
 
-            return message.ToString();
+            //return message.ToString();
         }
 
-        internal string Get()
+        internal void Write()
         {
             StringBuilder message = new StringBuilder();
 
-            message.AppendLine("");
             message.AppendLine("Detalhes do pedido:");
             message.Append("- Nº:".PadRight(13));
             message.AppendLine($"{Id}");
@@ -120,7 +119,9 @@ namespace RSGymPT
             if (RequestStatus == EnumStatus.Finalizado)
                 message.Append($" (finalizada em {CompletedAt:dd/MM/yyyy HH:mm})");
 
-            return message.ToString();
+            message.AppendLine("");
+
+            Console.WriteLine(message.ToString());
         }
 
         #endregion
