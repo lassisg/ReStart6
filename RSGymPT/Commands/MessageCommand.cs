@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace RSGymPT
 {
@@ -23,8 +24,11 @@ namespace RSGymPT
         public bool Execute(string args, List<Request> requests, out Request requestToMessage)
         {
             Console.Clear();
-            string request = args.Split()[2];
-            string subject = args.Split()[4];
+            var matches = Regex.Matches(args, Pattern);
+            string request = matches[0].Groups[Arguments.First(a => a.Key == "-r").Value].Value;
+            string subject = matches[0].Groups[Arguments.First(a => a.Key == "-s").Value].Value;
+            //string request = args.Split()[2];
+            //string subject = args.Split()[4];
 
             bool isValidRequestNumber = int.TryParse(request, out int requestId);
 

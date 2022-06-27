@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace RSGymPT
 {
@@ -24,9 +25,13 @@ namespace RSGymPT
         public bool Execute(string args, List<Request> requests, User activeUser)
         {
             Console.Clear();
-            string name = args.Split()[2];
-            string date = args.Split()[4];
-            string hour = args.Split()[6];
+            var matches = Regex.Matches(args, Pattern);
+            string name = matches[0].Groups[Arguments.First(a => a.Key == "-n").Value].Value;
+            string date = matches[0].Groups[Arguments.First(a => a.Key == "-d").Value].Value;
+            string hour = matches[0].Groups[Arguments.First(a => a.Key == "-h").Value].Value;
+            //string name = args.Split()[2];
+            //string date = args.Split()[4];
+            //string hour = args.Split()[6];
             
             bool isValidDay = date.IsValidDay();
             bool isValidHour = hour.IsValidHour();

@@ -19,11 +19,11 @@ namespace RSGymPT
             List<Request> Requests = Repository.GetAllRequests();
             
 
-            ICommand currCommand;
+            ICommand currentCommand;
             User activeUser = null;
             bool exitApplication = false;
             bool success = false;
-            bool isValid = false;
+            bool isValidCommand = false;
             string message = string.Empty;
 
             Console.Title = "RSGymPT";
@@ -38,24 +38,24 @@ namespace RSGymPT
                 try
                 {
 
-                    currCommand = Commands.GetCommandByName(userInput.Split()[0]);
+                    currentCommand = Commands.GetCommandByName(userInput.Split()[0]);
 
-                    switch (currCommand)
+                    switch (currentCommand)
                     {
                         case HelpCommand helpCommand:
-                            isValid = helpCommand.IsValid(userInput);
+                            isValidCommand = helpCommand.IsValid(userInput);
                             bool showRestricted = activeUser != null;
-                            success = isValid && helpCommand.Execute(userInput, Commands, showRestricted);
+                            success = isValidCommand && helpCommand.Execute(userInput, Commands, showRestricted);
                             break;
 
                         case ExitCommand exitCommand:
-                            isValid = exitCommand.IsValid(userInput);
-                            success = isValid && exitCommand.Execute(userInput, out exitApplication);
+                            isValidCommand = exitCommand.IsValid(userInput);
+                            success = isValidCommand && exitCommand.Execute(userInput, out exitApplication);
                             break;
 
                         case LoginCommand login:
-                            isValid = login.IsValid(userInput);
-                            if (!isValid)
+                            isValidCommand = login.IsValid(userInput);
+                            if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             if (activeUser != null)
@@ -71,8 +71,8 @@ namespace RSGymPT
                             break;
 
                         case RequestCommand request:
-                            isValid = request.IsValid(userInput);
-                            if (!isValid)
+                            isValidCommand = request.IsValid(userInput);
+                            if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             success = request.Execute(userInput, Requests, activeUser);
@@ -83,12 +83,12 @@ namespace RSGymPT
                             break;
 
                         case CancelCommand cancelCommand:
-                            isValid = cancelCommand.IsValid(userInput);
-                            if (!isValid)
+                            isValidCommand = cancelCommand.IsValid(userInput);
+                            if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             Request requestToCancel = new Request();
-                            success = isValid && cancelCommand.Execute(userInput, activeUser.Requests, out requestToCancel);
+                            success = isValidCommand && cancelCommand.Execute(userInput, activeUser.Requests, out requestToCancel);
 
                             if (!success)
                             {
@@ -105,12 +105,12 @@ namespace RSGymPT
                             break;
 
                         case FinishCommand finishCommand:
-                            isValid = finishCommand.IsValid(userInput);
-                            if (!isValid)
+                            isValidCommand = finishCommand.IsValid(userInput);
+                            if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             Request requestToFinish = new Request();
-                            success = isValid && finishCommand.Execute(userInput, activeUser.Requests, out requestToCancel);
+                            success = isValidCommand && finishCommand.Execute(userInput, activeUser.Requests, out requestToCancel);
 
                             if (!success)
                             {
@@ -127,12 +127,12 @@ namespace RSGymPT
                             break;
 
                         case MessageCommand messageCommand:
-                            isValid = messageCommand.IsValid(userInput);
-                            if (!isValid)
+                            isValidCommand = messageCommand.IsValid(userInput);
+                            if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             Request requestToMessage = new Request();
-                            success = isValid && messageCommand.Execute(userInput, activeUser.Requests, out requestToMessage);
+                            success = isValidCommand && messageCommand.Execute(userInput, activeUser.Requests, out requestToMessage);
 
                             if (!success)
                             {
@@ -151,12 +151,12 @@ namespace RSGymPT
                             break;
 
                         case MyRequestCommand myRequestCommand:
-                            isValid = myRequestCommand.IsValid(userInput);
-                            if (!isValid)
+                            isValidCommand = myRequestCommand.IsValid(userInput);
+                            if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             Request requestToShow = new Request();
-                            success = isValid && myRequestCommand.Execute(userInput, activeUser.Requests);
+                            success = isValidCommand && myRequestCommand.Execute(userInput, activeUser.Requests);
 
                             if (!success)
                             {
@@ -167,11 +167,11 @@ namespace RSGymPT
                             break;
 
                         case RequestsCommand requestsCommand:
-                            isValid = requestsCommand.IsValid(userInput);
-                            if (!isValid)
+                            isValidCommand = requestsCommand.IsValid(userInput);
+                            if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
-                            success = isValid && requestsCommand.Execute(userInput, activeUser.Requests);
+                            success = isValidCommand && requestsCommand.Execute(userInput, activeUser.Requests);
 
                             if (!success)
                             {
@@ -182,8 +182,8 @@ namespace RSGymPT
                             break;
 
                         case LogoutCommand logoutCommand:
-                            isValid = logoutCommand.IsValid(userInput);
-                            success = isValid && logoutCommand.Execute(userInput);
+                            isValidCommand = logoutCommand.IsValid(userInput);
+                            success = isValidCommand && logoutCommand.Execute(userInput);
                             activeUser = success ? null : activeUser;
 
                             break;
@@ -199,8 +199,8 @@ namespace RSGymPT
                         //    break;
 
                         default:
-                            isValid = currCommand.IsValid(userInput);
-                            success = isValid && currCommand.Execute(userInput);
+                            isValidCommand = currentCommand.IsValid(userInput);
+                            success = isValidCommand && currentCommand.Execute(userInput);
                             break;
                     }
 
@@ -228,7 +228,7 @@ namespace RSGymPT
                 finally
                 {
                     success = false;
-                    currCommand = null;
+                    currentCommand = null;
                     message = string.Empty;
                 }
 

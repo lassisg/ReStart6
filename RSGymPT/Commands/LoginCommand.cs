@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace RSGymPT
 {
@@ -24,8 +25,12 @@ namespace RSGymPT
         public bool Execute(string args, out User currentUser)
         {
             Console.Clear();
-            string userName = args.Split()[2];
-            string password = args.Split()[4];
+            var matches = Regex.Matches(args, Pattern);
+            string userName = matches[0].Groups[Arguments.First(a => a.Key == "-u").Value].Value;
+            string password = matches[0].Groups[Arguments.First(a => a.Key == "-p").Value].Value;
+            //string userName = args.Split()[2];
+            //string password = args.Split()[4];
+
             
             // 1. Valido se existe user
             currentUser = Repository
