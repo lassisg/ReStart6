@@ -8,209 +8,234 @@ namespace RSGymPT
     internal class Program
     {
 
+
         static void Main(string[] args)
         {
 
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            CLI myApp = new CLI();
-            bool exitApplication;
+            List<Command> Commands = Repository.GetCommands();
+            List<User> Users = Repository.GetAllUsers();
+            List<Request> Requests = Repository.GetAllRequests();
+            
+
+            ICommand currCommand;
+            User activeUser = null;
+            bool exitApplication = false;
+            bool success = false;
+            bool isValid = false;
+            string message = string.Empty;
 
             Console.Title = "RSGymPT";
 
             do
             {
-                string loggedUser = (myApp.ActiveUser is null) ? "guest" : myApp.ActiveUser.UserName.ToLower();
-                
+                string loggedUser = (activeUser is null) ? "guest" : activeUser.Name.ToLower();
+
                 Console.Write($"{loggedUser}> ");
                 string userInput = Console.ReadLine();
 
                 try
                 {
-                    // Fiz split no '-' porque me permite separar o comando no índice 0
-                    //   - As opções estarão nos índices seguintes (quando houver)
-                    string[] appCommands = userInput
-                        .Split('-')
-                        .Select(c => c.Trim())
-                        .ToArray();
 
-                    switch (appCommands[0])
+                    currCommand = Commands.GetCommandByName(userInput.Split()[0]);
+
+                    switch (currCommand)
                     {
-                        case "help":
-                            exitApplication = RunCommandWithoutArgs(myApp.Help);
+                        case HelpCommand helpCommand:
+                            isValid = helpCommand.IsValid(userInput);
+                            bool showRestricted = activeUser != null;
+                            success = isValid && helpCommand.Execute(userInput, Commands, showRestricted);
                             break;
 
-                        case "exit":
-                            exitApplication = RunCommandWithoutArgs(myApp.Exit);
+                        case ExitCommand exitCommand:
+                            isValid = exitCommand.IsValid(userInput);
+                            success = isValid && exitCommand.Execute(userInput, out exitApplication);
                             break;
 
-                        case "clear":
-                            exitApplication = RunCommandWithoutArgs(myApp.Clear);
+                        case LoginCommand login:
+                            isValid = login.IsValid(userInput);
+                            if (!isValid)
+                                throw new ArgumentException("Parâmetros do comando incorretos.");
+
+                            if (activeUser != null)
+                                throw new UnauthorizedAccessException("Não foi possível efetuar o login. Já há um utilizador com sessão ativa.");
+
+                            success = login.Execute(userInput, out activeUser);
+
+                            if (!success)
+                                throw new UnauthorizedAccessException("Utilizador ou palavra passe errado. Verifique os dados de login.");
+                                
+                            Utils.WriteSuccessMessage($"Seja bem vindo, {activeUser.Name}.");
+
                             break;
 
-                        case "login":
-                            //exitApplication = RunCommandWithArgs(arguments, argumentId, myApp.Login);
-                            exitApplication = myApp.Login(appCommands);
+                        case RequestCommand request:
+                            isValid = request.IsValid(userInput);
+                            if (!isValid)
+                                throw new ArgumentException("Parâmetros do comando incorretos.");
+
+                            success = request.Execute(userInput, Requests, activeUser);
+
+                            int lastId = Requests.Count();
+                            Requests.FirstOrDefault(r => r.Id == lastId).WriteFeedbackMessage(success);
+
                             break;
 
-                        case "logout":
-                            exitApplication = RunCommandWithoutArgs(myApp.Logout);
+                        case CancelCommand cancelCommand:
+                            isValid = cancelCommand.IsValid(userInput);
+                            if (!isValid)
+                                throw new ArgumentException("Parâmetros do comando incorretos.");
+
+                            Request requestToCancel = new Request();
+                            success = isValid && cancelCommand.Execute(userInput, activeUser.Requests, out requestToCancel);
+
+                            if (!success)
+                            {
+                                message = $"O pedido não foi localizado ou não está ativo.";
+                                Utils.WriteWarningMessage(message);
+                            }
+                            else
+                            {
+                                Requests.First(r => r.Id == requestToCancel.Id).Cancel();
+                                message = $"O pedido {requestToCancel.Id}, de {requestToCancel.RequestDate:dd/MM/yyyy HH:mm}, foi cancelado.";
+                                Utils.WriteSuccessMessage(message);
+                            }
+
                             break;
 
-                        case "request":
-                            exitApplication = RunCommandWithArgs(appCommands, myApp.CreateRequest);
+                        case FinishCommand finishCommand:
+                            isValid = finishCommand.IsValid(userInput);
+                            if (!isValid)
+                                throw new ArgumentException("Parâmetros do comando incorretos.");
+
+                            Request requestToFinish = new Request();
+                            success = isValid && finishCommand.Execute(userInput, activeUser.Requests, out requestToCancel);
+
+                            if (!success)
+                            {
+                                message = $"O pedido não foi localizado ou não está ativo.";
+                                Utils.WriteWarningMessage(message);
+                            }
+                            else
+                            {
+                                message = $"O pedido {requestToFinish.Id}, de {requestToFinish.RequestDate:dd/MM/yyyy}, ";
+                                message += $"foi finalizado em {requestToFinish.CompletedAt:dd/MM/yyyy HH:mm}.";
+                                Utils.WriteSuccessMessage(message);
+                            }
+
                             break;
 
-                        case "cancel":
-                            exitApplication = RunCommandWithArgs(appCommands, myApp.CancelRequest);
+                        case MessageCommand messageCommand:
+                            isValid = messageCommand.IsValid(userInput);
+                            if (!isValid)
+                                throw new ArgumentException("Parâmetros do comando incorretos.");
+
+                            Request requestToMessage = new Request();
+                            success = isValid && messageCommand.Execute(userInput, activeUser.Requests, out requestToMessage);
+
+                            if (!success)
+                            {
+                                message = "O pedido não foi localizado ou não está ativo.";
+                                Utils.WriteWarningMessage(message);
+                            }
+                            else
+                            {
+                                message = $"O pedido {requestToMessage.Id}, de {requestToMessage.RequestDate}, ";
+                                message += $"foi marcado como {requestToMessage.RequestStatus}, ";
+                                message += $"em {requestToMessage.MessageAt:dd/MM/yyyy HH:mm}, com a mensagem:\n";
+                                message += $"'{requestToMessage.Message}'.";
+                                Utils.WriteSuccessMessage(message);
+                            }
+
                             break;
 
-                        case "finish":
-                            exitApplication = RunCommandWithArgs(appCommands, myApp.FinishRequest);
+                        case MyRequestCommand myRequestCommand:
+                            isValid = myRequestCommand.IsValid(userInput);
+                            if (!isValid)
+                                throw new ArgumentException("Parâmetros do comando incorretos.");
+
+                            Request requestToShow = new Request();
+                            success = isValid && myRequestCommand.Execute(userInput, activeUser.Requests);
+
+                            if (!success)
+                            {
+                                message = "O pedido não foi localizado na sua lista de pedidos.";
+                                Utils.WriteWarningMessage(message);
+                            }
+
                             break;
 
-                        case "message":
-                            exitApplication = RunCommandWithArgs(appCommands, myApp.SendMessage);
+                        case RequestsCommand requestsCommand:
+                            isValid = requestsCommand.IsValid(userInput);
+                            if (!isValid)
+                                throw new ArgumentException("Parâmetros do comando incorretos.");
+
+                            success = isValid && requestsCommand.Execute(userInput, activeUser.Requests);
+
+                            if (!success)
+                            {
+                                message = "O pedido não foi localizado na sua lista de pedidos.";
+                                Utils.WriteWarningMessage(message);
+                            }
+
                             break;
 
-                        case "myrequest":
-                            exitApplication = RunCommandWithArgs(appCommands, myApp.GetRequest);
-                            Console.WriteLine();
+                        case LogoutCommand logoutCommand:
+                            isValid = logoutCommand.IsValid(userInput);
+                            success = isValid && logoutCommand.Execute(userInput);
+                            activeUser = success ? null : activeUser;
+
                             break;
 
-                        case "requests":
-                            exitApplication = RunCommandWithArgs(appCommands, myApp.ListRequests);
-                            Console.WriteLine();
-                            break;
-                        
-                        case "":
-                            break;
+                        //case ClearCommand clearCommand:
+                        //    isValid = clearCommand.IsValid(userInput);
+                        //    success = isValid && clearCommand.Execute(userInput);
+                        //    break;
+
+                        //case InvalidCommand invalidCommand:
+                        //    myApp.Commands.First(c => c.Name == "clear").Execute(userInput);
+                        //    success = invalidCommand.Execute(userInput);
+                        //    break;
 
                         default:
-                            exitApplication = RunCommandWithoutArgs(myApp.Help);
+                            isValid = currCommand.IsValid(userInput);
+                            success = isValid && currCommand.Execute(userInput);
                             break;
                     }
 
                 }
                 catch (UnauthorizedAccessException e)
                 {
-                    WriteErrorMessage(e.Message);
+                    Utils.WriteErrorMessage(e.Message);
                     exitApplication = false;
                 }
                 catch (ArgumentException e)
                 {
-                    WriteErrorMessage(e.Message);
+                    Utils.WriteErrorMessage(e.Message);
                     exitApplication = false;
                 }
                 catch (ApplicationException e)
                 {
-                    WriteErrorMessage(e.Message);
+                    Utils.WriteErrorMessage(e.Message);
                     exitApplication = false;
                 }
                 catch (Exception e)
                 {
-                    WriteErrorMessage(e.Message);
+                    Utils.WriteErrorMessage(e.Message);
                     exitApplication = false;
+                }
+                finally
+                {
+                    success = false;
+                    currCommand = null;
+                    message = string.Empty;
                 }
 
             } while (!exitApplication);
 
         }
-
-        public delegate bool RunTheCommandWithArgs(string[] args);
-
-        public delegate bool RunTheCommandWithoutArgs();
-
-        public static bool RunCommandWithArgs(string[] args, RunTheCommandWithArgs operation)
-        {
-            bool result = operation(args);
-
-            return result;
-        }
-
-        public static bool RunCommandWithoutArgs(RunTheCommandWithoutArgs operation)
-        {
-            bool result = operation();
-
-            return result;
-        }
-
-        //internal static bool Run(CLI app, string[] args)
-        //{
-        //    bool isExit = false;
-        //    Dictionary<CLI.EnumArgumentType, string> arguments = new Dictionary<CLI.EnumArgumentType, string>();
-
-        //    switch (args[0])
-        //    {
-        //        case "help":
-        //            app.Help();
-        //            break;
-
-        //        case "exit":
-        //            isExit = app.Exit(); ;
-        //            break;
-
-        //        case "clear":
-        //            app.Clear();
-        //            break;
-
-        //        case "login":
-        //            app.Login(args);
-        //            break;
-
-        //        case "logout":
-        //            app.Logout();
-        //            break;
-
-        //        case "request":
-        //            app.CreateRequest(arguments);
-        //            break;
-
-        //        case "cancel":
-        //            app.CancelRequest(arguments);
-        //            break;
-
-        //        case "finish":
-        //            app.FinishRequest(arguments);
-        //            break;
-
-        //        case "message":
-        //            app.SendMessage(arguments);
-        //            break;
-
-        //        case "myrequest":
-        //            app.GetRequest(arguments, int.Parse(arguments.Values.ElementAt(0)));
-        //            Console.WriteLine();
-        //            break;
-
-        //        case "requests":
-        //            app.ListRequests(arguments);
-        //            Console.WriteLine();
-        //            break;
-
-        //        default:
-        //            app.Help();
-        //            break;
-        //    }
-
-        //    return isExit;
-        //}
-
-        private static void WriteErrorMessage(string message)
-        {
-            string separator = new String('-', 7);
-
-            Console.ForegroundColor = ConsoleColor.Red;
-
-            Console.WriteLine("\nERRO:");
-            
-            Console.ResetColor();
-            
-            Console.WriteLine(message);
-            
-            Console.WriteLine($"{separator}\n");
-        }
-
+        
     }
 
 }
