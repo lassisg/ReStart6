@@ -43,19 +43,37 @@ namespace RSGymPT
                     switch (currCommand)
                     {
                         case HelpCommand helpCommand:
-                            isValid = helpCommand.IsValid(userInput);
+                            // ToDo: Persue the following code
+                            //success = helpCommand
+                            //    .IsValidCommand(userInput)    // Retorna bool
+                            //    .Execute()                    // Retorna bool
+
+                            isValidCommand = helpCommand.IsValid(userInput);
                             bool showRestricted = activeUser != null;
                             success = isValid && helpCommand.Execute(userInput, Commands, showRestricted);
                             break;
 
                         case ExitCommand exitCommand:
-                            isValid = exitCommand.IsValid(userInput);
-                            success = isValid && exitCommand.Execute(userInput, out exitApplication);
+                            // ToDo: Persue the following code
+                            //success = exitCommand
+                            //    .IsValidCommand(userInput)    // Retorna bool
+                            //    .Execute()                    // Retorna bool
+
+                            isValidCommand = exitCommand.IsValid(userInput);
+                            success = isValidCommand && exitCommand.Execute(userInput, out exitApplication);
                             break;
 
                         case LoginCommand login:
-                            isValid = login.IsValid(userInput);
-                            if (!isValid)
+                            // ToDo: Persue the following code
+                            //success = login
+                            //    .IsValidCommand(userInput)    // Retorna bool
+                            //    .HasValidArguments(userInput) // Retorna bool
+                            //    .CheckSession(userInput)      // Retorna bool
+                            //    .Execute()                    // Retorna User
+                            //    .UpdateUsers();               // Retorna bool
+
+                            isValidCommand = login.IsValid(userInput);
+                            if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             if (activeUser != null)
@@ -71,8 +89,17 @@ namespace RSGymPT
                             break;
 
                         case RequestCommand request:
-                            isValid = request.IsValid(userInput);
-                            if (!isValid)
+                            // ToDo: Persue the following code
+                            //success = request
+                            //    .IsValidCommand(userInput)    // Retorna bool
+                            //    .HasValidArguments(userInput) // Retorna bool
+                            //    .CheckSession(userInput)      // Retorna bool
+                            //    .Execute(userInput)           // Retorna User
+                            //    .UpdateUsers();               // Retorna Request
+                            //    .UpdateRequests();            // Retorna bool
+
+                            isValidCommand = request.IsValid(userInput);
+                            if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             success = request.Execute(userInput, Requests, activeUser);
@@ -83,8 +110,15 @@ namespace RSGymPT
                             break;
 
                         case CancelCommand cancelCommand:
-                            isValid = cancelCommand.IsValid(userInput);
-                            if (!isValid)
+                            // ToDo: Persue the following code
+                            //success = cancelCommand
+                            //    .IsValidCommand(userInput)    // Retorna bool
+                            //    .HasValidArguments(userInput) // Retorna bool
+                            //    .CheckSession(userInput)      // Retorna bool
+                            //    .Execute(userInput)           // Retorna Request
+                            //    .UpdateRequests();            // Retorna bool
+                            isValidCommand = cancelCommand.IsValid(userInput);
+                            if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             Request requestToCancel = new Request();
@@ -105,8 +139,16 @@ namespace RSGymPT
                             break;
 
                         case FinishCommand finishCommand:
-                            isValid = finishCommand.IsValid(userInput);
-                            if (!isValid)
+                            // ToDo: Persue the following code
+                            //success = finishCommand
+                            //    .IsValidCommand(userInput)    // Retorna bool
+                            //    .HasValidArguments(userInput) // Retorna bool
+                            //    .CheckSession(userInput)      // Retorna bool
+                            //    .Execute(userInput)           // Retorna Request
+                            //    .UpdateRequests();            // Retorna bool
+
+                            isValidCommand = finishCommand.IsValid(userInput);
+                            if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             Request requestToFinish = new Request();
@@ -127,8 +169,16 @@ namespace RSGymPT
                             break;
 
                         case MessageCommand messageCommand:
-                            isValid = messageCommand.IsValid(userInput);
-                            if (!isValid)
+                            // ToDo: Persue the following code
+                            //success = messageCommand
+                            //    .IsValidCommand(userInput)    // Retorna bool
+                            //    .HasValidArguments(userInput) // Retorna bool
+                            //    .CheckSession(userInput)      // Retorna bool
+                            //    .Execute(userInput)           // Retorna Request
+                            //    .UpdateRequests();            // Retorna bool
+
+                            isValidCommand = messageCommand.IsValid(userInput);
+                            if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             Request requestToMessage = new Request();
@@ -151,8 +201,16 @@ namespace RSGymPT
                             break;
 
                         case MyRequestCommand myRequestCommand:
-                            isValid = myRequestCommand.IsValid(userInput);
-                            if (!isValid)
+                            // ToDo: Persue the following code
+                            //success = myRequestCommand
+                            //    .IsValidCommand(userInput)    // Retorna bool
+                            //    .HasValidArguments(userInput) // Retorna bool
+                            //    .CheckSession(userInput)      // Retorna bool
+                            //    .Execute(userInput)           // Retorna Request
+                            //    .UpdateRequests();            // Retorna bool
+
+                            isValidCommand = myRequestCommand.IsValid(userInput);
+                            if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             Request requestToShow = new Request();
@@ -167,8 +225,16 @@ namespace RSGymPT
                             break;
 
                         case RequestsCommand requestsCommand:
-                            isValid = requestsCommand.IsValid(userInput);
-                            if (!isValid)
+                            // ToDo: Persue the following code
+                            //success = requestsCommand
+                            //    .IsValidCommand(userInput)    // Retorna bool
+                            //    .HasValidArguments(userInput) // Retorna bool
+                            //    .CheckSession(userInput)      // Retorna bool
+                            //    .Execute(userInput)           // Retorna Request
+                            //    .UpdateRequests();            // Retorna bool
+
+                            isValidCommand = requestsCommand.IsValid(userInput);
+                            if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             success = isValid && requestsCommand.Execute(userInput, activeUser.Requests);
@@ -182,8 +248,15 @@ namespace RSGymPT
                             break;
 
                         case LogoutCommand logoutCommand:
-                            isValid = logoutCommand.IsValid(userInput);
-                            success = isValid && logoutCommand.Execute(userInput);
+                            // ToDo: Persue the following code
+                            //success = logoutCommand
+                            //    .IsValidCommand(userInput)    // Retorna bool
+                            //    .HasValidArguments(userInput) // Retorna bool
+                            //    .CheckSession(userInput)      // Retorna bool
+                            //    .UpdateRequests();            // Retorna bool
+
+                            isValidCommand = logoutCommand.IsValid(userInput);
+                            success = isValidCommand && logoutCommand.Execute(userInput);
                             activeUser = success ? null : activeUser;
 
                             break;
@@ -199,29 +272,43 @@ namespace RSGymPT
                         //    break;
 
                         default:
-                            isValid = currCommand.IsValid(userInput);
-                            success = isValid && currCommand.Execute(userInput);
+                            // ToDo: Persue the following code
+                            //success = currentCommand
+                            //    .IsValidCommand(userInput)    // Retorna bool
+                            //    .HasValidArguments(userInput) // Retorna bool
+
+                            isValidCommand = currentCommand.IsValid(userInput);
+                            success = isValidCommand && currentCommand.Execute(userInput);
                             break;
                     }
 
                 }
-                catch (UnauthorizedAccessException e)
-                {
-                    Utils.WriteErrorMessage(e.Message);
-                    exitApplication = false;
-                }
-                catch (ArgumentException e)
-                {
-                    Utils.WriteErrorMessage(e.Message);
-                    exitApplication = false;
-                }
-                catch (ApplicationException e)
-                {
-                    Utils.WriteErrorMessage(e.Message);
-                    exitApplication = false;
-                }
+                //catch (UnauthorizedAccessException e)
+                //{
+                //    Utils.WriteErrorMessage(e.Message);
+                //    exitApplication = false;
+                //}
+                //catch (ArgumentException e)
+                //{
+                //    Utils.WriteErrorMessage(e.Message);
+                //    exitApplication = false;
+                //}
+                //catch (ApplicationException e)
+                //{
+                //    Utils.WriteErrorMessage(e.Message);
+                //    exitApplication = false;
+                //}
                 catch (Exception e)
                 {
+                    //switch (e.GetType().Name)
+                    //{
+                    //    case "ArgumentException":
+                    //        Console.WriteLine(e.Message);
+                    //        break;
+
+                    //    default:
+                    //        break;
+                    //}
                     Utils.WriteErrorMessage(e.Message);
                     exitApplication = false;
                 }

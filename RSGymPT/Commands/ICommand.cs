@@ -3,18 +3,9 @@
 namespace RSGymPT
 {
 
-    internal interface ICommand
+    internal interface ICommand : IBaseCommand
     {
-        string Name { get; }
-
-        string HelpText { get; }
-
-        bool IsPrivileged { get; }
-
-        Dictionary<string, string> Arguments { get; }
         
-        string Pattern { get; }
-
         bool Execute(string args);
         
         bool IsValid(string args);

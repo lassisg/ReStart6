@@ -55,6 +55,8 @@
     <Compile Include="Commands\MyRequestCommand.cs" />
     <Compile Include="DataAccess\Repository.cs" />
     <Compile Include="Commands\LogoutCommand.cs" />
+    <Compile Include="IBaseCommand.cs" />
+    <Compile Include="IUserCommand.cs" />
     <Compile Include="Models\Request.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Program.cs" />
