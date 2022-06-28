@@ -19,11 +19,11 @@ namespace RSGymPT
             List<Request> Requests = Repository.GetAllRequests();
             
 
-            ICommand currCommand;
+            ICommand currentCommand;
             User activeUser = null;
             bool exitApplication = false;
             bool success = false;
-            bool isValid = false;
+            bool isValidCommand = false;
             string message = string.Empty;
 
             Console.Title = "RSGymPT";
@@ -38,9 +38,9 @@ namespace RSGymPT
                 try
                 {
 
-                    currCommand = Commands.GetCommandByName(userInput.Split()[0]);
+                    currentCommand = Commands.GetCommandByName(userInput.Split()[0]);
 
-                    switch (currCommand)
+                    switch (currentCommand)
                     {
                         case HelpCommand helpCommand:
                             // ToDo: Persue the following code
@@ -50,7 +50,7 @@ namespace RSGymPT
 
                             isValidCommand = helpCommand.IsValid(userInput);
                             bool showRestricted = activeUser != null;
-                            success = isValid && helpCommand.Execute(userInput, Commands, showRestricted);
+                            success = isValidCommand && helpCommand.Execute(userInput, Commands, showRestricted);
                             break;
 
                         case ExitCommand exitCommand:
@@ -122,7 +122,7 @@ namespace RSGymPT
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             Request requestToCancel = new Request();
-                            success = isValid && cancelCommand.Execute(userInput, activeUser.Requests, out requestToCancel);
+                            success = isValidCommand && cancelCommand.Execute(userInput, activeUser.Requests, out requestToCancel);
 
                             if (!success)
                             {
@@ -152,7 +152,7 @@ namespace RSGymPT
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             Request requestToFinish = new Request();
-                            success = isValid && finishCommand.Execute(userInput, activeUser.Requests, out requestToCancel);
+                            success = isValidCommand && finishCommand.Execute(userInput, activeUser.Requests, out requestToCancel);
 
                             if (!success)
                             {
@@ -182,7 +182,7 @@ namespace RSGymPT
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             Request requestToMessage = new Request();
-                            success = isValid && messageCommand.Execute(userInput, activeUser.Requests, out requestToMessage);
+                            success = isValidCommand && messageCommand.Execute(userInput, activeUser.Requests, out requestToMessage);
 
                             if (!success)
                             {
@@ -214,7 +214,7 @@ namespace RSGymPT
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
                             Request requestToShow = new Request();
-                            success = isValid && myRequestCommand.Execute(userInput, activeUser.Requests);
+                            success = isValidCommand && myRequestCommand.Execute(userInput, activeUser.Requests);
 
                             if (!success)
                             {
@@ -237,7 +237,7 @@ namespace RSGymPT
                             if (!isValidCommand)
                                 throw new ArgumentException("Parâmetros do comando incorretos.");
 
-                            success = isValid && requestsCommand.Execute(userInput, activeUser.Requests);
+                            success = isValidCommand && requestsCommand.Execute(userInput, activeUser.Requests);
 
                             if (!success)
                             {
@@ -315,7 +315,7 @@ namespace RSGymPT
                 finally
                 {
                     success = false;
-                    currCommand = null;
+                    currentCommand = null;
                     message = string.Empty;
                 }
 
