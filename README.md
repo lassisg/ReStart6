@@ -18,22 +18,22 @@ A CLI application has great flexibility in executing commands. Although initiall
 
 Whenever the command is wrong, the list of available commands should be displayed.
 
-### Comandos CLI Gerais
+### CLI general commands
 
-| Comando                           | Ações                                                              |
-| --------------------------------- | ------------------------------------------------------------------ |
-| help                              | Listar os comandos disponíveis na CLI.                             |
-| exit                              | Sair da aplicação.                                                 |
-| clear                             | Limpar a consola.                                                  |
-| login -u {username} -p {password} | Fazer o login na aplicação.<br>Considere 2 utilizadores fictícios. |
+| Command                           | Actions                                              |
+| --------------------------------- | ---------------------------------------------------- |
+| help                              | List available commands.                             |
+| exit                              | Exit application.                                    |
+| clear                             | Clear console.                                       |
+| login -u {username} -p {password} | Login in application.<br>Consider 2 fictional users. |
 
-### Comandos CLI do Utilizador
+### CLI user commands
 
-| Comando                                | Ações                                                                                                         |
+| Command                                | Actions                                                                                                       |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| request -n {nome} -d {data} -h {horas} | Fazer o pedido do PT indicando: nome, dia e horas.<br>Não pode haver pedidos duplicados.                      |
-| cancel -r {nº pedido}                  | Anular um pedido.<br>Validar a existência do pedido.                                                          |
-| finish -r {nº pedido}                  | Mensagem automática com estado ‘aula concluída’, data e horas automáticas.<br>Validar a existência do pedido. |
-| message -r {nº pedido} -s {assunto}    | Mensagem a informar o motivo, data e horas automáticas.<br>Validar a existência do pedido.                    |
-| myrequest -r {nº pedido}               | Listar o pedido efetuado.<br>Validar a existência do pedido.                                                  |
-| requests -a                            | Listar todos os pedidos efetuados.                                                                            |
+| request -n {name} -d {day} -h {hour}   | Make a PT request informing: name, day and hour.<br>It is not allowed to exist duplicates.                    |
+| cancel -r {request nr}                 | Cancel a request.<br>Validate request existence.                                                              |
+| finish -r {request nr}                 | AUtomatic message with 'Finished class' status, automatic date and hour.<br>Validate request existence.       |
+| message -r {request nr} -s {subject}   | Send absence message informing the reason, with automatic date and hour.<br>VValidate request existence.      |
+| myrequest -r {request nr}              | List request info.<br>Validate request existence.                                                             |
+| requests -a                            | List all user requests.                                                                                       |
