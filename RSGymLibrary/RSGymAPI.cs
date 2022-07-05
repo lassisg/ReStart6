@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace RSGymPT
+namespace RSGymLibrary
 {
 
-    internal static class Backend
+    internal static class RSGymAPI
     {
 
         internal static bool ApproveRequest()

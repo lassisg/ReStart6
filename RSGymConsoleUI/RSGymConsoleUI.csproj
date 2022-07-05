@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{990DA46B-814D-4211-B5CB-103F2762CF17}</ProjectGuid>
+    <ProjectGuid>{BD704418-99E6-41D6-BD74-8E70C760EF72}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>RSGymPT</RootNamespace>
-    <AssemblyName>RSGymPT</AssemblyName>
+    <RootNamespace>RSGymConsoleUI</RootNamespace>
+    <AssemblyName>RSGymConsoleUI</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,30 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backend.cs" />
-    <Compile Include="Commands\CancelCommand.cs" />
-    <Compile Include="Commands\ClearCommand.cs" />
-    <Compile Include="Commands\ExitCommand.cs" />
-    <Compile Include="Commands\FinishCommand.cs" />
-    <Compile Include="Commands\HelpCommand.cs" />
-    <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Commands\InvalidCommand.cs" />
-    <Compile Include="Commands\MessageCommand.cs" />
-    <Compile Include="Commands\MyRequestCommand.cs" />
-    <Compile Include="DataAccess\Repository.cs" />
-    <Compile Include="Commands\LogoutCommand.cs" />
-    <Compile Include="Models\Request.cs" />
-    <Compile Include="Commands\Command.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Commands\RequestCommand.cs" />
-    <Compile Include="Commands\RequestsCommand.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Commands\LoginCommand.cs" />
-    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RSGymLibrary\RSGymLibrary.csproj">
+      <Project>{9741512a-13ba-4e88-8e77-55d07c70d5f9}</Project>
+      <Name>RSGymLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
