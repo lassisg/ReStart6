@@ -34,6 +34,6 @@ Whenever the command is wrong, the list of available commands should be displaye
 | request -n {name} -d {day} -h {hour}   | Make a PT request informing: name, day and hour.<br>It is not allowed to exist duplicates.                    |
 | cancel -r {request nr}                 | Cancel a request.<br>Validate request existence.                                                              |
 | finish -r {request nr}                 | AUtomatic message with 'Finished class' status, automatic date and hour.<br>Validate request existence.       |
-| message -r {request nr} -s {subject}   | Send absence message informing the reason, with automatic date and hour.<br>VValidate request existence.      |
+| message -r {request nr} -s {subject}   | Send absence message informing the reason, with automatic date and hour.<br>Validate request existence.       |
 | myrequest -r {request nr}              | List request info.<br>Validate request existence.                                                             |
 | requests -a                            | List all user requests.                                                                                       |
