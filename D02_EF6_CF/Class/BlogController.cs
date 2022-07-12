@@ -29,8 +29,6 @@ namespace D02_EF6_CF
 
             var allBlogs = new List<Blog>();
 
-            // Display all blogs from teh database
-            Console.WriteLine("\n\n------------------------------\nTodos os blogs\n------------------------------");
             using (var db = new BlogContext())
             {
                 allBlogs = db.Blog

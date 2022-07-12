@@ -23,17 +23,30 @@ namespace D02_EF6_CF
 
         }
 
+        public static Post GetPost(int postId)
+        {
+
+            var post = new Post();
+
+            using (var db = new BlogContext())
+            {
+                post = db.Post
+                    .FirstOrDefault(p => p.PostId == postId);
+            }
+
+            return post;
+
+        }
+
         public static List<Post> ListAllByBlogId(int blogId)
         {
 
             var blogPosts = new List<Post>();
 
-            // Display all posts from a given blog in the database
             using (var db = new BlogContext())
             {
                 Blog blog = db.Blog.FirstOrDefault(b => b.BlogId == blogId);
                 
-                Console.WriteLine($"\n\n------------------------------\nTodos os Posts do blog {blog.Name}\n------------------------------");
                 blogPosts = db.Post
                     .Select(p => p)
                     .Where(p => p.BlogId == blog.BlogId)
@@ -50,8 +63,6 @@ namespace D02_EF6_CF
 
             var allPosts = new List<Post>();
 
-            // Display all posts from the database
-            Console.WriteLine("\n\n------------------------------\nTodos os Posts\n------------------------------");
             using (var db = new BlogContext())
             {
                 allPosts = db.Post

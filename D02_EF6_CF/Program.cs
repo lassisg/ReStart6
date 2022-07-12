@@ -26,6 +26,7 @@ namespace D02_EF6_CF
 
                 var blogs = BlogController.ListAll();
 
+                Console.WriteLine("\n\n------------------------------\nTodos os blogs\n------------------------------");
                 blogs.ForEach(b => Console.WriteLine($"{b.BlogId} - {b.Name}"));
 
                 // Create and save a new Blog
@@ -51,7 +52,9 @@ namespace D02_EF6_CF
 
                     blog.Posts.Add(post);
                     post.Create();
-                    PostController.ListAll();
+
+                    Console.WriteLine("\n\n------------------------------\nPost criado\n------------------------------");
+                    Console.WriteLine($"{post.PostId} - {post.Title}\n{post.Content}");
                 }
 
             }
