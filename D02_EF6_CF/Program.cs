@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace D02_EF6_CF
 {
@@ -13,33 +10,58 @@ namespace D02_EF6_CF
         static void Main(string[] args)
         {
 
-            using (var db = new BlogContext())
+            try
             {
 
                 // Create and save a new Blog
-                Console.Write("Digite o nome do novo blog: ");
+                Console.Write("Digite o nome do novo blog (pressione 'Enter' para seguir sem criar novo blog): ");
                 var name = Console.ReadLine();
-
                 var blog = new Blog();
 
-                blog.Name = name;
-
-                db.Blog.Add(blog);
-                
-                db.SaveChanges();
-
-                // Display all blgs from teh database
-                var query = db.Blog.Select(b => b).OrderBy(b => b.Name);
-
-                Console.WriteLine("\n\n------------------------------\nTodos os blogs\n------------------------------");
-
-                foreach (var item in query)
+                if (name != string.Empty)
                 {
-                    Console.WriteLine(item.Name);
+                    blog.Name = name;
+                    blog.Create();
                 }
 
-                Console.ReadLine();
+                var blogs = BlogController.ListAll();
 
+                blogs.ForEach(b => Console.WriteLine($"{b.BlogId} - {b.Name}"));
+
+                // Create and save a new Blog
+                Console.Write("\n\nDigite o índice do Blog para o qual deseja incluir um post: ");
+                var selectedBlog = Console.ReadLine();
+                _ = int.TryParse(selectedBlog, out int blogId);
+
+                if (blogs.Any(b => b.BlogId == blogId))
+                {
+                    // Create and save a new Post
+                    Console.Write("Digite o títlo do novo post no blog: ");
+                    var title = Console.ReadLine();
+
+                    Console.WriteLine("Digite o conteúdo do novo post:");
+                    var content = Console.ReadLine();
+
+                    var post = new Post
+                    {
+                        Title = title,
+                        BlogId = blogId,
+                        Content = content
+                    };
+
+                    blog.Posts.Add(post);
+                    post.Create();
+                    PostController.ListAll();
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Ocorreu um erro!\n{e.Message}\n");
+            }
+            finally
+            {
+                Console.ReadLine();
             }
 
         }

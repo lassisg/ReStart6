@@ -54,9 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Blog.cs" />
+    <Compile Include="Class\BlogController.cs" />
     <Compile Include="Class\Post.cs" />
+    <Compile Include="Class\PostController.cs" />
     <Compile Include="DbContext\BlogContext.cs" />
-    <Compile Include="DbContext\PlurarizingTableNameConventions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
