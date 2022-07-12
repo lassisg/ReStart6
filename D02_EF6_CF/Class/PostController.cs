@@ -45,19 +45,22 @@ namespace D02_EF6_CF
 
         }
 
-        public static void ListAll()
+        public static List<Post> ListAll()
         {
+
+            var allPosts = new List<Post>();
 
             // Display all posts from the database
             Console.WriteLine("\n\n------------------------------\nTodos os Posts\n------------------------------");
             using (var db = new BlogContext())
             {
-                db.Post
+                allPosts = db.Post
                     .Select(p => p)
                     .OrderBy(p => p.Title)
-                    .ToList()
-                    .ForEach(p => Console.WriteLine($"{p.Title}\n{p.Content}"));
+                    .ToList();
             }
+
+            return allPosts;
 
         }
 
