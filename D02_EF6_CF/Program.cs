@@ -50,7 +50,6 @@ namespace D02_EF6_CF
                         Content = content
                     };
 
-                    blog.Posts.Add(post);
                     post.Create();
 
                     Console.WriteLine("\n\n------------------------------\nPost criado\n------------------------------");
