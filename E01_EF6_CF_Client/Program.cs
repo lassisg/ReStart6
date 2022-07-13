@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using E01_EF6_CF_DAL;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using E01_EF6_CF_DAL;
 
 namespace E01_EF6_CF_Client
 {
