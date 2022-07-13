@@ -24,6 +24,10 @@ namespace E01_EF6_CF_DAL
 
         }
 
+        #endregion
+
+        #region Methods
+
         public static Publisher GetPublisherById(int publisherId)
         {
             var publisher = ListAll().FirstOrDefault(p => p.PublisherId == publisherId);
@@ -43,6 +47,22 @@ namespace E01_EF6_CF_DAL
 
             return allPublishers;
 
+        }
+
+        #endregion
+
+        #region User interaction methods
+
+        public static Publisher GetNewPublisher()
+        {
+            Console.Clear();
+            Console.WriteLine("----------------------------------\nAdicionar editora (Enter para sair)\n----------------------------------");
+            Console.Write("Digite o nome da editora: ");
+            string userInput = Console.ReadLine();
+            var publisher = new Publisher();
+            publisher.Name = userInput;
+
+            return publisher;
         }
 
         #endregion

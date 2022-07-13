@@ -14,13 +14,6 @@ namespace E01_EF6_CF_Client
         static void Main(string[] args)
         {
 
-            /*
-            Livros
-            Título          Autor                   ISBN            Editora             Data Pub.
-            Siddharta       Hermann Hesse           9789896602079   D. Quixote          -
-            Escrítica Pop   Miguel Esteves Cardoso  9789722543538   Bertrand Editora    jul/2022
-            */
-
             bool exitApplication = false;
             string userInput;
 
@@ -29,8 +22,7 @@ namespace E01_EF6_CF_Client
 
                 try
                 {
-                    // ToDo: Aplicar princípios SOLID
-
+                    
                     Console.WriteLine("O deseja fazer? (escolha o número da opção desejada, 'Enter' para sair)");
                     Console.WriteLine("1 - Adicionar livro");
                     Console.WriteLine("2 - Adicionar editora");
@@ -45,59 +37,11 @@ namespace E01_EF6_CF_Client
                             break;
 
                         case "1":
-                            Console.Clear();
-                            Console.WriteLine("----------------------------------\nAdicionar livro (Enter para sair)\n----------------------------------");
-                            var book = new Book();
-
-                            Console.Write("\nDigite o título do livro: ");
-                            userInput = Console.ReadLine();
-                            book.Title = userInput;
-
-                            Console.Write("\nDigite o nome do autor: ");
-                            userInput = Console.ReadLine();
-                            book.Author = userInput;
-
-                            Console.Write("\nDigite o ISBN do livro: ");
-                            userInput = Console.ReadLine();
-                            book.ISBN = userInput;
-
-                            Console.WriteLine("\nSelecione a editora na lista abaixo.");
-                            var publishers = PublisherRepository.ListAll().OrderBy(p => p.PublisherId).ToList();
-                            publishers.ForEach(p => Console.WriteLine($"{p.PublisherId} - {p.Name}"));
-                            userInput = Console.ReadLine();
-
-                            _ = int.TryParse(userInput, out int publisherId);
-                            if (publishers.Any(p=>p.PublisherId == publisherId))
-                            {
-                                book.PublisherId = publisherId;
-                            }
-                            else
-                            {
-                                Console.WriteLine("\nEscolha inválida!\n");
-                                continue;
-                            }
-
-                            Console.Write("\nDigite a data de publicação (formato = dd/mm/aaaa): ");
-                            userInput = Console.ReadLine();
-
-                            _ = DateTime.TryParse(userInput, out DateTime publishDate);
-                            if (publishDate != DateTime.MinValue)
-                            {
-                                book.PublishDate = publishDate;
-                            }
-
-                            book.Create();
+                            BookRepository.GetNewBook().Create();
                             break;
 
                         case "2":
-                            Console.Clear();
-                            Console.WriteLine("----------------------------------\nAdicionar editora (Enter para sair)\n----------------------------------");
-                            Console.Write("Digite o nome da editora: ");
-                            userInput = Console.ReadLine();
-                            var editora = new Publisher();
-                            editora.Name = userInput;
-                            editora.Create();
-
+                            PublisherRepository.GetNewPublisher().Create();
                             break;
 
                         case "3":
