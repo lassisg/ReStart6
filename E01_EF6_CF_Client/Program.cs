@@ -22,13 +22,11 @@ namespace E01_EF6_CF_Client
 
                 try
                 {
-                    
-                    Console.WriteLine("O deseja fazer? (escolha o número da opção desejada, 'Enter' para sair)");
-                    Console.WriteLine("1 - Adicionar livro");
-                    Console.WriteLine("2 - Adicionar editora");
-                    Console.WriteLine("3 - Listar livros");
-                    Console.WriteLine("4 - Listar editoras");
+
+                    Utils.WriteMenu();
                     userInput = Console.ReadLine();
+
+                    Console.Clear();
 
                     switch (userInput)
                     {
@@ -37,29 +35,39 @@ namespace E01_EF6_CF_Client
                             break;
 
                         case "1":
-                            BookRepository.GetNewBook().Create();
+                            Utils.WriteHeader("Adicionar livro (Enter para sair)");
+                            Utils.GetBookDataFromUser()
+                                 .ValidateBook()
+                                 .Create()
+                                 .WriteBookFeedbackMessage();
+
                             break;
 
                         case "2":
-                            PublisherRepository.GetNewPublisher().Create();
+                            Utils.WriteHeader("Adicionar editora (Enter para sair)");
+                            Utils.GetPublisherDataFromUser()
+                                 .ValidatePublisher()
+                                 .Create()
+                                 .WritePublisherFeedbackMessage();
+
                             break;
 
                         case "3":
-                            Console.Clear();
-                            Console.WriteLine("----------------------------------\nLista de livros\n----------------------------------");
-                            BookRepository.ListAll()
-                                .OrderBy(b => b.Title)
-                                .ToList()
-                                .ForEach(b => Console.WriteLine($"Título: {b.Title}, ISBN: {b.ISBN}, Autor: {b.Author}, Editora: {PublisherRepository.GetPublisherById(b.PublisherId).Name}"));
+                            Utils.WriteHeader("Lista de livros");
+                            BookRepository.GetAllBooks()
+                                          .OrderBy(b => b.BookId)
+                                          .ToList()
+                                          .ForEach(b => Console.WriteLine(b.GetFormattedBook()));
+
                             break;
 
                         case "4":
-                            Console.Clear();
-                            Console.WriteLine("----------------------------------\nLista de editoras\n----------------------------------");
-                            PublisherRepository.ListAll()
-                                .OrderBy(p => p.Name)
-                                .ToList()
-                                .ForEach(p => Console.WriteLine($"{p.Name}"));
+                            Utils.WriteHeader("Lista de editoras");
+                            PublisherRepository.GetAllPublishers()
+                                               .OrderBy(p => p.PublisherId)
+                                               .ToList()
+                                               .ForEach(p => Console.WriteLine($"{p.GetFormattedPublisher()}"));
+
                             break;
 
                         default:
@@ -75,10 +83,6 @@ namespace E01_EF6_CF_Client
                 {
                     Console.Clear();
                     Console.WriteLine($"Ocorreu um erro!\n{e.Message}\n");
-                }
-                finally
-                {
-                    
                 }
 
             } while (!exitApplication);

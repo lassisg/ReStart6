@@ -10,9 +10,9 @@ namespace E01_EF6_CF_DAL
     public static class PublisherRepository
     {
 
-        #region Extended Methods
+        #region CRUD Methods
 
-        public static void Create(this Publisher publisher)
+        public static Publisher Create(this Publisher publisher)
         {
 
             using (var db = new LibraryContext())
@@ -22,20 +22,17 @@ namespace E01_EF6_CF_DAL
                 db.SaveChanges();
             }
 
+            return publisher;
         }
-
-        #endregion
-
-        #region Methods
 
         public static Publisher GetPublisherById(int publisherId)
         {
-            var publisher = ListAll().FirstOrDefault(p => p.PublisherId == publisherId);
+            var publisher = GetAllPublishers().FirstOrDefault(p => p.PublisherId == publisherId);
 
             return publisher;
         }
 
-        public static List<Publisher> ListAll()
+        public static List<Publisher> GetAllPublishers()
         {
 
             var allPublishers = new List<Publisher>();
@@ -51,18 +48,27 @@ namespace E01_EF6_CF_DAL
 
         #endregion
 
-        #region User interaction methods
+        #region Utility methods
 
-        public static Publisher GetNewPublisher()
+        public static string GetFormattedPublisher(this Publisher publisher)
         {
-            Console.Clear();
-            Console.WriteLine("----------------------------------\nAdicionar editora (Enter para sair)\n----------------------------------");
-            Console.Write("Digite o nome da editora: ");
-            string userInput = Console.ReadLine();
-            var publisher = new Publisher();
-            publisher.Name = userInput;
+            string formattedPublisher = $"{publisher.PublisherId} - {publisher.Name}";
+
+            return formattedPublisher;
+        }
+
+        #endregion
+
+        #region Validation methods
+
+        public static Publisher ValidatePublisher(this Publisher publisher)
+        {
+
+            if (!(publisher.Name.Length > 0 && publisher.Name.Length <= 100))
+                throw new InvalidOperationException("Limite de 100 caracteres.");
 
             return publisher;
+
         }
 
         #endregion
