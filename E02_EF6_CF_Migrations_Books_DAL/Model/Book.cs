@@ -23,6 +23,11 @@ namespace E02_EF6_CF_Migrations_Books_DAL
         [MaxLength(100)]
         public string ISBN { get; set; }
 
+        [Required]
+        [StringLength(100, ErrorMessage = "100 character limit.")]
+        [MaxLength(100)]
+        public string DDC { get; set; }     // Dewey Decimal Classification
+
         #endregion
 
         #region Navigation properties

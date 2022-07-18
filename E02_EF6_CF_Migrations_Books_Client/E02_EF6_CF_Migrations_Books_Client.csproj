@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4CCB2EFD-2C5C-4483-B80B-6A04B856A97E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>E02_EF6_CF_Migrations_Books_DAL</RootNamespace>
-    <AssemblyName>E02_EF6_CF_Migrations_Books_DAL</AssemblyName>
+    <ProjectGuid>{214FBEB3-173D-4597-9ABF-D22709147175}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>E02_EF6_CF_Migrations_Books_Client</RootNamespace>
+    <AssemblyName>E02_EF6_CF_Migrations_Books_Client</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -48,18 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202207182120501_M01_Initial.cs" />
-    <Compile Include="Migrations\202207182120501_M01_Initial.Designer.cs">
-      <DependentUpon>202207182120501_M01_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202207182200529_M02_Book-UpField_DDC.cs" />
-    <Compile Include="Migrations\202207182200529_M02_Book-UpField_DDC.Designer.cs">
-      <DependentUpon>202207182200529_M02_Book-UpField_DDC.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\Book.cs" />
-    <Compile Include="Model\Publisher.cs" />
-    <Compile Include="Model\BooksDBContext.cs" />
+    <Compile Include="Class\BooksDBClient.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,12 +59,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202207182120501_M01_Initial.resx">
-      <DependentUpon>202207182120501_M01_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207182200529_M02_Book-UpField_DDC.resx">
-      <DependentUpon>202207182200529_M02_Book-UpField_DDC.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\E02_EF6_CF_Migrations_Books_DAL\E02_EF6_CF_Migrations_Books_DAL.csproj">
+      <Project>{4ccb2efd-2c5c-4483-b80b-6a04b856a97e}</Project>
+      <Name>E02_EF6_CF_Migrations_Books_DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
