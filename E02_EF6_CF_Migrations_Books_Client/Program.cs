@@ -13,7 +13,7 @@ namespace E02_EF6_CF_Migrations_Books_Client
         static void Main(string[] args)
         {
 
-            BooksDBClient.CreatePublisher();
+            PublishersDBClient.CreatePublisher();
             BooksDBClient.CreateBook();
 
             Console.WriteLine("Data entered successfully.");
