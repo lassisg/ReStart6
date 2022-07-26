@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
+
     class Program
     {
+
         static void Main(string[] args)
         {
+
+
+
         }
+
     }
+
 }
