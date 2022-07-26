@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace RSGym_DAL
 {
+
     class Trainner
     {
+
+
+
     }
+
 }
