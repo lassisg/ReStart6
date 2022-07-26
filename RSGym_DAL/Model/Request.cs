@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RSGym_DAL
 {
 
-    class Request
+    public class Request
     {
 
 

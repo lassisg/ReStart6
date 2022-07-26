@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RSGym_DAL
 {
 
-    class Status
+    public class Status
     {
 
 
