@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace RSGym_DAL
 {
 
-    public class User
+    public class User : IUser
     {
 
         #region Scalar properties
@@ -36,13 +36,13 @@ namespace RSGym_DAL
         [NotMapped]
         public LoginStatus IsLoggedIn { get; set; }
 
-#endregion
+        #endregion
 
-#region Navigation properties
+        #region Navigation properties
 
         public virtual ICollection<Request> Requests { get; set; }
 
-#endregion
+        #endregion
 
     }
 

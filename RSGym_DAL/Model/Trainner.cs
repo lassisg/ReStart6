@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace RSGym_DAL
 {
 
-    public class Trainner
+    public class Trainner : ITrainner
     {
 
         #region Scalar properties

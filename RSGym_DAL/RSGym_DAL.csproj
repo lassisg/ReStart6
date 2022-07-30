@@ -55,6 +55,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\GymDbContext.cs" />
     <Compile Include="Model\Enums.cs" />
+    <Compile Include="Interfaces\ITrainner.cs" />
+    <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Request.cs" />
     <Compile Include="Model\Trainner.cs" />
