@@ -3,11 +3,11 @@
 namespace RSGym_DAL
 {
 
-    public interface ITrainner
+    public interface ITrainer
     {
         #region Properties
 
-        int TrainnerID { get; set; }
+        int TrainerID { get; set; }
 
         string Code { get; set; }
         

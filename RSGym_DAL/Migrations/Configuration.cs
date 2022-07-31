@@ -18,6 +18,13 @@ namespace RSGym_DAL.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
+            //
+            //    context.People.AddOrUpdate(
+            //      p => p.FullName,
+            //      new Person { FullName = "Andrew Peters" },
+            //      new Person { FullName = "Brice Lambson" },
+            //      new Person { FullName = "Rowan Miller" }
+            //    );
 
             context.User.AddOrUpdate(
               p => p.Username,
@@ -25,11 +32,11 @@ namespace RSGym_DAL.Migrations
               new User { Username = "milena", Password = "12345" }
             );
 
-            context.Trainner.AddOrUpdate(
+            context.Trainer.AddOrUpdate(
               t => t.Code,
-              new Trainner { Code = "PT_01", Name = "José Maria" },
-              new Trainner { Code = "PT_02", Name = "Maria José" },
-              new Trainner { Code = "PT_03", Name = "Luis Miguel" }
+              new Trainer { Code = "PT_01", Name = "José Maria" },
+              new Trainer { Code = "PT_02", Name = "Maria José" },
+              new Trainer { Code = "PT_03", Name = "Luis Miguel" }
             );
 
         }

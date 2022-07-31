@@ -13,7 +13,7 @@ namespace RSGym_DAL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202207292334411_M01_Initial_Migration"; }
+            get { return "202207302330091_M01_Initial_Migration"; }
         }
         
         string IMigrationMetadata.Source

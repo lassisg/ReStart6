@@ -15,47 +15,91 @@ namespace RSGym_Client
         static void Main(string[] args)
         {
 
-            try
+            Utils.SetUTF8Encoding();
+
+            Utils.PrintHeader("ReStart Gym, O recomeço da sua saúde física!", "\n");
+
+            IMenu menu;
+            IUser currentUser = new GuestUser();
+            IBaseAction currentAction = new BasicAction();
+            char userOption = '0';
+
+            bool exitApp = false;
+
+            do
             {
 
-                //var user01 = new User
-                //{
-                //    Username = "leandro",
-                //    Password = "secreto"
-                //};
-
-                //using (var context = new GymDbContext())
-                //{
-                //    context.User.Add(user01);
-                //    context.SaveChanges();
-                //}
-                Console.Write("acabou");
-
-            }
-            catch (DbEntityValidationException e)
-            {
-                //Console.WriteLine(e.Message);
-                StringBuilder errors = new StringBuilder();
-
-                foreach (var validationException in e.EntityValidationErrors)
+                try
                 {
-                    errors.AppendLine($"Erro na validação dos dados:\n");
-                    errors.AppendLine("Dado de entrada\t| Valor\t| Erro");
-                    foreach (var ve in validationException.ValidationErrors)
-                    {
-                        errors.AppendLine($"{ve.PropertyName}\t| {validationException.Entry.CurrentValues.GetValue<object>(ve.PropertyName)}\t| {ve.ErrorMessage}");
-                    }
+
+                    Console.Title = $"RSGymPT | {currentUser.Username}";
+
+                    menu = MenuRepository.GetMenu(currentUser, currentAction);
+                    menu.Show();
+
+                    currentAction = currentAction
+                        .UpdateParameters(menu, userOption, currentUser) // retorna IBaseAction
+                        .ReadUserInput()                                 // retorna string do input
+                        .ValidateInputFormat(out userOption)             // retorna char convertido do input
+                        .ValidateInputOption(menu)                       // retorna o mesmo char do método anterior, se for válido
+                        .ExecuteAction(menu, out exitApp)                // retorna IBaseAction
+                        .UpdateUserInfo(currentUser, out currentUser)    // retorna IBaseAction
+                        .SaveCurrentAction(userOption);                  // retorna IBaseAction
+                                                                         //.ShowFeedbackMessage();
+
                 }
-                Console.WriteLine(errors.ToString());
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            finally
-            {
-                Console.ReadKey();
-            }
+                catch (DbEntityValidationException e)
+                {
+
+                    // ToDo: Move to AppException class ?
+                    string paramHeader = "Dado de entrada";
+                    string inputHeader = "Valor inserido";
+                    string errorHeader = "Erro";
+
+                    e.GetDbExeptionColumnLengths(out int paramLength, out int inputLength);
+                    paramLength = Math.Max(paramLength, paramHeader.Length);
+                    inputLength = Math.Max(inputLength, inputHeader.Length);
+
+                    StringBuilder errors = new StringBuilder();
+                    foreach (var validationException in e.EntityValidationErrors)
+                    {
+
+                        errors.AppendLine($"Erro na validação dos dados:\n");
+                        errors.AppendLine($"{paramHeader.PadRight(paramLength)} | {inputHeader.PadRight(inputLength)} | {errorHeader}");
+
+                        foreach (var ve in validationException.ValidationErrors)
+                        {
+                            string propertyName = ve.PropertyName.PadRight(paramLength);
+                            string propertyValue = validationException.Entry.CurrentValues.GetValue<object>(ve.PropertyName).ToString().PadRight(inputLength);
+
+                            errors.AppendLine($"{propertyName} | {propertyValue} | {ve.ErrorMessage}");
+                        }
+
+                    }
+
+                    errors.ToString().WriteErrorMessage();
+
+                }
+                catch (InvalidOperationException e)
+                {
+                    string errorMessage = $"Verifique a opção selecionada.\n({e.Message})";
+                    errorMessage.WriteErrorMessage();
+                }
+                catch (Exception e)
+                {
+                    e.Message.WriteErrorMessage();
+                }
+                finally
+                {
+
+                    //Console.ReadKey();
+
+                }
+
+            } while (!exitApp);
+
+            Utils.PrintHeader("Aguardamos seu breve retorno! Recomece conosco!");
+            Console.ReadKey();
 
         }
 

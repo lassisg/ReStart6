@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace RSGym_DAL
 {
 
-    public class Trainner : ITrainner
+    public class Trainer : ITrainer
     {
 
         #region Scalar properties
 
-        public int TrainnerID { get; set; }
+        public int TrainerID { get; set; }
 
 
         [Required]
@@ -25,7 +25,7 @@ namespace RSGym_DAL
         [Required(ErrorMessage = "O nome do treinador é obrigatório.")]
         [StringLength(70, ErrorMessage = "O limite de caracteres permitido é 70.", MinimumLength = 2)]
         [MaxLength(70)]
-        [RegularExpression(@"^[\w][\w ']{2,70}$", ErrorMessage = "O nome do treinador deve ter entre 2 e 70 caracteres.")]
+        [RegularExpression(@"^[\D][\w ']{2,70}$", ErrorMessage = "O nome do treinador deve ter entre 2 e 70 caracteres e não pode começar com números.")]
         public string Name { get; set; }
 
         #endregion
@@ -33,6 +33,27 @@ namespace RSGym_DAL
         #region Navigation properties
 
         public virtual ICollection<Request> Requests { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        public override string ToString()
+        {
+            string trainer = $"{TrainerID, -2} - {Code}: {Name}";
+            return trainer;
+        }
+
+        public static string GetNextCode()
+        {
+            string lastCode = TrainerRepository.GetAllTrainers().Max(t => t.Code);
+            int lastCodeNumber = int.Parse(lastCode.Split('_')[1]);
+
+            int nextCodeNumber = lastCodeNumber + 1;
+            string nextCode = $"PT_{nextCodeNumber:D2}";
+
+            return nextCode;
+        }
 
         #endregion
 

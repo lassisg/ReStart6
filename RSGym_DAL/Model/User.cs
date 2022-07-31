@@ -44,6 +44,16 @@ namespace RSGym_DAL
 
         #endregion
 
+        #region Methods
+
+        public override string ToString()
+        {
+            string user = $"{UserID}: {Username}";
+            return user;
+        }
+
+        #endregion
+
     }
 
 }

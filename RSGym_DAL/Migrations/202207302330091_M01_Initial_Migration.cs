@@ -13,7 +13,7 @@ namespace RSGym_DAL.Migrations
                     {
                         RequestID = c.Int(nullable: false, identity: true),
                         UserID = c.Int(nullable: false),
-                        TrainnerID = c.Int(nullable: false),
+                        TrainerID = c.Int(nullable: false),
                         RequestDate = c.DateTime(nullable: false),
                         Status = c.Int(nullable: false),
                         RequestHour = c.Time(nullable: false, precision: 7),
@@ -22,20 +22,20 @@ namespace RSGym_DAL.Migrations
                         MessageAt = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.RequestID)
-                .ForeignKey("dbo.Trainner", t => t.TrainnerID, cascadeDelete: true)
+                .ForeignKey("dbo.Trainer", t => t.TrainerID, cascadeDelete: true)
                 .ForeignKey("dbo.User", t => t.UserID, cascadeDelete: true)
-                .Index(t => t.TrainnerID)
+                .Index(t => t.TrainerID)
                 .Index(t => t.UserID);
             
             CreateTable(
-                "dbo.Trainner",
+                "dbo.Trainer",
                 c => new
                     {
-                        TrainnerID = c.Int(nullable: false, identity: true),
+                        TrainerID = c.Int(nullable: false, identity: true),
                         Code = c.String(nullable: false, maxLength: 5),
                         Name = c.String(nullable: false, maxLength: 70),
                     })
-                .PrimaryKey(t => t.TrainnerID);
+                .PrimaryKey(t => t.TrainerID);
             
             CreateTable(
                 "dbo.User",
@@ -52,11 +52,11 @@ namespace RSGym_DAL.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.Request", "UserID", "dbo.User");
-            DropForeignKey("dbo.Request", "TrainnerID", "dbo.Trainner");
+            DropForeignKey("dbo.Request", "TrainerID", "dbo.Trainer");
             DropIndex("dbo.Request", new[] { "UserID" });
-            DropIndex("dbo.Request", new[] { "TrainnerID" });
+            DropIndex("dbo.Request", new[] { "TrainerID" });
             DropTable("dbo.User");
-            DropTable("dbo.Trainner");
+            DropTable("dbo.Trainer");
             DropTable("dbo.Request");
         }
     }

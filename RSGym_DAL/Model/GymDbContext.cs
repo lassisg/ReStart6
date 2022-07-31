@@ -26,7 +26,7 @@ namespace RSGym_DAL
 
         public DbSet<User> User { get; set; }
 
-        public DbSet<Trainner> Trainner { get; set; }
+        public DbSet<Trainer> Trainer { get; set; }
 
         public DbSet<Request> Request { get; set; }
 

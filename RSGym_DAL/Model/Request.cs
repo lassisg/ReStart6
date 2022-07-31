@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace RSGym_DAL
 {
 
-    public class Request
+    public class Request : IRequest
     {
 
         #region Scalar properties
@@ -18,7 +18,7 @@ namespace RSGym_DAL
 
         public int UserID { get; set; }
 
-        public int TrainnerID { get; set; }
+        public int TrainerID { get; set; }
 
         [Required(ErrorMessage = "A data do pedido é obrigatória.")]
         [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
@@ -49,7 +49,7 @@ namespace RSGym_DAL
 
         public virtual User User { get; set; }
 
-        public virtual Trainner Trainner { get; set; }
+        public virtual Trainer Trainer { get; set; }
 
         #endregion
 
