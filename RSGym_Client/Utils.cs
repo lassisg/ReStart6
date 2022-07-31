@@ -152,6 +152,7 @@ namespace RSGym_Client
         {
             bool changedSession = currentAction is LoginAction || currentAction is LogoutAction;
             currentUser = changedSession ? currentAction.User : previousUser;
+            currentAction.User = currentUser;
             return currentAction;
         }
 

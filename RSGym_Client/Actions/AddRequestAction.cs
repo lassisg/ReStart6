@@ -41,27 +41,49 @@ namespace RSGym_Client
         public void Execute(out bool isExit)
         {
             isExit = false;
-            
-            //Console.Write("\nDigite o nome do PT: ");
-            //string ptName = this.ReadUserInput();
 
-            //var newTrainer = new Trainer
-            //{
-            //    Code = Trainer.GetNextCode(),
-            //    Name = ptName
-            //};
+            // ToDo: Perguntar por data, hora e PT (lista)
+            Console.Write("\nDigite a data desejada (no formato dd/MM/aaaa): ");
+            string requestDate = this.ReadUserInput();
 
-            //TrainerRepository.CreateTrainer(newTrainer);
+            Console.Write("\nDigite a hora desejada (no formato HH:mm): ");
+            string requestHour = this.ReadUserInput();
+
+            var trainers = TrainerRepository.GetAllTrainers();
+
+            Console.WriteLine("\nSelecione o treinador:");
+            trainers.ForEach(t => Console.WriteLine(t.ToString()));
+
+            Console.Write("\nOpção selecionada: ");
+            string trainerID = this.ReadUserInput();
+
+            // ToDo: Validar data e hora (formatos e períodos)
+
+            // ToDO: Simular resposta do ginásio
+
+
+            var t1 = DateTime.Parse($"{requestDate:d}").Date;
+
+            Request newRequest = new Request
+            {
+                TrainerID = int.Parse(trainerID),
+                UserID = this.User.UserID,
+                RequestDate = DateTime.Parse($"{requestDate:d}"),
+                RequestHour = TimeSpan.Parse($"{requestHour:t}"),
+                CreatedAt = DateTime.Now,
+                Status = RequestStatus.Agendado
+            };
+
+            RequestRepository.Create(newRequest);
             Success = true;
 
             Console.Clear();
 
-            //var sb = new StringBuilder();
-            //sb.AppendLine("Novo Personal Trainer adicionado:");
-            //sb.AppendLine(newTrainer.ToString());
+            var sb = new StringBuilder();
+            sb.AppendLine("Novo pedido registado:");
+            sb.Append(newRequest.ToString());
 
-            //Communicator.WriteSuccessMessage(sb.ToString());
-            Communicator.WriteSuccessMessage("ToDo: Criar pedido");
+            Communicator.WriteSuccessMessage(sb.ToString());
         }
 
         #endregion

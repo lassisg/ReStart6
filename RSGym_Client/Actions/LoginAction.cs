@@ -61,7 +61,7 @@ namespace RSGym_Client
 
             var sb = new StringBuilder();
             sb.AppendLine("Login realizado com sucesso!");
-            sb.AppendLine("Agora seu nome aparece na barra de tíulos ;-)");
+            sb.Append("Agora seu nome aparece na barra de tíulos ;-)");
             Communicator.WriteSuccessMessage(sb.ToString());
         }
 

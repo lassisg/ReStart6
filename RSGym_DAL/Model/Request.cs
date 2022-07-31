@@ -21,15 +21,17 @@ namespace RSGym_DAL
         public int TrainerID { get; set; }
 
         [Required(ErrorMessage = "A data do pedido é obrigatória.")]
-        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
+        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido.")]
+        [Column(TypeName = "date")]
         public DateTime RequestDate { get; set; }
-
-        [Required(ErrorMessage = "O status do pedido é obrigatório.")]
-        public RequestStatus Status { get; set; }
 
         [Required(ErrorMessage = "A hora do pedido é obrigatória.")]
         [DataType(DataType.Time)]
+        
         public TimeSpan RequestHour { get; set; }
+
+        [Required(ErrorMessage = "O status do pedido é obrigatório.")]
+        public RequestStatus Status { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
@@ -39,7 +41,6 @@ namespace RSGym_DAL
         [MaxLength(254)]
         public string Message { get; set; }
 
-        [Required]
         [DataType(DataType.DateTime)]
         public DateTime? MessageAt { get; set; }
 
@@ -50,6 +51,16 @@ namespace RSGym_DAL
         public virtual User User { get; set; }
 
         public virtual Trainer Trainer { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        public override string ToString()
+        {
+            string trainer = $"{RequestID:d} - Data: {RequestDate:d} {RequestHour.ToString(@"hh\:mm")} | PT: {TrainerRepository.GetTrainerById(TrainerID).Name}";
+            return trainer;
+        }
 
         #endregion
 

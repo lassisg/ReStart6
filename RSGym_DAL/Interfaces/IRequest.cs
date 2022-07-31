@@ -13,12 +13,12 @@ namespace RSGym_DAL
         Trainer Trainer { get; set; }
         
         DateTime RequestDate { get; set; }
-        
+
         TimeSpan RequestHour { get; set; }
+
+        RequestStatus Status { get; set; }
         
         DateTime CreatedAt { get; set; }
-        
-        RequestStatus Status { get; set; }
         
         string Message { get; set; }
         

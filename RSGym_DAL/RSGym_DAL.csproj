@@ -48,12 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\GuestUser.cs" />
-    <Compile Include="Migrations\202207302330091_M01_Initial_Migration.cs" />
-    <Compile Include="Migrations\202207302330091_M01_Initial_Migration.Designer.cs">
-      <DependentUpon>202207302330091_M01_Initial_Migration.cs</DependentUpon>
+    <Compile Include="Migrations\202207311926089_M01_Initial_Migration.cs" />
+    <Compile Include="Migrations\202207311926089_M01_Initial_Migration.Designer.cs">
+      <DependentUpon>202207311926089_M01_Initial_Migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\GuestUser.cs" />
     <Compile Include="Model\GymDbContext.cs" />
     <Compile Include="Model\Enums.cs" />
     <Compile Include="Interfaces\ITrainer.cs" />
@@ -72,8 +72,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202207302330091_M01_Initial_Migration.resx">
-      <DependentUpon>202207302330091_M01_Initial_Migration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202207311926089_M01_Initial_Migration.resx">
+      <DependentUpon>202207311926089_M01_Initial_Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

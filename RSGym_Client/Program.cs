@@ -41,7 +41,8 @@ namespace RSGym_Client
                         .UpdateParameters(menu, userOption, currentUser) // retorna IBaseAction
                         .ReadUserInput()                                 // retorna string do input
                         .ValidateInputFormat(out userOption)             // retorna char convertido do input
-                        .ValidateInputOption(menu)                       // retorna o mesmo char do método anterior, se for válido
+                        .ValidateInputOption(menu)                       // retorna IBaseAction, consoante char do método anterior
+                        .UpdateUserInfo(currentUser, out currentUser)    // retorna IBaseAction
                         .ExecuteAction(menu, out exitApp)                // retorna IBaseAction
                         .UpdateUserInfo(currentUser, out currentUser)    // retorna IBaseAction
                         .SaveCurrentAction(userOption);                  // retorna IBaseAction

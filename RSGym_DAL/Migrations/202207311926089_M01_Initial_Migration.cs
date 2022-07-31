@@ -14,12 +14,12 @@ namespace RSGym_DAL.Migrations
                         RequestID = c.Int(nullable: false, identity: true),
                         UserID = c.Int(nullable: false),
                         TrainerID = c.Int(nullable: false),
-                        RequestDate = c.DateTime(nullable: false),
+                        RequestDate = c.DateTime(nullable: false, storeType: "date"),
+                        RequestHour = c.Time(nullable: false, precision: 5),
                         Status = c.Int(nullable: false),
-                        RequestHour = c.Time(nullable: false, precision: 7),
                         CreatedAt = c.DateTime(nullable: false),
                         Message = c.String(maxLength: 254),
-                        MessageAt = c.DateTime(nullable: false),
+                        MessageAt = c.DateTime(),
                     })
                 .PrimaryKey(t => t.RequestID)
                 .ForeignKey("dbo.Trainer", t => t.TrainerID, cascadeDelete: true)
