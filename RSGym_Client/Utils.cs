@@ -69,9 +69,9 @@ namespace RSGym_Client
                 new DeleteRequestAction(),
                 new ListRequestAction(),
                 
-                //new GetTotalUserRequestsAction(),
-                //new GetTotalReqiestsByStatusAction(),
-                //new GetTotalRequestsByPTAction(),
+                new GetTotalUserRequestsAction(),
+                new GetRequestsByStatusAction(),
+                //new GetRequestsByPTAction(),
                 //new GetTopPTAction(),
 
                 new LoginAction(),

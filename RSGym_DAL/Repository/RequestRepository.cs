@@ -67,6 +67,54 @@ namespace RSGym_DAL
 
         }
 
+        public static int GetTotalRequests()
+        {
+            int requestCount;
+
+            using (var context = new GymDbContext())
+            {
+                requestCount = context.Request.Count();
+            }
+
+            return requestCount;
+        }
+
+        public static int GetTotalRequestsByUserID(int userID)
+        {
+            int requestCount;
+
+            using (var context = new GymDbContext())
+            {
+                requestCount = context.Request.Where(r => r.UserID == userID).Count();
+            }
+
+            return requestCount;
+        }
+
+        public static int GetTotalRequestsByTrainerID(int trainerID)
+        {
+            int requestCount;
+
+            using (var context = new GymDbContext())
+            {
+                requestCount = context.Request.Where(r => r.TrainerID == trainerID).Count();
+            }
+
+            return requestCount;
+        }
+
+        public static Dictionary<string, int> GetRequestsByStatus()
+        {
+            var allRequests = new Dictionary<string, int>();
+
+            using (var context = new GymDbContext())
+            {
+                context.Request.ToList().GroupBy(r => r.Status).ToList().ForEach(r => allRequests.Add(r.Key.ToString(), r.Count()));
+            }
+
+            return allRequests;
+        }
+
         #endregion
 
     }
