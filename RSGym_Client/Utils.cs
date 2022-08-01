@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
@@ -61,19 +60,16 @@ namespace RSGym_Client
                 new AddPTAction(),
                 new ListPTAction(),
                 new UpdatePTAction(),
-
                 new AddRequestAction(),
                 new GetRequestAction(),
                 new UpdateRequestAction(),
                 new FinishRequestAction(),
                 new DeleteRequestAction(),
                 new ListRequestAction(),
-                
                 new GetTotalUserRequestsAction(),
                 new GetRequestsByStatusAction(),
                 new GetRequestsByPTAction(),
                 new GetTopPTAction(),
-
                 new LoginAction(),
                 new LogoutAction(),
                 new ExitAction()

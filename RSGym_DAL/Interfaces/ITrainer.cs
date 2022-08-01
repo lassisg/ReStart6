@@ -5,6 +5,7 @@ namespace RSGym_DAL
 
     public interface ITrainer
     {
+
         #region Properties
 
         int TrainerID { get; set; }

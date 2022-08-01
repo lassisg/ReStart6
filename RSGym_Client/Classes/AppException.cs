@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
@@ -10,7 +6,7 @@ namespace RSGym_Client
     class AppException : ApplicationException, IAppException
     {
 
-
+           // ToDo: Review the need for this class
 
     }
 

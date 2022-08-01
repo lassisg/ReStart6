@@ -59,8 +59,8 @@
     <Compile Include="Actions\GetRequestAction.cs" />
     <Compile Include="Actions\GetTotalUserRequestsAction.cs" />
     <Compile Include="Actions\GetRequestsByStatusAction.cs" />
-    <Compile Include="GetRequestsByPTAction.cs" />
-    <Compile Include="GetTopPTAction.cs" />
+    <Compile Include="Actions\GetRequestsByPTAction.cs" />
+    <Compile Include="Actions\GetTopPTAction.cs" />
     <Compile Include="Interfaces\IMenuItem.cs" />
     <Compile Include="Interfaces\IMenu.cs" />
     <Compile Include="Interfaces\IBaseAction.cs" />
