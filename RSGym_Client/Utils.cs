@@ -72,7 +72,7 @@ namespace RSGym_Client
                 new GetTotalUserRequestsAction(),
                 new GetRequestsByStatusAction(),
                 new GetRequestsByPTAction(),
-                //new GetTopPTAction(),
+                new GetTopPTAction(),
 
                 new LoginAction(),
                 new LogoutAction(),
