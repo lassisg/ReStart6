@@ -52,7 +52,6 @@ namespace RSGym_Client
                 catch (DbEntityValidationException e)
                 {
 
-                    // ToDo: Move to AppException class ?
                     string paramHeader = "Dado de entrada";
                     string inputHeader = "Valor inserido";
                     string errorHeader = "Erro";
@@ -62,21 +61,10 @@ namespace RSGym_Client
                     inputLength = Math.Max(inputLength, inputHeader.Length);
 
                     StringBuilder errors = new StringBuilder();
-                    foreach (var validationException in e.EntityValidationErrors)
-                    {
 
-                        errors.AppendLine($"Erro na validação dos dados:\n");
-                        errors.AppendLine($"{paramHeader.PadRight(paramLength)} | {inputHeader.PadRight(inputLength)} | {errorHeader}");
-
-                        foreach (var ve in validationException.ValidationErrors)
-                        {
-                            string propertyName = ve.PropertyName.PadRight(paramLength);
-                            string propertyValue = validationException.Entry.CurrentValues.GetValue<object>(ve.PropertyName).ToString().PadRight(inputLength);
-
-                            errors.AppendLine($"{propertyName} | {propertyValue} | {ve.ErrorMessage}");
-                        }
-
-                    }
+                    errors.AppendLine($"Erro na validação dos dados:\n");
+                    errors.AppendLine($"{paramHeader.PadRight(paramLength)} | {inputHeader.PadRight(inputLength)} | {errorHeader}");
+                    errors.AppendLine(e.GetFormattedDbExeption(paramLength, inputLength));
 
                     errors.ToString().WriteErrorMessage();
 

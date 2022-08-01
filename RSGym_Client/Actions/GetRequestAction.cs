@@ -42,26 +42,29 @@ namespace RSGym_Client
         {
             isExit = false;
 
-            //Console.Write("\nDigite o nome do PT: ");
-            //string ptName = this.ReadUserInput();
+            // ToDo: Add validation
+            Console.Write("\nDigite o nº do pedido que deseja consultar: ");
+            string requestID = this.ReadUserInput();
 
-            //var newTrainer = new Trainer
-            //{
-            //    Code = Trainer.GetNextCode(),
-            //    Name = ptName
-            //};
-
-            //TrainerRepository.CreateTrainer(newTrainer);
+            var request = RequestRepository.GetRequestById(int.Parse(requestID));
             Success = true;
 
             Console.Clear();
 
-            //var sb = new StringBuilder();
-            //sb.AppendLine("Novo Personal Trainer adicionado:");
-            //sb.AppendLine(newTrainer.ToString());
+            Utils.PrintSubHeader($"Informações sobre o pedido nº {requestID}");
 
-            //Communicator.WriteSuccessMessage(sb.ToString());
-            Communicator.WriteSuccessMessage("ToDo: Consultar pedido");
+            List<Request> requests = new List<Request>
+            {
+                request
+            };
+
+            string requestHeader = requests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
+
+            Console.WriteLine(requestHeader);
+            requests.ForEach(r => Console.WriteLine(r.ToString(trainerLength, statusLength, messageLength)));
+
+            Console.WriteLine();
+            
         }
 
         #endregion

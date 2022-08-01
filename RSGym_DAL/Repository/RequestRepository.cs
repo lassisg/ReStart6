@@ -32,7 +32,7 @@ namespace RSGym_DAL
 
             using (var context = new GymDbContext())
             {
-                request = context.Request.FirstOrDefault(r => r.RequestID == requestId);
+                request = context.Request.Include(t => t.Trainer).FirstOrDefault(r => r.RequestID == requestId);
             }
 
             return request;
@@ -60,7 +60,6 @@ namespace RSGym_DAL
 
             using (var context = new GymDbContext())
             {
-                //allRequests = context.Request.Where(r => r.UserID == userID).ToList();
                 allRequests = context.Request.Where(r => r.UserID == userID).Include(t => t.Trainer).ToList();
             }
 

@@ -170,13 +170,92 @@ namespace RSGym_Client
 
             foreach (var validationException in dbException.EntityValidationErrors)
             {
-                foreach (var ve in validationException.ValidationErrors)
-                {
-                    paramLength = Math.Max(paramLength, validationException.ValidationErrors.Max(v => v.PropertyName).Length);
-                    inputLength = Math.Max(inputLength, validationException.Entry.CurrentValues.GetValue<object>(ve.PropertyName).ToString().Length);
-                }
+                //foreach (var ve in validationException.ValidationErrors)
+                //{
+                //    paramLength = Math.Max(paramLength, validationException.ValidationErrors.Max(v => v.PropertyName).Length);
+                //    inputLength = Math.Max(inputLength, validationException.Entry.CurrentValues.GetValue<object>(ve.PropertyName).ToString().Length);
+                //}
+
+                (paramLength, inputLength) = validationException.ValidationErrors
+                    .Select(t => new { t.PropertyName, t.ErrorMessage })
+                    .ToList()
+                    .Select(x => new
+                    {
+                        PropertyNameLength = x.PropertyName.Length,
+                        PropertyValueLength = validationException.Entry.CurrentValues.GetValue<object>(x.PropertyName).ToString().Length
+                    })
+                    .ToList()
+                    .Max(p => (p.PropertyNameLength, p.PropertyValueLength));
+
             }
 
+        }
+
+        internal static string GetFormattedDbExeption(this DbEntityValidationException dbException, int paramLength, int inputLength)
+        {
+
+            StringBuilder errors = new StringBuilder();
+
+            foreach (DbEntityValidationResult validationException in dbException.EntityValidationErrors)
+            {
+
+                validationException.ValidationErrors
+                    .Select(t => new { t.PropertyName, t.ErrorMessage })
+                    .ToList()
+                    .Select(x => new
+                    {
+                        PropertyName = x.PropertyName,
+                        PropertyValue = validationException.Entry.CurrentValues.GetValue<object>(x.PropertyName).ToString(),
+                        ErrorMessage = x.ErrorMessage
+                    })
+                    .ToList()
+                    .ForEach(z => errors.AppendLine($"{z.PropertyName.PadRight(paramLength)} | {z.PropertyValue.PadRight(inputLength)} | {z.ErrorMessage}"));
+
+            }
+
+            return errors.ToString();
+
+        }
+
+        internal static string GetHeader(this List<Request> requests, out int trainerLength, out int statusLength, out int messageLength)
+        {
+
+            string requestIdHeader = "Nº";
+            string dateHourHeader = "Data e hora";
+            string trainerHeader = "Personal Trainer";
+            string statusHeader = "Status";
+            string messageHeader = "Mensagem";
+
+            int requestIdLength = requestIdHeader.Length;
+            int dateHourLength = 16;
+            trainerLength = requests.Select(r => r.Trainer).ToList().Select(x => x.Name.Length).Max() + 8;
+            statusLength = requests.Select(r => r.Status.ToString().Length).Max();
+            statusLength += requests.Any(r => r.Status == RequestStatus.Concluido) ? 33 : 0;
+            messageLength = 0;
+
+            StringBuilder header = new StringBuilder();
+            header.Append($"\n{requestIdHeader.PadRight(requestIdLength)} | ");
+            header.Append($"{dateHourHeader.PadRight(dateHourLength)} | ");
+            header.Append($"{trainerHeader.PadRight(trainerLength)} | ");
+            header.Append($"{statusHeader.PadRight(statusLength)}");
+
+            StringBuilder headerLine = new StringBuilder();
+            headerLine.Append("---+-");
+            headerLine.Append($"{new String('-', dateHourLength)}-+-");
+            headerLine.Append($"{new String('-', trainerLength)}-+-");
+            headerLine.Append($"{new String('-', statusLength)}");
+
+            bool hasMessage = requests.Any(r => r.Message != null);
+            if (hasMessage)
+            {
+                messageLength = requests.Where(r => r.Message != null).Select(r => r.Message.Length).Max();
+                header.Append($" | {messageHeader.PadRight(messageLength)}");
+                headerLine.Append($"-+-{new String('-', messageLength)}");
+            }
+
+            string fullHeader = $"{header}\n{headerLine}";
+
+            return fullHeader;
         }
 
     }

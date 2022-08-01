@@ -19,7 +19,7 @@ namespace RSGym_Client
                 new MenuItem { Code = '2', Description = "Consultar/Listar PTs" },
                 new MenuItem { Code = '3', Description = "Atualizar PT" },
                 new MenuItem { Code = '4', Description = "Registar pedido" },
-                new MenuItem { Code = '5', Description = "Consultar pedido       - ToDo" },
+                new MenuItem { Code = '5', Description = "Consultar pedido" },
                 new MenuItem { Code = '6', Description = "Atualizar pedido       - ToDo" },
                 new MenuItem { Code = '7', Description = "Conlcuir pedido        - ToDo" },
                 new MenuItem { Code = '8', Description = "Eliminar pedido        - ToDo" },
