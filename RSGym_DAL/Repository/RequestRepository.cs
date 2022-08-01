@@ -115,6 +115,18 @@ namespace RSGym_DAL
             return allRequests;
         }
 
+        public static Dictionary<int, int> GetRequestsByTrainer()
+        {
+            var allRequests = new Dictionary<int, int>();
+
+            using (var context = new GymDbContext())
+            {
+                context.Request.ToList().GroupBy(r => r.TrainerID).ToList().ForEach(r => allRequests.Add(r.Key, r.Count()));
+            }
+
+            return allRequests;
+        }
+
         #endregion
 
     }
