@@ -23,7 +23,7 @@ namespace RSGym_Client
                 new MenuItem { Code = '6', Description = "Atualizar pedido       - ToDo" },
                 new MenuItem { Code = '7', Description = "Conlcuir pedido        - ToDo" },
                 new MenuItem { Code = '8', Description = "Eliminar pedido        - ToDo" },
-                new MenuItem { Code = '9', Description = "Listar pedidos do user - ToDo" },
+                new MenuItem { Code = '9', Description = "Listar pedidos do user" },
                 new MenuItem { Code = '+', Description = "Estatísticas..." },
                 new MenuItem { Code = '0', Description = "Logout" },
                 new MenuItem { Code = 'X', Description = "Sair da aplicação" }

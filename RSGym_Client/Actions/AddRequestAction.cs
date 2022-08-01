@@ -42,7 +42,6 @@ namespace RSGym_Client
         {
             isExit = false;
 
-            // ToDo: Perguntar por data, hora e PT (lista)
             Console.Write("\nDigite a data desejada (no formato dd/MM/aaaa): ");
             string requestDate = this.ReadUserInput();
 
@@ -59,7 +58,7 @@ namespace RSGym_Client
 
             // ToDo: Validar data e hora (formatos e períodos)
 
-            // ToDO: Simular resposta do ginásio
+            // ToDo: Simular resposta do ginásio
 
 
             var t1 = DateTime.Parse($"{requestDate:d}").Date;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace RSGym_DAL
 
             using (var context = new GymDbContext())
             {
-                request = context.Request.FirstOrDefault(u => u.RequestID == requestId);
+                request = context.Request.FirstOrDefault(r => r.RequestID == requestId);
             }
 
             return request;
@@ -45,7 +46,22 @@ namespace RSGym_DAL
 
             using (var context = new GymDbContext())
             {
-                allRequests = context.Request.Select(u => u).ToList();
+                allRequests = context.Request.Select(r => r).ToList();
+            }
+
+            return allRequests;
+
+        }
+
+        public static List<Request> GetRequestsByUserID(int userID)
+        {
+
+            var allRequests = new List<Request>();
+
+            using (var context = new GymDbContext())
+            {
+                //allRequests = context.Request.Where(r => r.UserID == userID).ToList();
+                allRequests = context.Request.Where(r => r.UserID == userID).Include(t => t.Trainer).ToList();
             }
 
             return allRequests;

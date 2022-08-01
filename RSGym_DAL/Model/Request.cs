@@ -44,22 +44,45 @@ namespace RSGym_DAL
         [DataType(DataType.DateTime)]
         public DateTime? MessageAt { get; set; }
 
+        [DataType(DataType.DateTime)]
+        public DateTime? CompletedAt { get; set; }
+
         #endregion
 
         #region Navigation properties
 
-        public virtual User User { get; set; }
+        public User User { get; set; }
 
-        public virtual Trainer Trainer { get; set; }
+        public Trainer Trainer { get; set; }
 
         #endregion
 
         #region Methods
 
-        public override string ToString()
+        public string ToString(int trainerLength, int statusLength, int messageLength)
         {
-            string trainer = $"{RequestID:d} - Data: {RequestDate:d} {RequestHour.ToString(@"hh\:mm")} | PT: {TrainerRepository.GetTrainerById(TrainerID).Name}";
-            return trainer;
+
+            string trainerHeader = $"{TrainerRepository.GetTrainerById(TrainerID).Code} - {TrainerRepository.GetTrainerById(TrainerID).Name}";
+            string status = Status.ToString();
+
+            StringBuilder message = new StringBuilder();
+
+            message.Append($"{RequestID,2} | ");
+            message.Append($"{RequestDate:d} {RequestHour:hh\\:mm} | ");
+            message.Append($"{trainerHeader.PadRight(trainerLength)} | ");
+
+            if (Status == RequestStatus.Concluido)
+                status = $"{status} (finalizada em {CompletedAt:dd/MM/yyyy HH:mm})";
+
+            message.Append($"{status.PadRight(statusLength)}");
+
+            if (messageLength > 0)
+                message.Append($" |");
+
+            if (Message != null && Message.Length > 0)
+                message.Append($" {Message}");
+
+            return message.ToString();
         }
 
         #endregion

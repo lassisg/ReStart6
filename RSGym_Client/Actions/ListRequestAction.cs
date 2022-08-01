@@ -42,26 +42,53 @@ namespace RSGym_Client
         {
             isExit = false;
 
-            //Console.Write("\nDigite o nome do PT: ");
-            //string ptName = this.ReadUserInput();
-
-            //var newTrainer = new Trainer
-            //{
-            //    Code = Trainer.GetNextCode(),
-            //    Name = ptName
-            //};
-
-            //TrainerRepository.CreateTrainer(newTrainer);
-            Success = true;
-
             Console.Clear();
+            Utils.PrintSubHeader("Lista de pedidos realizados");
 
-            //var sb = new StringBuilder();
-            //sb.AppendLine("Novo Personal Trainer adicionado:");
-            //sb.AppendLine(newTrainer.ToString());
+            List<Request> requests = RequestRepository.GetRequestsByUserID(this.User.UserID);
 
-            //Communicator.WriteSuccessMessage(sb.ToString());
-            Communicator.WriteSuccessMessage("ToDo: Listar pedidos");
+            string dateHourHeader = "Data e hora";
+            int dateHourLength = 16;
+
+            string trainerHeader = "Personal Trainer";
+            int trainerLength = requests.Select(r => r.Trainer).ToList().Select(x => x.Name.Length).Max() + 8;
+
+            string statusHeader = "Status";
+            int statusLength = requests.Select(r => r.Status.ToString().Length).Max();
+            statusLength += requests.Any(r => r.Status == RequestStatus.Concluido) ? 33 : 0;
+
+            bool hasMessage = requests.Any(r => r.Message != null);
+            string messageHeader = "Mensagem";
+            int messageLength = 0;
+
+            StringBuilder header = new StringBuilder();
+            StringBuilder headerLine = new StringBuilder();
+
+            header.Append("\nNº | ");
+            header.Append($"{dateHourHeader.PadRight(dateHourLength)} | ");
+            header.Append($"{trainerHeader.PadRight(trainerLength)} | ");
+            header.Append($"{statusHeader.PadRight(statusLength)}");
+
+            headerLine.Append("---+-");
+            headerLine.Append($"{new String('-', dateHourLength)}-+-");
+            headerLine.Append($"{new String('-', trainerLength)}-+-");
+            headerLine.Append($"{new String('-', statusLength)}");
+
+            if (hasMessage) 
+            { 
+                messageLength = requests.Where(r => r.Message != null).Select(r => r.Message.Length).Max();
+                header.Append($" | {messageHeader.PadRight(messageLength)}");
+                headerLine.Append($"-+-{new String('-', messageLength)}");
+            }
+            
+            Console.WriteLine(header.ToString());
+            Console.WriteLine(headerLine.ToString());
+
+            requests.ForEach(r => Console.WriteLine(r.ToString(trainerLength, statusLength, messageLength)));
+
+            Console.WriteLine();
+
+            Success = true;
         }
 
         #endregion

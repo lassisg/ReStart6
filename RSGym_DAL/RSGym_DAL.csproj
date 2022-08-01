@@ -52,6 +52,10 @@
     <Compile Include="Migrations\202207311926089_M01_Initial_Migration.Designer.cs">
       <DependentUpon>202207311926089_M01_Initial_Migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207312349345_M02_Up_CompletedAt.cs" />
+    <Compile Include="Migrations\202207312349345_M02_Up_CompletedAt.Designer.cs">
+      <DependentUpon>202207312349345_M02_Up_CompletedAt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\GuestUser.cs" />
     <Compile Include="Model\GymDbContext.cs" />
@@ -74,6 +78,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202207311926089_M01_Initial_Migration.resx">
       <DependentUpon>202207311926089_M01_Initial_Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207312349345_M02_Up_CompletedAt.resx">
+      <DependentUpon>202207312349345_M02_Up_CompletedAt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

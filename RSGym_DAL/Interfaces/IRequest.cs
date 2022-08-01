@@ -23,8 +23,9 @@ namespace RSGym_DAL
         string Message { get; set; }
         
         DateTime? MessageAt { get; set; }
-        
-        
+
+        DateTime? CompletedAt { get; set; }
+
     }
 
 }
