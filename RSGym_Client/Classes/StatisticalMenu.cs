@@ -19,7 +19,7 @@ namespace RSGym_Client
                 new MenuItem { Code = '2', Description = "Pedidos (por estado)             - ToDo" },
                 new MenuItem { Code = '3', Description = "Pedidos (por PT)                 - ToDo" },
                 new MenuItem { Code = '4', Description = "PT mais solicitado (Esse é Top!) - ToDo" },
-                new MenuItem { Code = '0', Description = "Voltar" }
+                new MenuItem { Code = '0', Description = "Voltar ao menu anterior" }
             };
         }
 
