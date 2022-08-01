@@ -18,7 +18,7 @@ namespace RSGym_Client
             {
                 currentMenu = new GuestMenu();
             }
-            else if (currentAction.Code == '+')
+            else if (currentAction.Code == '+' || currentAction.MenuType == MenuType.Statistical)
             {
                 currentMenu = new StatisticalMenu();
             }

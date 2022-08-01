@@ -56,7 +56,7 @@ namespace RSGym_Client
             requests.ToList().ForEach(s => Console.WriteLine($"{s.Key.PadRight(statusLength)} | {s.Value}"));
 
             Console.WriteLine();
-            // ToDo: Deve voltar ao menu estatístico, mas volta ao menu restrito
+            
         }
 
         #endregion
