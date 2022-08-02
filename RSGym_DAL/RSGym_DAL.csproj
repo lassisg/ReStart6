@@ -48,19 +48,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GymDbContext.cs" />
+    <Compile Include="Migrations\202207311926089_M01_Initial_Migration.cs" />
+    <Compile Include="Migrations\202207311926089_M01_Initial_Migration.Designer.cs">
+      <DependentUpon>202207311926089_M01_Initial_Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207312349345_M02_Up_CompletedAt.cs" />
+    <Compile Include="Migrations\202207312349345_M02_Up_CompletedAt.Designer.cs">
+      <DependentUpon>202207312349345_M02_Up_CompletedAt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\GuestUser.cs" />
+    <Compile Include="Model\GymDbContext.cs" />
+    <Compile Include="Model\Enums.cs" />
+    <Compile Include="Interfaces\ITrainer.cs" />
+    <Compile Include="Interfaces\IUser.cs" />
+    <Compile Include="Interfaces\IRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Request.cs" />
-    <Compile Include="Model\Trainner.cs" />
+    <Compile Include="Model\Trainer.cs" />
     <Compile Include="Model\User.cs" />
-    <Compile Include="Model\Status.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <Compile Include="Repository\TrainerRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Repository\RequestRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202207311926089_M01_Initial_Migration.resx">
+      <DependentUpon>202207311926089_M01_Initial_Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207312349345_M02_Up_CompletedAt.resx">
+      <DependentUpon>202207312349345_M02_Up_CompletedAt.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

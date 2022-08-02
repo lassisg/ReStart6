@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RSGym_DAL
+namespace RSGym_Client
 {
 
-    class GymDbContext
+    interface IAppException
     {
 
 
