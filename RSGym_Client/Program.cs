@@ -23,7 +23,6 @@ namespace RSGym_Client
             IUser currentUser = new GuestUser();
             IBaseAction currentAction = new BasicAction();
             char userOption = '0';
-
             bool exitApp = false;
 
             do
@@ -77,12 +76,6 @@ namespace RSGym_Client
                 catch (Exception e)
                 {
                     e.Message.WriteErrorMessage();
-                }
-                finally
-                {
-
-                    //Console.ReadKey();
-
                 }
 
             } while (!exitApp);
