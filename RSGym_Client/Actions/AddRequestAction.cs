@@ -57,6 +57,7 @@ namespace RSGym_Client
             string trainerID = this.ReadUserInput();
 
             // ToDo: Validar data e hora (formatos e períodos)
+            // em outro método que possa ser usado pelo update
 
             // ToDo: Simular resposta do ginásio
 
@@ -73,7 +74,7 @@ namespace RSGym_Client
                 Status = RequestStatus.Agendado
             };
 
-            RequestRepository.Create(newRequest);
+            RequestRepository.CreateRequest(newRequest);
             Success = true;
 
             Console.Clear();

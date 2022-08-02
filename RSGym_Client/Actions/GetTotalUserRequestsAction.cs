@@ -53,7 +53,7 @@ namespace RSGym_Client
             Console.Write($"\nO total de pedidos em seu nome é: {requests}\n");
             
             Console.WriteLine();
-            // ToDo: Deve voltar ao menu estatístico, mas volta ao menu restrito
+            
         }
 
         #endregion

@@ -10,7 +10,7 @@ namespace RSGym_DAL
 
         #region CRUD Methods
 
-        public static void Create(Request newRequest)
+        public static void CreateRequest(Request newRequest)
         {
 
             using (var context = new GymDbContext())
@@ -122,6 +122,32 @@ namespace RSGym_DAL
             }
 
             return allRequests;
+        }
+
+        public static void UpdateRequest(Request updatedRequest)
+        {
+            using (var context = new GymDbContext())
+            {
+                var request = context.Request
+                    .Where(t => t.RequestID == updatedRequest.RequestID)
+                    .Single();
+
+                context.Entry(request).CurrentValues.SetValues(updatedRequest);
+                context.SaveChanges();
+            }
+        }
+
+        public static void DeleteRequestByID(int requestID)
+        {
+            using (var context = new GymDbContext())
+            {
+                var request = context.Request
+                    .Where(t => t.RequestID == requestID)
+                    .Single();
+
+                context.Request.Remove(request);
+                context.SaveChanges();
+            }
         }
 
         #endregion

@@ -42,26 +42,37 @@ namespace RSGym_Client
         {
             isExit = false;
 
-            //Console.Write("\nDigite o nome do PT: ");
-            //string ptName = this.ReadUserInput();
+            // 1. Listar apenas pedidos agendados do user
+            List<Request> scheduledRequests = RequestRepository.GetRequestsByUserID(this.User.UserID)
+                .Where(r => r.Status == RequestStatus.Agendado).ToList();
 
-            //var newTrainer = new Trainer
-            //{
-            //    Code = Trainer.GetNextCode(),
-            //    Name = ptName
-            //};
+            Console.WriteLine("\nEscolha um pedido para cancelar/apagar");
 
-            //TrainerRepository.CreateTrainer(newTrainer);
+            string requestHeader = scheduledRequests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
+
+            Console.WriteLine(requestHeader);
+            scheduledRequests.ForEach(r => Console.WriteLine(r.ToString(trainerLength, statusLength, messageLength)));
+
+            // 2. Selecionar um dos pedidos, pelo id
+            Console.Write("\nOpção selecionada: ");
+            string request = this.ReadUserInput();
+
+            // toDo: Validate if input is integer
+            int requestID = int.Parse(request);
+
+            Request currentRequest = scheduledRequests.Where(r => r.RequestID == requestID).Single();
+
+            RequestRepository.DeleteRequestByID(requestID);
             Success = true;
 
             Console.Clear();
 
-            //var sb = new StringBuilder();
-            //sb.AppendLine("Novo Personal Trainer adicionado:");
-            //sb.AppendLine(newTrainer.ToString());
+            var sb = new StringBuilder();
+            sb.AppendLine("Pedido cancelado/apagado:");
+            sb.AppendLine(requestHeader);
+            sb.Append(currentRequest.ToString(trainerLength, statusLength, messageLength));
 
-            //Communicator.WriteSuccessMessage(sb.ToString());
-            Communicator.WriteSuccessMessage("ToDo: Apagar pedido");
+            Communicator.WriteSuccessMessage(sb.ToString());
         }
 
         #endregion
