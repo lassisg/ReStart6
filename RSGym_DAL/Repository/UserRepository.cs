@@ -7,33 +7,6 @@ namespace RSGym_DAL
     public static class UserRepository
     {
 
-        public static User CreateUser(this User user)
-        {
-
-            using (var context = new GymDbContext())
-            {
-                context.User.Add(user);
-
-                context.SaveChanges();
-            }
-
-            return user;
-        }
-
-        public static User GetUserById(int userId)
-        {
-
-            User user;
-
-            using (var context = new GymDbContext())
-            {
-                user = context.User.FirstOrDefault(u => u.UserID == userId);
-            }
-
-            return user;
-
-        }
-
         public static List<User> GetAllUsers()
         {
 
@@ -41,7 +14,7 @@ namespace RSGym_DAL
 
             using (var context = new GymDbContext())
             {
-                allUsers = context.User.Select(u => u).ToList();
+                allUsers = context.User.ToList();
             }
 
             return allUsers;
