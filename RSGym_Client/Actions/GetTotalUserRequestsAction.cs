@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
-    class GetTotalUserRequestsAction : IBaseAction
+    class GetTotalUserRequestsAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -22,6 +22,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -32,6 +34,8 @@ namespace RSGym_Client
             Name = "Get request count for current user";
             User = new GuestUser();
             MenuType = MenuType.Statistical;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -41,19 +45,26 @@ namespace RSGym_Client
         public void Execute(out bool isExit)
         {
             isExit = false;
-
-            var requests = RequestRepository.GetTotalRequestsByUserID(this.User.UserID);
-
             Success = true;
+            BuildFeedbackMessage();
 
             Console.Clear();
+        }
 
-            Utils.PrintSubHeader($"Total de pedidos realizados");
+        public void BuildFeedbackMessage(string previous = "", int current = 0)
+        {
+            var sb = new StringBuilder();
 
-            Console.Write($"\nO total de pedidos em seu nome é: {requests}\n");
-            
-            Console.WriteLine();
-            
+            if (Success)
+            {
+                var requests = RequestRepository.GetRequestsByUserID(this.User.UserID).Count();
+                Utils.PrintSubHeader($"Total de pedidos realizados");
+
+                sb.AppendLine($"\nO total de pedidos em seu nome é: {requests}");
+                sb.AppendLine();
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

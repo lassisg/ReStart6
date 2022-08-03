@@ -61,6 +61,7 @@
     <Compile Include="Actions\GetRequestsByStatusAction.cs" />
     <Compile Include="Actions\GetRequestsByPTAction.cs" />
     <Compile Include="Actions\GetTopPTAction.cs" />
+    <Compile Include="ICommunicable.cs" />
     <Compile Include="Interfaces\IMenuItem.cs" />
     <Compile Include="Interfaces\IMenu.cs" />
     <Compile Include="Interfaces\IBaseAction.cs" />

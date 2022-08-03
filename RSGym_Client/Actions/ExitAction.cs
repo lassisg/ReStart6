@@ -23,6 +23,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -33,6 +35,8 @@ namespace RSGym_Client
             Name = "Exit";
             User = new GuestUser();
             MenuType = MenuType.All;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion

@@ -1,10 +1,11 @@
 ﻿using RSGym_DAL;
 using System;
 using System.Linq;
+using System.Text;
 
 namespace RSGym_Client
 {
-    class GetTopPTAction : IBaseAction
+    class GetTopPTAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -19,6 +20,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -29,6 +32,8 @@ namespace RSGym_Client
             Name = "Get trainer with most requests";
             User = new GuestUser();
             MenuType = MenuType.Statistical;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -38,28 +43,39 @@ namespace RSGym_Client
         public void Execute(out bool isExit)
         {
             isExit = false;
-
-            var topPTRequest = TrainerRepository.GetTopTrainer();
-
             Success = true;
+            BuildFeedbackMessage();
 
             Console.Clear();
+        }
 
-            Utils.PrintSubHeader("Este PT é TOP!");
+        public void BuildFeedbackMessage(string previous = "", int current = 0)
+        {
+            var sb = new StringBuilder();
 
-            if (topPTRequest.Count > 1)
-            {
-                Console.WriteLine("\nHouve um empate!");
-                Console.WriteLine($"Cada um dos personal trainers abaixo conseguiu impressionantes {topPTRequest.First().Requests.Count()} pedidos!\n");
+            if (Success)
+            {// ToDo: Test Top PT
+                var allTrainers = TrainerRepository.GetAllTrainers();
+                int maxRequests = allTrainers.Max(o => o.Requests.Count());
+                var topRequestPT = allTrainers.Where(f => f.Requests.Count() == maxRequests).ToList();
+
+                Utils.PrintSubHeader("Este PT é TOP!");
+                sb.AppendLine();
+                if (topRequestPT.Count > 1)
+                {
+                    sb.AppendLine("Houve um empate!");
+                    sb.AppendLine($"Cada um dos personal trainers abaixo conseguiu impressionantes {topRequestPT.First().Requests.Count()} pedidos!\n");
+                }
+                else
+                {
+                    sb.AppendLine($"O personal trainer mais requisitado, com {topRequestPT.First().Requests.Count()} pedidos em seu nome, é o ");
+                }
+                topRequestPT.ToList().ForEach(t => sb.AppendLine($"{t.ToString().Split('-')[1].Trim().Replace(":", " -")}"));
+
+                sb.AppendLine();
             }
-            else
-            {
-                Console.Write($"\nO personal trainer mais requisitado, com {topPTRequest.First().Requests.Count()} pedidos em seu nome, é o ");
-            }
-            topPTRequest.ToList().ForEach(t => Console.WriteLine($"{t.ToString().Split('-')[1].Trim().Replace(":", " -")}"));
 
-            Console.WriteLine();
-
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

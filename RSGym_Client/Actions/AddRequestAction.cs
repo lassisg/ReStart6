@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
-    class AddRequestAction : IBaseAction
+    class AddRequestAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -22,6 +22,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -32,6 +34,8 @@ namespace RSGym_Client
             Name = "Add request";
             User = new GuestUser();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -75,15 +79,27 @@ namespace RSGym_Client
             };
 
             RequestRepository.CreateRequest(newRequest);
+
             Success = true;
+            BuildFeedbackMessage(newRequestID: newRequest.RequestID);
 
             Console.Clear();
 
-            var sb = new StringBuilder();
-            sb.AppendLine("Novo pedido registado:");
-            sb.Append(newRequest.ToString());
+        }
 
-            Communicator.WriteSuccessMessage(sb.ToString());
+        public void BuildFeedbackMessage(string previousRequest = "", int newRequestID = 0)
+        {
+            var sb = new StringBuilder();
+
+            if (Success)
+            {
+                var newRequest = RequestRepository.GetRequestById(newRequestID);
+
+                sb.AppendLine("Novo pedido registado:");
+                sb.Append(newRequest.ToString());
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

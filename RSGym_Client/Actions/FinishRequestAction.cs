@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
-    class FinishRequestAction : IBaseAction
+    class FinishRequestAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -22,6 +22,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -32,6 +34,8 @@ namespace RSGym_Client
             Name = "Finish request";
             User = new GuestUser();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -70,15 +74,32 @@ namespace RSGym_Client
             RequestRepository.UpdateRequest(currentRequest);
             Success = true;
 
+            BuildFeedbackMessage(currentRequestID: currentRequest.RequestID);
+
             Console.Clear();
 
-            var sb = new StringBuilder();
-            sb.AppendLine("Pedido concluído:");
-            sb.AppendLine(requestHeader);
-            sb.Append(currentRequest.ToString(trainerLength, statusLength, messageLength));
+        }
 
-            Communicator.WriteSuccessMessage(sb.ToString());
-            
+        public void BuildFeedbackMessage(string previousRequest = "", int currentRequestID = 0)
+        {
+            var sb = new StringBuilder();
+
+            if (Success)
+            {
+                var currentRequest = RequestRepository.GetRequestById(currentRequestID);
+                var requests = new List<Request>
+                {
+                    currentRequest
+                };
+
+                string requestHeader = requests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
+
+                sb.AppendLine("Pedido concluído:");
+                sb.AppendLine(requestHeader);
+                sb.Append(currentRequest.ToString(trainerLength, statusLength, messageLength));
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

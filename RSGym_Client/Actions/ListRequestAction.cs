@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
-    class ListRequestAction : IBaseAction
+    class ListRequestAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -22,6 +22,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -32,6 +34,8 @@ namespace RSGym_Client
             Name = "List all requests";
             User = new GuestUser();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -40,22 +44,30 @@ namespace RSGym_Client
 
         public void Execute(out bool isExit)
         {
-            // ToDo: Extract code to othe method
             isExit = false;
+            Success = true;
+            BuildFeedbackMessage();
 
             Console.Clear();
-            Utils.PrintSubHeader("Lista de pedidos realizados");
+        }
 
-            List<Request> requests = RequestRepository.GetRequestsByUserID(this.User.UserID);
+        public void BuildFeedbackMessage(string previous = "", int current = 0)
+        {
+            var sb = new StringBuilder();
 
-            string requestHeader = requests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
-            Console.WriteLine(requestHeader);
+            if (Success)
+            {
+                List<Request> requests = RequestRepository.GetRequestsByUserID(this.User.UserID);
+                string requestHeader = requests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
 
-            requests.ForEach(r => Console.WriteLine(r.ToString(trainerLength, statusLength, messageLength)));
+                Utils.PrintSubHeader("Lista de pedidos realizados");
 
-            Console.WriteLine();
+                sb.AppendLine(requestHeader);
+                requests.ForEach(r => sb.AppendLine(r.ToString(trainerLength, statusLength, messageLength)));
+                sb.AppendLine();
+            }
 
-            Success = true;
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

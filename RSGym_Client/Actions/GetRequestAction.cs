@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
-    class GetRequestAction : IBaseAction
+    class GetRequestAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -22,6 +22,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -32,6 +34,8 @@ namespace RSGym_Client
             Name = "Get request";
             User = new GuestUser();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -44,27 +48,42 @@ namespace RSGym_Client
 
             // ToDo: Add validation
             Console.Write("\nDigite o nº do pedido que deseja consultar: ");
-            string requestID = this.ReadUserInput();
+            string inputID = this.ReadUserInput();
 
-            var request = RequestRepository.GetRequestById(int.Parse(requestID));
-            Success = true;
+            _ = int.TryParse(inputID, out int requestID);
+
+            var request = RequestRepository.GetRequestById(requestID);
+
+            Success = !(request is null);
+
+            BuildFeedbackMessage(requestID: requestID);
 
             Console.Clear();
+        }
 
-            Utils.PrintSubHeader($"Informações sobre o pedido nº {requestID}");
+        public void BuildFeedbackMessage(string previous = "", int requestID = 0)
+        {
+            var sb = new StringBuilder();
 
-            List<Request> requests = new List<Request>
+            if (Success)
             {
-                request
-            };
+                var request = RequestRepository.GetRequestById(requestID);
+                Utils.PrintSubHeader($"Informações sobre o pedido nº {requestID}");
 
-            string requestHeader = requests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
+                List<Request> requests = new List<Request>
+                {
+                    request
+                };
 
-            Console.WriteLine(requestHeader);
-            requests.ForEach(r => Console.WriteLine(r.ToString(trainerLength, statusLength, messageLength)));
+                string requestHeader = requests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
 
-            Console.WriteLine();
-            
+                sb.AppendLine(requestHeader);
+                requests.ForEach(r => sb.AppendLine(r.ToString(trainerLength, statusLength, messageLength)));
+
+                sb.AppendLine();
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

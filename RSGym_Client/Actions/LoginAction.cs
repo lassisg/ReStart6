@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace RSGym_Client
 {
 
-    class LoginAction : IBaseAction
+    class LoginAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -23,6 +23,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -33,6 +35,8 @@ namespace RSGym_Client
             Name = "Login";
             User = new GuestUser();
             MenuType = MenuType.Guest;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -57,12 +61,23 @@ namespace RSGym_Client
             User.IsLoggedIn = currentUser is null ? LoginStatus.NotLoggedIn : LoginStatus.LoggedIn;
 
             Success = !(currentUser is null);
-            Console.Clear();
 
+            BuildFeedbackMessage();
+
+            Console.Clear();
+        }
+
+        public void BuildFeedbackMessage(string previousUser = "", int currentUserID = 0)
+        {
             var sb = new StringBuilder();
-            sb.AppendLine("Login realizado com sucesso!");
-            sb.Append("Agora seu nome aparece na barra de tíulos ;-)");
-            Communicator.WriteSuccessMessage(sb.ToString());
+
+            if (Success)
+            {
+                sb.AppendLine("Login realizado com sucesso!");
+                sb.Append("Agora seu nome aparece na barra de tíulos ;-)");
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

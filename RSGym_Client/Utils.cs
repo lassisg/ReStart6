@@ -134,7 +134,7 @@ namespace RSGym_Client
             return currentAction;
         }
 
-        public static IBaseAction ExecuteAction(this IBaseAction appAction, IMenu menu, out bool isExit)
+        public static IBaseAction ExecuteAction(this IBaseAction appAction, out bool isExit)
         {
             appAction.Execute(out isExit);
             

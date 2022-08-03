@@ -66,24 +66,35 @@ namespace RSGym_Client
             Console.WriteLine($"{separator}\n");
         }
 
-        public static void WriteFeedbackMessage(this IRequest request, bool success)
+        public static IBaseAction WriteFeedbackMessage(this IBaseAction currentAction)
         {
-            StringBuilder message = new StringBuilder();
+            //StringBuilder message = new StringBuilder();
 
-            if (!success)
+            //if (!success)
+            //{
+            //    message.Append("Pedido não foi aprovado pelo ginásio.");
+            //    message.Append("Tente outro período ou ");
+            //    message.AppendLine("entre em contacto por telefone ou email para fazer seu pedido.");
+            //    message.ToString().WriteSuccessMessage();
+            //}
+            //else
+            //{
+            //    message.Append($"Pedido {request.RequestID} ");
+            //    message.Append($"criado para {request.RequestDate:dd/MM/yyyy HH:mm} ");
+            //    message.Append($"com o treinador {request.Trainer.Name}.");
+            //    message.ToString().WriteSuccessMessage();
+            //}
+            if (currentAction.Success)
             {
-                message.Append("Pedido não foi aprovado pelo ginásio.");
-                message.Append("Tente outro período ou ");
-                message.AppendLine("entre em contacto por telefone ou email para fazer seu pedido.");
-                message.ToString().WriteSuccessMessage();
+                WriteSuccessMessage(currentAction.FeedbackMessage);
             }
             else
             {
-                message.Append($"Pedido {request.RequestID} ");
-                message.Append($"criado para {request.RequestDate:dd/MM/yyyy HH:mm} ");
-                message.Append($"com o treinador {request.Trainer.Name}.");
-                message.ToString().WriteSuccessMessage();
+                WriteErrorMessage(currentAction.FeedbackMessage);
             }
+
+            return currentAction;
+
         }
 
     }

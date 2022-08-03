@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
-    class UpdateRequestAction : IBaseAction
+    class UpdateRequestAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -22,6 +22,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -32,6 +34,8 @@ namespace RSGym_Client
             Name = "Update request";
             User = new GuestUser();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -48,8 +52,6 @@ namespace RSGym_Client
             //   - PT,
             //   - adicionar mensagem (neste caso, mudar para cancelado)
 
-            // 1. Listar apenas pedidos agendados do user
-
             List<Request> scheduledRequests = RequestRepository.GetRequestsByUserID(this.User.UserID)
                 .Where(r => r.Status == RequestStatus.Agendado).ToList();
 
@@ -60,7 +62,6 @@ namespace RSGym_Client
             Console.WriteLine(requestHeader);
             scheduledRequests.ForEach(r => Console.WriteLine(r.ToString(trainerLength, statusLength, messageLength)));
 
-            // 2. Selecionar um dos pedidos, pelo id
             Console.Write("\nOpção selecionada: ");
             string request = this.ReadUserInput();
 
@@ -69,7 +70,6 @@ namespace RSGym_Client
 
             Request currentRequest = scheduledRequests.Where(r => r.RequestID == requestID).Single();
 
-            // 3. Se não preencher um novo valor, será mantido o atual (informar o user!)
             Console.Write("\nPara todas as opções, caso seja deixado em vazio, será considerado o valor entre '[...]'\n");
 
             Console.Write($"\nDigite a data desejada (no formato dd/MM/aaaa) [{currentRequest.RequestDate:d}]: ");
@@ -90,9 +90,9 @@ namespace RSGym_Client
             string newRequestMessage = this.ReadUserInput();
 
 
-            // ToDo: Validate with Priject 1 if a change in Status is needed
+            // ToDo: Validate with Project 1 if a change in Status is needed
 
-            // ToDo: Validar data e hora (formatos e períodos)
+            // ToDo: Validate date e hour (formatos e períodos)
             // em outro método que possa ser usado pelo create
 
             currentRequest.RequestDate = newRequestDate != string.Empty ? DateTime.Parse(newRequestDate) : currentRequest.RequestDate;
@@ -102,17 +102,36 @@ namespace RSGym_Client
             currentRequest.MessageAt = newRequestMessage != string.Empty ? DateTime.Now : currentRequest.MessageAt;
 
             RequestRepository.UpdateRequest(currentRequest);
+
             Success = true;
 
+            BuildFeedbackMessage(currentRequestID: currentRequest.RequestID);
+
             Console.Clear();
+        }
 
+        public void BuildFeedbackMessage(string previousRequest = "", int currentRequestID = 0)
+        {
+            // ToDo: Add previous request (in red) above the current (in green)
             var sb = new StringBuilder();
-            sb.AppendLine("Pedido atualizado:");
-            sb.AppendLine(requestHeader);
-            sb.Append(currentRequest.ToString(trainerLength, statusLength, messageLength));
 
-            Communicator.WriteSuccessMessage(sb.ToString());
-            
+            if (Success)
+            {
+                var currentRequest = RequestRepository.GetRequestById(currentRequestID);
+                var requests = new List<Request>
+                {
+                    currentRequest
+                };
+
+                string requestHeader = requests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
+
+
+                sb.AppendLine("Pedido atualizado:");
+                sb.AppendLine(requestHeader);
+                sb.Append(currentRequest.ToString(trainerLength, statusLength, messageLength));
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

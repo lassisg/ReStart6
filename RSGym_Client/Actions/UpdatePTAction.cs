@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
-    class UpdatePTAction : IBaseAction
+    class UpdatePTAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -22,6 +22,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -32,6 +34,8 @@ namespace RSGym_Client
             Name = "Update Trainer";
             User = new GuestUser();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -62,13 +66,24 @@ namespace RSGym_Client
 
             Success = true;
 
+            BuildFeedbackMessage(previousName, trainer.TrainerID);
+
             Console.Clear();
+        }
 
+        public void BuildFeedbackMessage(string previousName, int newTrainerID)
+        {
             var sb = new StringBuilder();
-            sb.Append("O nome do Personal Trainer foi editado: ");
-            sb.Append($"'{previousName}' --> '{trainer.Name}'");
 
-            Communicator.WriteSuccessMessage(sb.ToString());
+            if (Success)
+            {
+                var newTrainer = TrainerRepository.GetTrainerById(newTrainerID);
+
+                sb.AppendLine("O nome do Personal Trainer foi editado: ");
+                sb.Append($"'{previousName}' --> '{newTrainer.Name}'");
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

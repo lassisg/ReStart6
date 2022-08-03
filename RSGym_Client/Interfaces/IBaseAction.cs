@@ -18,6 +18,8 @@ namespace RSGym_Client
 
         bool Success { get; set; }
 
+        string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Methods

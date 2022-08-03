@@ -42,10 +42,10 @@ namespace RSGym_Client
                         .ValidateInputFormat(out userOption)             // retorna char convertido do input
                         .ValidateInputOption(menu)                       // retorna IBaseAction, consoante char do método anterior
                         .UpdateUserInfo(currentUser, out currentUser)    // retorna IBaseAction
-                        .ExecuteAction(menu, out exitApp)                // retorna IBaseAction
+                        .ExecuteAction(out exitApp)                      // retorna IBaseAction
                         .UpdateUserInfo(currentUser, out currentUser)    // retorna IBaseAction
-                        .SaveCurrentAction(userOption);                  // retorna IBaseAction
-                                                                         //.ShowFeedbackMessage();
+                        .SaveCurrentAction(userOption)                   // retorna IBaseAction
+                        .WriteFeedbackMessage();
 
                 }
                 catch (DbEntityValidationException e)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
-    class DeleteRequestAction : IBaseAction
+    class DeleteRequestAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -22,6 +22,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -32,6 +34,8 @@ namespace RSGym_Client
             Name = "Delete request";
             User = new GuestUser();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -65,14 +69,25 @@ namespace RSGym_Client
             RequestRepository.DeleteRequestByID(requestID);
             Success = true;
 
+            BuildFeedbackMessage(currentRequestID: currentRequest.RequestID);
+
             Console.Clear();
 
-            var sb = new StringBuilder();
-            sb.AppendLine("Pedido cancelado/apagado:");
-            sb.AppendLine(requestHeader);
-            sb.Append(currentRequest.ToString(trainerLength, statusLength, messageLength));
+        }
 
-            Communicator.WriteSuccessMessage(sb.ToString());
+        public void BuildFeedbackMessage(string previousRequest = "", int currentRequestID = 0)
+        {
+            var sb = new StringBuilder();
+
+            if (Success)
+            {
+                var currentRequest = RequestRepository.GetRequestById(currentRequestID);
+
+                sb.AppendLine("Pedido cancelado/apagado:");
+                sb.Append(currentRequest.ToString());
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion
