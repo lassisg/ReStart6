@@ -37,7 +37,7 @@ namespace RSGym_DAL
 
             using (var context = new GymDbContext())
             {
-                trainers = context.Trainer.ToList();
+                trainers = context.Trainer.Include(r => r.Requests).ToList();
             }
 
             return trainers;
@@ -56,20 +56,6 @@ namespace RSGym_DAL
             }
         }
 
-        public static List<Trainer> GetTopTrainer()
-        {
-            var trainers = new List<Trainer>();
-
-            using (var context = new GymDbContext())
-            {
-                var allTrainers = context.Trainer.Include(r => r.Requests);
-                int maxRequests = allTrainers.Max(o => o.Requests.Count());
-             
-                trainers = allTrainers.Where(f => f.Requests.Count() == maxRequests).ToList();
-            }
-
-            return trainers;
-        }
     }
 
 }
