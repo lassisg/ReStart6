@@ -56,8 +56,8 @@ namespace RSGym_Client
             if (Success)
             {
                 var allTrainers = TrainerRepository.GetAllTrainers();
-                int maxRequests = allTrainers.Max(o => o.Requests.Count());
-                var topRequestPT = allTrainers.Where(f => f.Requests.Count() == maxRequests).ToList();
+                int maxRequests = allTrainers.Max(r => r.Requests.Count());
+                var topRequestPT = allTrainers.Where(r => r.Requests.Count() == maxRequests).ToList();
 
                 sb.AppendLine(Utils.GetSimpleHeader("Este PT é TOP!"));
                 sb.AppendLine();

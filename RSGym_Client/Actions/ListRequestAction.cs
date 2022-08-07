@@ -43,7 +43,10 @@ namespace RSGym_Client
         public void Execute(out bool isExit)
         {
             isExit = false;
-            Success = true;
+
+            List<Request> requests = RequestRepository.GetRequestsByUserID(this.User.UserID);
+
+            Success = requests.Count > 0;
             BuildFeedbackMessage();
 
             Console.Clear();
@@ -61,6 +64,10 @@ namespace RSGym_Client
                 sb.AppendLine(Utils.GetSimpleHeader("Lista de pedidos realizados"));
                 sb.Append(requestHeader);
                 requests.ForEach(r => sb.Append($"\n{r.ToString(trainerLength, statusLength, messageLength)}"));
+            }
+            else
+            {
+                sb.Append("Não há pedidos para mostrar.");
             }
 
             FeedbackMessage = sb.ToString();

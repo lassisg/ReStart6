@@ -14,8 +14,6 @@ namespace RSGym_DAL
         
         DateTime RequestDate { get; set; }
 
-        TimeSpan RequestHour { get; set; }
-
         RequestStatus Status { get; set; }
         
         DateTime CreatedAt { get; set; }

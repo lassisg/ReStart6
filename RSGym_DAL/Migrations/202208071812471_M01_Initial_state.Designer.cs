@@ -7,13 +7,13 @@ namespace RSGym_DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class M02_Up_CompletedAt : IMigrationMetadata
+    public sealed partial class M01_Initial_state : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(M02_Up_CompletedAt));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(M01_Initial_state));
         
         string IMigrationMetadata.Id
         {
-            get { return "202207312349345_M02_Up_CompletedAt"; }
+            get { return "202208071812471_M01_Initial_state"; }
         }
         
         string IMigrationMetadata.Source

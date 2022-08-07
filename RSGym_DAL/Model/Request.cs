@@ -18,16 +18,7 @@ namespace RSGym_DAL
         public int TrainerID { get; set; }
 
         [Required(ErrorMessage = "A data do pedido é obrigatória.")]
-        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido.")]
-        [Column(TypeName = "date")]
-        [RegularExpression(@"^(0?[1-9]|[12][0-9]|3[01])([ /.])(0?[1-9]|1[012])([ /.])(19|20)\d\d( 00:00:00)$", ErrorMessage = "A data deve ter o formato 'dd/mm/aaaa'. Ex.: 25/11/2022.")]
         public DateTime RequestDate { get; set; }
-
-        [Required(ErrorMessage = "A hora do pedido é obrigatória.")]
-        [DataType(DataType.Time)]
-        [RegularExpression(@"^([0-1][0-9]|2[0-3]):[0-5][0-9]:00$", ErrorMessage = "A hora deve ter o formato 'hh:mm'. Ex.: 16:30.")]
-
-        public TimeSpan RequestHour { get; set; }
 
         [Required(ErrorMessage = "O status do pedido é obrigatório.")]
         public RequestStatus Status { get; set; }
@@ -66,8 +57,8 @@ namespace RSGym_DAL
 
             StringBuilder message = new StringBuilder();
 
-            message.Append($"{RequestID,2} | ");
-            message.Append($"{RequestDate:d} {RequestHour:hh\\:mm} | ");
+            message.Append($"{RequestID,-2} | ");
+            message.Append($"{RequestDate:d} {RequestDate:hh\\:mm} | ");
             message.Append($"{trainerHeader.PadRight(trainerLength)} | ");
 
             if (Status == RequestStatus.Concluido)

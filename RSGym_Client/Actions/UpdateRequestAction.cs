@@ -75,7 +75,7 @@ namespace RSGym_Client
             Console.Write($"\nDigite a data desejada (no formato dd/MM/aaaa) [{currentRequest.RequestDate:d}]: ");
             string newRequestDate = this.ReadUserInput();
 
-            Console.Write($"\nDigite a data desejada (no formato HH:mm) [{currentRequest.RequestHour:hh\\:mm}]: ");
+            Console.Write($"\nDigite a data desejada (no formato HH:mm) [{currentRequest.RequestDate:hh\\:mm}]: ");
             string newRequestHour = this.ReadUserInput();
 
             var trainers = TrainerRepository.GetAllTrainers();
@@ -96,7 +96,7 @@ namespace RSGym_Client
             // em outro método que possa ser usado pelo create
 
             currentRequest.RequestDate = newRequestDate != string.Empty ? DateTime.Parse(newRequestDate) : currentRequest.RequestDate;
-            currentRequest.RequestHour = newRequestHour != string.Empty ? TimeSpan.Parse(newRequestHour) : currentRequest.RequestHour;
+            //currentRequest.RequestHour = newRequestHour != string.Empty ? TimeSpan.Parse(newRequestHour) : currentRequest.RequestHour;
             currentRequest.TrainerID = trainerID != string.Empty ? int.Parse(trainerID) : currentRequest.TrainerID;
             currentRequest.Message = newRequestMessage != string.Empty ? newRequestMessage : currentRequest.Message;
             currentRequest.MessageAt = newRequestMessage != string.Empty ? DateTime.Now : currentRequest.MessageAt;

@@ -25,6 +25,7 @@ namespace RSGym_DAL.Migrations
             //      new Person { FullName = "Brice Lambson" },
             //      new Person { FullName = "Rowan Miller" }
             //    );
+            //
 
             context.User.AddOrUpdate(
               p => p.Username,

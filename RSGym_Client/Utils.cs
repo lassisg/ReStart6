@@ -151,7 +151,7 @@ namespace RSGym_Client
             // '1', "Registar PT":              ok (error and success)
             // '2', "Listar PTs":               ok (success)
             // '3', "Atualizar PT":             ok (error and success)
-            // '4', "Registar pedido":          
+            // '4', "Registar pedido":          ok (error and success)
             // '5', "Consultar pedido":         ok (error and success)
             // '6', "Atualizar pedido":         
             // '7', "Conlcuir pedido":          ok (error and success)
@@ -284,6 +284,32 @@ namespace RSGym_Client
             return fullHeader;
         }
 
+        internal static string GetFormattedRequestError(this List<(string, string)> errors, string inputValues)
+        {
+            var sb = new StringBuilder();
+
+            var values = inputValues.Split(',')
+                    .Zip(errors, (e, p) => new { Parameter = p.Item1, UserInput = e, Error = p.Item2 })
+                    .ToList();
+
+            string paramHeader = "Dado de entrada";
+            string inputHeader = "Valor inserido";
+            string errorHeader = "Erro";
+
+            int paramLength = values.Max(x => x.Parameter.Length);
+            paramLength = Math.Max(paramHeader.Length, paramLength);
+            var inputLength = values.Max(x => x.UserInput.Length);
+            inputLength = Math.Max(inputHeader.Length, inputLength);
+            int errorLength = values.Max(x => x.Error.Length);
+
+            sb.AppendLine("Erro na criação do pedido. Verifique os dados.\n");
+            sb.AppendLine($"{paramHeader.PadRight(paramLength)} | {inputHeader.PadRight(inputLength)} | {errorHeader}");
+            sb.Append($"{new string('-', paramLength)} | {new string('-', inputLength)} | {new string('-', errorLength)}");
+            values.ForEach(x => sb.Append($"\n{x.Parameter.PadRight(paramLength)} | {x.UserInput.PadRight(inputLength)} | {x.Error.PadRight(errorLength)}"));
+            
+            return sb.ToString();
+        }
+
         internal static string GetSimpleHeader(string simpleHeader)
         {
             simpleHeader = $"{simpleHeader}\n{new string('-', 43)}";
@@ -298,34 +324,24 @@ namespace RSGym_Client
                                              @"(19|20)\d\d$");                      // Year
             bool success = Regex.IsMatch(date, datePattern);
 
-            //if (!success)
-            //    throw new FormatException("Formato da data inválido.");
-
             return success;
         }
 
         internal static bool HasValidHourPattern(this string hour)
         {
             string hourPattern = @"^([0-1][0-9]|2[0-3]):[0-5][0-9]$";
-
             bool success = Regex.IsMatch(hour, hourPattern);
-
-            //if (!success)
-            //    throw new FormatException("Formato da hora inválido.");
 
             return success;
         }
-
-        internal static DateTime GetDateFromString(string inputDate)
+        
+        internal static bool ApproveRequest()
         {
-            _ = DateTime.TryParse(inputDate, out DateTime newDate);
-            return newDate;
-        }
+            Random rnd = new Random();
+            // Usei 3 com a intenção de receber mais sucesso
+            bool isApproved = rnd.Next(0, 3) != 0;
 
-        internal static TimeSpan GetHourFromString(string inputHour)
-        {
-            _ = TimeSpan.TryParse(inputHour, out TimeSpan newHour);
-            return newHour;
+            return isApproved;
         }
 
     }
