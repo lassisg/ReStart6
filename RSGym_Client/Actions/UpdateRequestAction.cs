@@ -57,7 +57,7 @@ namespace RSGym_Client
 
             Console.WriteLine("\nEscolha um pedido para editar.");
 
-            string requestHeader = scheduledRequests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
+            string requestHeader = scheduledRequests.GetRequestHeader(out int trainerLength, out int statusLength, out int messageLength);
 
             Console.WriteLine(requestHeader);
             scheduledRequests.ForEach(r => Console.WriteLine(r.ToString(trainerLength, statusLength, messageLength)));
@@ -122,9 +122,7 @@ namespace RSGym_Client
                 {
                     currentRequest
                 };
-
-                string requestHeader = requests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
-
+                string requestHeader = requests.GetRequestHeader(out int trainerLength, out int statusLength, out int messageLength);
 
                 sb.AppendLine("Pedido atualizado:");
                 sb.AppendLine(requestHeader);
