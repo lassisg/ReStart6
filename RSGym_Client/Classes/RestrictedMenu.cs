@@ -12,7 +12,7 @@ namespace RSGym_Client
             Type = MenuType.Restricted;
             MenuItems = new List<IMenuItem>() {
                 new MenuItem { Code = '1', Description = "Registar PT" },
-                new MenuItem { Code = '2', Description = "Consultar/Listar PTs" },
+                new MenuItem { Code = '2', Description = "Listar PTs" },
                 new MenuItem { Code = '3', Description = "Atualizar PT" },
                 new MenuItem { Code = '4', Description = "Registar pedido" },
                 new MenuItem { Code = '5', Description = "Consultar pedido" },

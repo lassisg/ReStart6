@@ -1,9 +1,7 @@
 ﻿using RSGym_DAL;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
@@ -46,13 +44,16 @@ namespace RSGym_Client
         {
             isExit = false;
 
-            // ToDo: Add validation
             Console.Write("\nDigite o nº do pedido que deseja consultar: ");
             string inputID = this.ReadUserInput();
 
+
             _ = int.TryParse(inputID, out int requestID);
 
-            var request = RequestRepository.GetRequestById(requestID);
+            var request = RequestRepository
+                .GetRequestsByUserID(this.User.UserID)
+                .Where(r => r.RequestID == requestID)
+                .FirstOrDefault();
 
             Success = !(request is null);
 
@@ -67,20 +68,24 @@ namespace RSGym_Client
 
             if (Success)
             {
-                var request = RequestRepository.GetRequestById(requestID);
-                Utils.PrintSubHeader($"Informações sobre o pedido nº {requestID}");
+                var requests = RequestRepository
+                    .GetRequestsByUserID(this.User.UserID)
+                    .Where(r => r.RequestID == requestID)
+                    .ToList();
 
-                List<Request> requests = new List<Request>
-                {
-                    request
-                };
+                string requestHeader = requests.GetRequestHeader(out int trainerLength, out int statusLength, out int messageLength);
 
-                string requestHeader = requests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
-
-                sb.AppendLine(requestHeader);
-                requests.ForEach(r => sb.AppendLine(r.ToString(trainerLength, statusLength, messageLength)));
-
-                sb.AppendLine();
+                sb.AppendLine(Utils.GetSimpleHeader($"Informações sobre o pedido nº {requestID}"));
+                sb.Append(requestHeader);
+                requests.ForEach(r => sb.Append($"\n{r.ToString(trainerLength, statusLength, messageLength)}"));
+            }
+            else if(requestID == 0)
+            {
+                sb.Append($"Digite um nº de pedido válido.");
+            }
+            else
+            {
+                sb.Append($"Não foi encontrado um pedido com o nº {requestID} entre os seu pedidos.");
             }
 
             FeedbackMessage = sb.ToString();

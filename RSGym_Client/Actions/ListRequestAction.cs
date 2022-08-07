@@ -1,9 +1,7 @@
 ﻿using RSGym_DAL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
@@ -58,13 +56,11 @@ namespace RSGym_Client
             if (Success)
             {
                 List<Request> requests = RequestRepository.GetRequestsByUserID(this.User.UserID);
-                string requestHeader = requests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
+                string requestHeader = requests.GetRequestHeader(out int trainerLength, out int statusLength, out int messageLength);
 
-                Utils.PrintSubHeader("Lista de pedidos realizados");
-
-                sb.AppendLine(requestHeader);
-                requests.ForEach(r => sb.AppendLine(r.ToString(trainerLength, statusLength, messageLength)));
-                sb.AppendLine();
+                sb.AppendLine(Utils.GetSimpleHeader("Lista de pedidos realizados"));
+                sb.Append(requestHeader);
+                requests.ForEach(r => sb.Append($"\n{r.ToString(trainerLength, statusLength, messageLength)}"));
             }
 
             FeedbackMessage = sb.ToString();

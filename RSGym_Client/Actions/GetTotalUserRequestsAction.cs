@@ -58,10 +58,9 @@ namespace RSGym_Client
             if (Success)
             {
                 var requests = RequestRepository.GetRequestsByUserID(this.User.UserID).Count();
-                Utils.PrintSubHeader($"Total de pedidos realizados");
 
-                sb.AppendLine($"\nO total de pedidos em seu nome é: {requests}");
-                sb.AppendLine();
+                sb.AppendLine(Utils.GetSimpleHeader("Total de pedidos realizados"));
+                sb.Append($"\nO total de pedidos em seu nome é: {requests}");
             }
 
             FeedbackMessage = sb.ToString();

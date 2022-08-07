@@ -62,12 +62,10 @@ namespace RSGym_Client
                 var groupedRequests = allRequests.GroupBy(r => r.Status).Select(x => new { Status = x.Key, Count = x.Count() }).ToList();
                 int statusLength = groupedRequests.Max(r => r.Status.ToString().Length);
 
-                Utils.PrintSubHeader("Lista de pedidos agrupados por estado");
-
-                sb.AppendLine($"{"Status".PadRight(statusLength)} | Nº de pedidos");
-                sb.AppendLine($"{new String('-', statusLength)}-+--------------");
-                groupedRequests.ToList().ForEach(s => sb.AppendLine($"{s.Status.ToString().PadRight(statusLength)} | {s.Count}"));
-                sb.AppendLine();
+                sb.AppendLine(Utils.GetSimpleHeader("Lista de pedidos agrupados por estado"));
+                sb.AppendLine($"\n{"Status".PadRight(statusLength)} | Nº de pedidos");
+                sb.Append($"{new String('-', statusLength)}-+--------------");
+                groupedRequests.ToList().ForEach(s => sb.Append($"\n{s.Status.ToString().PadRight(statusLength)} | {s.Count}"));
             }
 
             FeedbackMessage = sb.ToString();

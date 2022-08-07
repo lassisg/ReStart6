@@ -1,9 +1,6 @@
 ﻿using RSGym_DAL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
@@ -57,11 +54,10 @@ namespace RSGym_Client
 
             TrainerRepository.CreateTrainer(newTrainer);
 
-            Success = true;
+            Success = newTrainer.TrainerID > 0;
             BuildFeedbackMessage(newTrainerID: newTrainer.TrainerID);
-
+            
             Console.Clear();
-
         }
 
         public void BuildFeedbackMessage(string previousTrainer = "", int newTrainerID = 0)
@@ -73,7 +69,11 @@ namespace RSGym_Client
                 var newTrainer = TrainerRepository.GetTrainerById(newTrainerID);
             
                 sb.AppendLine("Novo Personal Trainer adicionado:");
-                sb.AppendLine(newTrainer.ToString());
+                sb.Append(newTrainer.ToString());
+            }
+            else
+            {
+                sb.Append("O formato do nome digitado é inválido.");
             }
 
             FeedbackMessage = sb.ToString();

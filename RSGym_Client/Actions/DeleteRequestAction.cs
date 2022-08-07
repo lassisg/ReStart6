@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
@@ -45,46 +44,61 @@ namespace RSGym_Client
         public void Execute(out bool isExit)
         {
             isExit = false;
+            string deletedRequest = string.Empty;
 
-            // 1. Listar apenas pedidos agendados do user
-            List<Request> scheduledRequests = RequestRepository.GetRequestsByUserID(this.User.UserID)
-                .Where(r => r.Status == RequestStatus.Agendado).ToList();
+            List<Request> scheduledRequests = RequestRepository
+                .GetRequestsByUserID(this.User.UserID)
+                .Where(r => r.Status == RequestStatus.Agendado)
+                .ToList();
 
             Console.WriteLine("\nEscolha um pedido para cancelar/apagar");
 
-            string requestHeader = scheduledRequests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
+            string requestHeader = scheduledRequests
+                .GetRequestHeader(out int trainerLength, out int statusLength, out int messageLength);
 
             Console.WriteLine(requestHeader);
-            scheduledRequests.ForEach(r => Console.WriteLine(r.ToString(trainerLength, statusLength, messageLength)));
+            scheduledRequests
+                .ForEach(r => Console.WriteLine(r.ToString(trainerLength, statusLength, messageLength)));
 
-            // 2. Selecionar um dos pedidos, pelo id
             Console.Write("\nOpção selecionada: ");
             string request = this.ReadUserInput();
 
-            // toDo: Validate if input is integer
-            int requestID = int.Parse(request);
+            _ = int.TryParse(request, out int requestID);
 
-            Request currentRequest = scheduledRequests.Where(r => r.RequestID == requestID).Single();
+            Request currentRequest = scheduledRequests
+                .Where(r => r.RequestID == requestID)
+                .FirstOrDefault();
+            
 
-            RequestRepository.DeleteRequestByID(requestID);
-            Success = true;
+            if (currentRequest != null)
+            {
+                deletedRequest = $"{requestHeader}\n{currentRequest.ToString(trainerLength, statusLength, messageLength)}";
+                RequestRepository.DeleteRequestByID(requestID);
+            }
 
-            BuildFeedbackMessage(currentRequestID: currentRequest.RequestID);
+            Success = !(currentRequest is null);
+
+            BuildFeedbackMessage(deletedRequest, requestID);
 
             Console.Clear();
-
         }
 
-        public void BuildFeedbackMessage(string previousRequest = "", int currentRequestID = 0)
+        public void BuildFeedbackMessage(string request = "", int requestID = 0)
         {
             var sb = new StringBuilder();
 
             if (Success)
             {
-                var currentRequest = RequestRepository.GetRequestById(currentRequestID);
-
                 sb.AppendLine("Pedido cancelado/apagado:");
-                sb.Append(currentRequest.ToString());
+                sb.Append(request);
+            }
+            else if(requestID == 0)
+            {
+                sb.Append("Selecione um pedido válido.");
+            }
+            else
+            {
+                sb.Append($"Não foi localizado um pedido com o nº {requestID} nas sua lista de pedidos.");
             }
 
             FeedbackMessage = sb.ToString();

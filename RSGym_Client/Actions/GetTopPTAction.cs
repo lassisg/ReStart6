@@ -54,25 +54,24 @@ namespace RSGym_Client
             var sb = new StringBuilder();
 
             if (Success)
-            {// ToDo: Test Top PT
+            {
                 var allTrainers = TrainerRepository.GetAllTrainers();
                 int maxRequests = allTrainers.Max(o => o.Requests.Count());
                 var topRequestPT = allTrainers.Where(f => f.Requests.Count() == maxRequests).ToList();
 
-                Utils.PrintSubHeader("Este PT é TOP!");
+                sb.AppendLine(Utils.GetSimpleHeader("Este PT é TOP!"));
                 sb.AppendLine();
                 if (topRequestPT.Count > 1)
                 {
                     sb.AppendLine("Houve um empate!");
-                    sb.AppendLine($"Cada um dos personal trainers abaixo conseguiu impressionantes {topRequestPT.First().Requests.Count()} pedidos!\n");
+                    sb.AppendLine($"Cada um dos personal trainers abaixo conseguiu impressionantes {topRequestPT.First().Requests.Count()} pedidos!");
                 }
                 else
                 {
-                    sb.AppendLine($"O personal trainer mais requisitado, com {topRequestPT.First().Requests.Count()} pedidos em seu nome, é o ");
+                    sb.AppendLine($"O personal trainer mais requisitado, com {topRequestPT.First().Requests.Count()} pedidos em seu nome, é: ");
                 }
-                topRequestPT.ToList().ForEach(t => sb.AppendLine($"{t.ToString().Split('-')[1].Trim().Replace(":", " -")}"));
+                topRequestPT.ToList().ForEach(t => sb.Append($"\n{t.ToString().Split('-')[1].Trim().Replace(":", " -")}"));
 
-                sb.AppendLine();
             }
 
             FeedbackMessage = sb.ToString();

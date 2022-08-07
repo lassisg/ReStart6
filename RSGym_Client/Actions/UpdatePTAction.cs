@@ -1,9 +1,7 @@
 ﻿using RSGym_DAL;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
@@ -52,26 +50,32 @@ namespace RSGym_Client
             trainers.ForEach(t => Console.WriteLine(t.ToString()));
 
             Console.Write("\nOpção selecionada: ");
-            string trainerID = this.ReadUserInput();
+            string userInput = this.ReadUserInput();
 
-            var trainer = trainers.Where(t => t.TrainerID == int.Parse(trainerID)).Single();
+            _ = int.TryParse(userInput, out int trainerID);
 
-            Console.Write($"\nDigite o novo nome para o PT '{trainer.Name}': ");
-            string trainerName = this.ReadUserInput();
+            var trainer = trainers.Where(t => t.TrainerID == trainerID).FirstOrDefault();
+            string previousName = string.Empty;
 
-            string previousName = trainer.Name;
-            trainer.Name = trainerName;
+            if (trainer != null)
+            {
+                Console.Write($"\nDigite o novo nome para o PT '{trainer.Name}': ");
+                string trainerName = this.ReadUserInput();
 
-            TrainerRepository.UpdateTrainer(trainer);
+                previousName = trainer.Name;
+                trainer.Name = trainerName;
 
-            Success = true;
+                TrainerRepository.UpdateTrainer(trainer);
+            }
 
-            BuildFeedbackMessage(previousName, trainer.TrainerID);
+            Success = !(trainer is null);
+            
+            BuildFeedbackMessage(previousName, trainerID);
 
             Console.Clear();
         }
 
-        public void BuildFeedbackMessage(string previousName, int newTrainerID)
+        public void BuildFeedbackMessage(string previousName = "", int newTrainerID = 0)
         {
             var sb = new StringBuilder();
 
@@ -81,6 +85,10 @@ namespace RSGym_Client
 
                 sb.AppendLine("O nome do Personal Trainer foi editado: ");
                 sb.Append($"'{previousName}' --> '{newTrainer.Name}'");
+            }
+            else
+            {
+                sb.Append("Selecione uma opção válida.");
             }
 
             FeedbackMessage = sb.ToString();

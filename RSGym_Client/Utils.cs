@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace RSGym_Client
 {
@@ -25,16 +26,17 @@ namespace RSGym_Client
 
         }
 
-        internal static void PrintHeader(string title, string newLines = "", bool clearConsole = true)
+        internal static void PrintHeader(string title, string linesBefore = "", string linesAfter = "", bool clearConsole = true)
         {
 
             string border = new string('-', 70);
             StringBuilder sb = new StringBuilder();
 
+            sb.Append(linesBefore);
             sb.AppendLine(border);
             sb.AppendLine(title.ToUpper());
             sb.AppendLine(border);
-            sb.Append(newLines);
+            sb.Append(linesAfter);
 
             if (clearConsole)
             {
@@ -137,8 +139,40 @@ namespace RSGym_Client
         public static IBaseAction ExecuteAction(this IBaseAction appAction, out bool isExit)
         {
             appAction.Execute(out isExit);
-            
-            if (!appAction.Success)
+
+            // ToDo: check if is needed
+
+            // GuestMenu
+            // '1', "Fazer login":              ok (error and success)
+            // 'X', "Sair da aplicação":        ok (success)
+            // Wrong option:                    ok (error)
+
+            // RestrictedMenu
+            // '1', "Registar PT":              ok (error and success)
+            // '2', "Listar PTs":               ok (success)
+            // '3', "Atualizar PT":             ok (error and success)
+            // '4', "Registar pedido":          
+            // '5', "Consultar pedido":         ok (error and success)
+            // '6', "Atualizar pedido":         
+            // '7', "Conlcuir pedido":          ok (error and success)
+            // '8', "Cancelar/Eliminar pedido": ok (error and success)
+            // '9', "Listar pedidos":           ok (success)
+            // '+', "Estatísticas...":          ok (success)
+            // '0', "Logout":                   ok (success)
+            // 'X', "Sair da aplicação":        ok (success)
+            // Wrong option:                    ok (error)
+
+            // StatisticalMenu
+            // '1', "Meu total de pedidos":     ok (success)
+            // '2', "Pedidos (por estado)":     ok (success)
+            // '3', "Pedidos (por PT)":         ok (success)
+            // '4', "PT mais solicitado":       ok (success)
+            // '0', "Voltar ao menu anterior":  ok (success)
+            // 'X', "Sair da aplicação":        ok (success)
+            // Wrong option:                    ok (error)
+
+
+            if (!appAction.Success && appAction.FeedbackMessage == string.Empty)
                 Communicator.WriteErrorMessage("Algo não correu bem. Por favor reveja os dados inseridos.");
 
             return appAction;
@@ -166,11 +200,6 @@ namespace RSGym_Client
 
             foreach (var validationException in dbException.EntityValidationErrors)
             {
-                //foreach (var ve in validationException.ValidationErrors)
-                //{
-                //    paramLength = Math.Max(paramLength, validationException.ValidationErrors.Max(v => v.PropertyName).Length);
-                //    inputLength = Math.Max(inputLength, validationException.Entry.CurrentValues.GetValue<object>(ve.PropertyName).ToString().Length);
-                //}
 
                 (paramLength, inputLength) = validationException.ValidationErrors
                     .Select(t => new { t.PropertyName, t.ErrorMessage })
@@ -213,7 +242,7 @@ namespace RSGym_Client
 
         }
 
-        internal static string GetHeader(this List<Request> requests, out int trainerLength, out int statusLength, out int messageLength)
+        internal static string GetRequestHeader(this List<Request> requests, out int trainerLength, out int statusLength, out int messageLength)
         {
 
             string requestIdHeader = "Nº";
@@ -225,6 +254,7 @@ namespace RSGym_Client
             int requestIdLength = requestIdHeader.Length;
             int dateHourLength = 16;
             trainerLength = requests.Select(r => r.Trainer).ToList().Select(x => x.Name.Length).Max() + 8;
+            trainerLength = Math.Max(trainerLength, trainerHeader.Length);
             statusLength = requests.Select(r => r.Status.ToString().Length).Max();
             statusLength += requests.Any(r => r.Status == RequestStatus.Concluido) ? 33 : 0;
             messageLength = 0;
@@ -252,6 +282,50 @@ namespace RSGym_Client
             string fullHeader = $"{header}\n{headerLine}";
 
             return fullHeader;
+        }
+
+        internal static string GetSimpleHeader(string simpleHeader)
+        {
+            simpleHeader = $"{simpleHeader}\n{new string('-', 43)}";
+            return simpleHeader;
+        }
+
+        internal static bool HasValidDatePattern(this string date)
+        {
+            string datePattern = String.Join(string.Empty,
+                                             @"^(0?[1-9]|[12][0-9]|3[01])([ /.])",  // Day
+                                             @"(0?[1-9]|1[012])([ /.])",            // Month
+                                             @"(19|20)\d\d$");                      // Year
+            bool success = Regex.IsMatch(date, datePattern);
+
+            //if (!success)
+            //    throw new FormatException("Formato da data inválido.");
+
+            return success;
+        }
+
+        internal static bool HasValidHourPattern(this string hour)
+        {
+            string hourPattern = @"^([0-1][0-9]|2[0-3]):[0-5][0-9]$";
+
+            bool success = Regex.IsMatch(hour, hourPattern);
+
+            //if (!success)
+            //    throw new FormatException("Formato da hora inválido.");
+
+            return success;
+        }
+
+        internal static DateTime GetDateFromString(string inputDate)
+        {
+            _ = DateTime.TryParse(inputDate, out DateTime newDate);
+            return newDate;
+        }
+
+        internal static TimeSpan GetHourFromString(string inputHour)
+        {
+            _ = TimeSpan.TryParse(inputHour, out TimeSpan newHour);
+            return newHour;
         }
 
     }

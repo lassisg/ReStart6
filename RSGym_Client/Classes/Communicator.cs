@@ -10,21 +10,24 @@ namespace RSGym_Client
 
         public static void WriteSuccessMessage(this string message)
         {
-            string separator = new String('-', 9);
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($"{"SUCESSO:",-9}");
-            Console.ResetColor();
-
-            Console.WriteLine($"Operação realizada com sucesso.");
-
-            string[] messageLines = message.Replace("\r\n", "\n").Split(Environment.NewLine.ToCharArray());
-            for (int i = 0; i < messageLines.Length; i++)
+            if (message != string.Empty)
             {
-                Console.WriteLine($"{"",-9}{messageLines[i]}");
-            }
+                string separator = new String('-', 9);
 
-            Console.WriteLine($"{separator}\n");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"{"SUCESSO:",-9}");
+                Console.ResetColor();
+
+                Console.WriteLine("Operação realizada com sucesso.\n");
+
+                string[] messageLines = message.Replace("\r\n", "\n").Split(Environment.NewLine.ToCharArray());
+                for (int i = 0; i < messageLines.Length; i++)
+                {
+                    Console.WriteLine($"{"",-9}{messageLines[i]}");
+                }
+
+                Console.WriteLine($"{separator}\n"); 
+            }
         }
 
         public static void WriteWarningMessage(this string message)
@@ -55,7 +58,7 @@ namespace RSGym_Client
             Console.Write($"{"ERRO:",-6}");
             Console.ResetColor();
 
-            Console.WriteLine($"Não foi possível executar a operação solicitada.");
+            Console.WriteLine("Não foi possível executar a operação solicitada.\n");
 
             string[] messageLines = message.Replace("\r\n", "\n").Split(Environment.NewLine.ToCharArray());
             for (int i = 0; i < messageLines.Length; i++)
@@ -68,6 +71,21 @@ namespace RSGym_Client
 
         public static IBaseAction WriteFeedbackMessage(this IBaseAction currentAction)
         {
+            // Type, Code, Message
+            // Guest, '+', ""           Remove
+            // Guest, '0', ""           Remove
+
+            // Restricted, '0', ".."    Keep
+
+            if (currentAction.Success)
+            {
+                WriteSuccessMessage(currentAction.FeedbackMessage);
+            }
+            else
+            {
+                WriteErrorMessage(currentAction.FeedbackMessage);
+            }
+
             //StringBuilder message = new StringBuilder();
 
             //if (!success)
@@ -84,14 +102,6 @@ namespace RSGym_Client
             //    message.Append($"com o treinador {request.Trainer.Name}.");
             //    message.ToString().WriteSuccessMessage();
             //}
-            if (currentAction.Success)
-            {
-                WriteSuccessMessage(currentAction.FeedbackMessage);
-            }
-            else
-            {
-                WriteErrorMessage(currentAction.FeedbackMessage);
-            }
 
             return currentAction;
 

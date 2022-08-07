@@ -1,9 +1,7 @@
 ﻿using RSGym_DAL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
@@ -58,11 +56,10 @@ namespace RSGym_Client
 
             if (Success)
             {
-                Utils.PrintSubHeader("Lista de Personal Trainers disponíveis");
-
                 List<Trainer> trainers = TrainerRepository.GetAllTrainers();
-                trainers.ForEach(t => sb.AppendLine(t.ToString()));
-                sb.AppendLine();
+
+                sb.AppendLine(Utils.GetSimpleHeader("Lista de Personal Trainers disponíveis"));
+                trainers.ForEach(t => sb.Append($"\n{t}"));
             }
 
             FeedbackMessage = sb.ToString();

@@ -1,9 +1,7 @@
 ﻿using RSGym_DAL;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
@@ -61,7 +59,7 @@ namespace RSGym_Client
             User.IsLoggedIn = currentUser is null ? LoginStatus.NotLoggedIn : LoginStatus.LoggedIn;
 
             Success = !(currentUser is null);
-
+            
             BuildFeedbackMessage();
 
             Console.Clear();
@@ -75,6 +73,11 @@ namespace RSGym_Client
             {
                 sb.AppendLine("Login realizado com sucesso!");
                 sb.Append("Agora seu nome aparece na barra de tíulos ;-)");
+            }
+            else
+            {
+                sb.AppendLine("Não foi possível realizar o login.");
+                sb.Append("Verifique seus dados de utilizador.");
             }
 
             FeedbackMessage = sb.ToString();

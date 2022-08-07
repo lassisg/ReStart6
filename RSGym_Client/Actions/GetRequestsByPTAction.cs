@@ -59,13 +59,10 @@ namespace RSGym_Client
                 var groupedRequests = allRequests.GroupBy(r => r.Trainer).Select(x => new { Trainer = x.Key, Count = x.Count() }).ToList();
                 int trainerLength = groupedRequests.Max(g => g.Trainer.ToString().Split('-')[1].Length);
 
-                // ToDo: Move to ShowFeedbackMessage
-                Utils.PrintSubHeader("Lista de pedidos agrupados por PT");
-
+                sb.AppendLine(Utils.GetSimpleHeader("Lista de pedidos agrupados por PT"));
                 sb.AppendLine($"\n{"Personal trainer".PadRight(trainerLength)} | Nº de pedidos");
-                sb.AppendLine($"{new String('-', trainerLength)}-+--------------");
-                groupedRequests.ToList().ForEach(g => sb.AppendLine($"{g.Trainer.ToString().Split('-')[1].Trim().Replace(":", " -").PadRight(trainerLength)} | {g.Count}"));
-                sb.AppendLine();
+                sb.Append($"{new String('-', trainerLength)}-+--------------");
+                groupedRequests.ToList().ForEach(g => sb.Append($"\n{g.Trainer.ToString().Split('-')[1].Trim().Replace(":", " -").PadRight(trainerLength)} | {g.Count}"));
             }
 
             FeedbackMessage = sb.ToString();
