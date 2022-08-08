@@ -8,8 +8,6 @@ namespace RSGym_DAL
     public static class RequestRepository
     {
 
-        #region CRUD Methods
-
         public static void CreateRequest(Request newRequest)
         {
 
@@ -89,8 +87,6 @@ namespace RSGym_DAL
                 context.SaveChanges();
             }
         }
-
-        #endregion
 
     }
 

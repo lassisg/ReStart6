@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
@@ -37,14 +36,14 @@ namespace RSGym_Client
                     menu.Show();
 
                     currentAction = currentAction
-                        .UpdateParameters(menu, userOption, currentUser) // retorna IBaseAction
-                        .ReadUserInput()                                 // retorna string do input
-                        .ValidateInputFormat(out userOption)             // retorna char (userOption) convertido do input
-                        .ValidateInputOption(menu)                       // retorna IBaseAction, consoante char do método anterior
-                        .UpdateUserInfo(currentUser, out currentUser)    // retorna IBaseAction
-                        .ExecuteAction(out exitApp)                      // retorna IBaseAction
-                        .UpdateUserInfo(currentUser, out currentUser)    // retorna IBaseAction
-                        .SaveCurrentAction(userOption)                   // retorna IBaseAction
+                        .UpdateParameters(menu, userOption, currentUser)
+                        .ReadUserInput()
+                        .ValidateInputFormat(out userOption)
+                        .ValidateInputOption(menu)
+                        .UpdateUserInfo(currentUser, out currentUser)
+                        .ExecuteAction(out exitApp)
+                        .UpdateUserInfo(currentUser, out currentUser)
+                        .SaveCurrentAction(userOption)
                         .WriteFeedbackMessage();
 
                 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace RSGym_DAL
@@ -58,7 +57,7 @@ namespace RSGym_DAL
             StringBuilder message = new StringBuilder();
 
             message.Append($"{RequestID,-2} | ");
-            message.Append($"{RequestDate:d} {RequestDate:hh\\:mm} | ");
+            message.Append($"{RequestDate:d} {RequestDate:HH\\:mm} | ");
             message.Append($"{trainerHeader.PadRight(trainerLength)} | ");
 
             if (Status == RequestStatus.Concluido)

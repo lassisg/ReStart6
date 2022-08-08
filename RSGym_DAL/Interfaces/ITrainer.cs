@@ -6,8 +6,6 @@ namespace RSGym_DAL
     public interface ITrainer
     {
 
-        #region Properties
-
         int TrainerID { get; set; }
 
         string Code { get; set; }
@@ -16,8 +14,6 @@ namespace RSGym_DAL
         
         ICollection<Request> Requests { get; set; }
         
-        #endregion
-
     }
 
 }

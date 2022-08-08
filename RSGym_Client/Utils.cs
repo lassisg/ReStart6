@@ -19,6 +19,8 @@ namespace RSGym_Client
     internal static class Utils
     {
 
+        #region General methods
+
         internal static void SetUTF8Encoding()
         {
 
@@ -54,6 +56,18 @@ namespace RSGym_Client
             Console.WriteLine(new string('-', 43));
 
         }
+
+        internal static string ReadUserInput(this IBaseAction appAction)
+        {
+
+            string userInput = Console.ReadLine();
+            return userInput;
+
+        }
+
+        #endregion
+
+        #region Action methods
 
         internal static List<IBaseAction> GetActions()
         {
@@ -94,22 +108,6 @@ namespace RSGym_Client
 
         }
 
-        internal static string ReadUserInput(this IBaseAction appAction)
-        {
-
-            string userInput = Console.ReadLine();
-            return userInput;
-
-        }
-
-        internal static void CleanConsole()
-        {
-
-            Console.ReadLine();
-            Console.Clear();
-
-        }
-
         internal static char ValidateInputFormat(this string menuOption, out char userOption)
         {
             bool isValidCommand = char.TryParse(menuOption, out userOption);
@@ -139,42 +137,6 @@ namespace RSGym_Client
         public static IBaseAction ExecuteAction(this IBaseAction appAction, out bool isExit)
         {
             appAction.Execute(out isExit);
-
-            // ToDo: check if is needed
-
-            // GuestMenu
-            // '1', "Fazer login":              ok (error and success)
-            // 'X', "Sair da aplicação":        ok (success)
-            // Wrong option:                    ok (error)
-
-            // RestrictedMenu
-            // '1', "Registar PT":              ok (error and success)
-            // '2', "Listar PTs":               ok (success)
-            // '3', "Atualizar PT":             ok (error and success)
-            // '4', "Registar pedido":          ok (error and success)
-            // '5', "Consultar pedido":         ok (error and success)
-            // '6', "Atualizar pedido":         
-            // '7', "Conlcuir pedido":          ok (error and success)
-            // '8', "Cancelar/Eliminar pedido": ok (error and success)
-            // '9', "Listar pedidos":           ok (success)
-            // '+', "Estatísticas...":          ok (success)
-            // '0', "Logout":                   ok (success)
-            // 'X', "Sair da aplicação":        ok (success)
-            // Wrong option:                    ok (error)
-
-            // StatisticalMenu
-            // '1', "Meu total de pedidos":     ok (success)
-            // '2', "Pedidos (por estado)":     ok (success)
-            // '3', "Pedidos (por PT)":         ok (success)
-            // '4', "PT mais solicitado":       ok (success)
-            // '0', "Voltar ao menu anterior":  ok (success)
-            // 'X', "Sair da aplicação":        ok (success)
-            // Wrong option:                    ok (error)
-
-
-            if (!appAction.Success && appAction.FeedbackMessage == string.Empty)
-                Communicator.WriteErrorMessage("Algo não correu bem. Por favor reveja os dados inseridos.");
-
             return appAction;
         }
 
@@ -191,6 +153,10 @@ namespace RSGym_Client
             currentAction.Code = currentOption;
             return currentAction;
         }
+
+        #endregion
+
+        #region Formatting methods
 
         internal static void GetDbExeptionColumnLengths(this DbEntityValidationException dbException, out int paramLength, out int inputLength)
         {
@@ -284,28 +250,24 @@ namespace RSGym_Client
             return fullHeader;
         }
 
-        internal static string GetFormattedRequestError(this List<(string, string)> errors, string inputValues)
+        internal static string GetFormattedRequestError(this List<RequestError> errors)
         {
             var sb = new StringBuilder();
-
-            var values = inputValues.Split(',')
-                    .Zip(errors, (e, p) => new { Parameter = p.Item1, UserInput = e, Error = p.Item2 })
-                    .ToList();
 
             string paramHeader = "Dado de entrada";
             string inputHeader = "Valor inserido";
             string errorHeader = "Erro";
 
-            int paramLength = values.Max(x => x.Parameter.Length);
+            int paramLength = errors.Max(x => x.Parameter.Length);
             paramLength = Math.Max(paramHeader.Length, paramLength);
-            var inputLength = values.Max(x => x.UserInput.Length);
+            var inputLength = errors.Max(x => x.Input.Length);
             inputLength = Math.Max(inputHeader.Length, inputLength);
-            int errorLength = values.Max(x => x.Error.Length);
+            int errorLength = errors.Max(x => x.Message.Length);
 
             sb.AppendLine("Erro na criação do pedido. Verifique os dados.\n");
             sb.AppendLine($"{paramHeader.PadRight(paramLength)} | {inputHeader.PadRight(inputLength)} | {errorHeader}");
             sb.Append($"{new string('-', paramLength)} | {new string('-', inputLength)} | {new string('-', errorLength)}");
-            values.ForEach(x => sb.Append($"\n{x.Parameter.PadRight(paramLength)} | {x.UserInput.PadRight(inputLength)} | {x.Error.PadRight(errorLength)}"));
+            errors.ForEach(x => sb.Append($"\n{x.Parameter.PadRight(paramLength)} | {x.Input.PadRight(inputLength)} | {x.Message.PadRight(errorLength)}"));
             
             return sb.ToString();
         }
@@ -316,12 +278,16 @@ namespace RSGym_Client
             return simpleHeader;
         }
 
+        #endregion
+
+        #region Validation methods
+
         internal static bool HasValidDatePattern(this string date)
         {
             string datePattern = String.Join(string.Empty,
-                                             @"^(0?[1-9]|[12][0-9]|3[01])([ /.])",  // Day
-                                             @"(0?[1-9]|1[012])([ /.])",            // Month
-                                             @"(19|20)\d\d$");                      // Year
+                                             @"^(0?[1-9]|[12][0-9]|3[01])/",  // Day
+                                             @"(0?[1-9]|1[012])/",            // Month
+                                             @"(19|20)\d\d$");                // Year
             bool success = Regex.IsMatch(date, datePattern);
 
             return success;
@@ -335,6 +301,159 @@ namespace RSGym_Client
             return success;
         }
         
+        internal static List<RequestError> ValidateRequestDate(this string inputDate, bool allowEmpty = false)
+        {
+            var errors = new List<RequestError>();
+
+            if (!allowEmpty && inputDate == string.Empty)
+            {
+                errors.Add(
+                    new RequestError
+                    {
+                        Parameter = "RequestDate",
+                        Input = inputDate,
+                        Message = "A data do pedido é obrigatória."
+                    });
+            }
+
+            bool validatePattern = inputDate != string.Empty || (!allowEmpty && inputDate == string.Empty);
+            if(validatePattern && !inputDate.HasValidDatePattern())
+            {
+                errors.Add(
+                       new RequestError
+                       {
+                           Parameter = "RequestDate",
+                           Input = inputDate,
+                           Message = "A data deve ter o formato 'dd/mm/aaaa'. Ex.: 25/11/2022."
+                       });
+            }
+
+            return errors;
+        }
+
+        internal static List<RequestError> ValidateRequestHour(this string inputHour, bool allowEmpty = false)
+        {
+            var errors = new List<RequestError>();
+
+            if (!allowEmpty && inputHour == string.Empty)
+            {
+                errors.Add(
+                    new RequestError
+                    {
+                        Parameter = "RequestHour",
+                        Input = inputHour,
+                        Message = "A hora do pedido é obrigatória."
+                    });
+            }
+
+            bool validatePattern = inputHour != string.Empty || (!allowEmpty && inputHour == string.Empty);
+            if (validatePattern && !inputHour.HasValidHourPattern())
+                if (!inputHour.HasValidHourPattern())
+            {
+                errors.Add(new RequestError
+                {
+                    Parameter = "RequestHour",
+                    Input = inputHour,
+                    Message = "A hora deve ter o formato 'hh:mm'. Ex.: 16:30."
+                });
+            }
+
+            return errors;
+        }
+
+        internal static List<RequestError> ValidateRequestPeriod(this string inputDate, bool allowEmpty = false)
+        {
+            var errors = new List<RequestError>();
+
+            string date = inputDate.Split('|')[0];
+            string hour = inputDate.Split('|')[1];
+            _ = DateTime.TryParse($"{date} {hour}", out DateTime requestDate);
+
+            string sanitizedDate = (!date.HasValidDatePattern() || !hour.HasValidHourPattern()) ? "" : inputDate.Replace("|", string.Empty); ;
+
+            bool validatePattern = sanitizedDate != string.Empty || (!allowEmpty && inputDate == string.Empty);
+            if (validatePattern && requestDate <= DateTime.Now)
+            {
+                errors.Add(
+                    new RequestError
+                    {
+                        Parameter = "RequestDate",
+                        Input = date,
+                        Message = "O pedido não pode ser solicitado para data no passado."
+                    });
+                errors.Add(
+                    new RequestError
+                    {
+                        Parameter = "RequestHour",
+                        Input = hour,
+                        Message = "O pedido não pode ser solicitado para data no passado."
+                    });
+            }
+
+            return errors;
+        }
+
+        internal static List<RequestError> ValidateRequestConflict(this string inputDate, int userID, bool allowEmpty = false)
+        {
+            var errors = new List<RequestError>();
+
+            string date = inputDate.Split('|')[0];
+            string hour = inputDate.Split('|')[1];
+            _ = DateTime.TryParse($"{date} {hour}", out DateTime requestDate);
+
+            // Validação feita tendo em conta cada aula com duração de 1 hora
+            DateTime startDate = requestDate;
+            DateTime finishDate = startDate.AddHours(1);
+
+            IRequest conflictedRequest = RequestRepository.GetRequestsByUserID(userID).Find(r =>
+                (startDate >= r.RequestDate && startDate <= r.RequestDate.AddHours(1)) ||
+                (finishDate >= r.RequestDate && finishDate <= r.RequestDate.AddHours(1)));
+
+            string sanitizedDate = (!date.HasValidDatePattern() || !hour.HasValidHourPattern()) ? "" : inputDate.Replace("|", string.Empty); ;
+
+            bool validatePattern = sanitizedDate != string.Empty || (!allowEmpty && inputDate == string.Empty);
+            if (validatePattern && conflictedRequest != null)
+            {
+                errors.Add(
+                    new RequestError
+                    {
+                        Parameter = "RequestDate",
+                        Input = requestDate.ToString("d"),
+                        Message = "Há conflitos de horários."
+                    });
+                errors.Add(
+                    new RequestError
+                    {
+                        Parameter = "RequestHour",
+                        Input = requestDate.ToString("t"),
+                        Message = "Há conflitos de horários."
+                    });
+            }
+
+            return errors;
+        }
+
+        internal static List<RequestError> ValidateRequestTrainer(this string inputTrainerID, bool allowEmpty = false)
+        {
+            var errors = new List<RequestError>();
+
+            _ = int.TryParse(inputTrainerID, out int trainerID);
+            bool validTrainerID = TrainerRepository.GetAllTrainers().Any(t => t.TrainerID == trainerID);
+
+            bool validatePattern = inputTrainerID != string.Empty || (!allowEmpty && inputTrainerID == string.Empty);
+            if (validatePattern && !validTrainerID)
+            {
+                errors.Add(new RequestError
+                {
+                    Parameter = "TrainerID",
+                    Input = inputTrainerID,
+                    Message = "Selecione um PT da lista."
+                });
+            }
+
+            return errors;
+        }
+
         internal static bool ApproveRequest()
         {
             Random rnd = new Random();
@@ -344,6 +463,7 @@ namespace RSGym_Client
             return isApproved;
         }
 
+        #endregion
     }
 
 }

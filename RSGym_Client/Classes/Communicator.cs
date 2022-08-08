@@ -1,6 +1,4 @@
-﻿using RSGym_DAL;
-using System;
-using System.Text;
+﻿using System;
 
 namespace RSGym_Client
 {
@@ -71,11 +69,6 @@ namespace RSGym_Client
 
         public static IBaseAction WriteFeedbackMessage(this IBaseAction currentAction)
         {
-            // Type, Code, Message
-            // Guest, '+', ""           Remove
-            // Guest, '0', ""           Remove
-
-            // Restricted, '0', ".."    Keep
 
             if (currentAction.Success)
             {
@@ -85,23 +78,6 @@ namespace RSGym_Client
             {
                 WriteErrorMessage(currentAction.FeedbackMessage);
             }
-
-            //StringBuilder message = new StringBuilder();
-
-            //if (!success)
-            //{
-            //    message.Append("Pedido não foi aprovado pelo ginásio.");
-            //    message.Append("Tente outro período ou ");
-            //    message.AppendLine("entre em contacto por telefone ou email para fazer seu pedido.");
-            //    message.ToString().WriteSuccessMessage();
-            //}
-            //else
-            //{
-            //    message.Append($"Pedido {request.RequestID} ");
-            //    message.Append($"criado para {request.RequestDate:dd/MM/yyyy HH:mm} ");
-            //    message.Append($"com o treinador {request.Trainer.Name}.");
-            //    message.ToString().WriteSuccessMessage();
-            //}
 
             return currentAction;
 

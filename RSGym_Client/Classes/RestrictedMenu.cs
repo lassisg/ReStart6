@@ -5,8 +5,6 @@ namespace RSGym_Client
     class RestrictedMenu : Menu
     {
 
-        #region Constructors
-
         public RestrictedMenu()
         {
             Type = MenuType.Restricted;
@@ -25,8 +23,6 @@ namespace RSGym_Client
                 new MenuItem { Code = 'X', Description = "Sair da aplicação" }
             };
         }
-
-        #endregion
 
     }
 

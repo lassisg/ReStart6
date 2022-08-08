@@ -8,8 +8,6 @@ namespace RSGym_Client
     internal static class MenuRepository
     {
  
-        #region Methods
-
         internal static IMenu GetMenu(IUser currentUser, IBaseAction currentAction)
         {
             IMenu currentMenu;
@@ -44,8 +42,6 @@ namespace RSGym_Client
 
         }
         
-        #endregion
-
     }
 
 }

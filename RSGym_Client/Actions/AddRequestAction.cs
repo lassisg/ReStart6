@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
@@ -24,7 +23,7 @@ namespace RSGym_Client
 
         public string FeedbackMessage { get; set; }
 
-        public List<(string, string)> Errors { get; set; }
+        public List<RequestError> Errors { get; set; }
 
         #endregion
 
@@ -38,7 +37,7 @@ namespace RSGym_Client
             MenuType = MenuType.Restricted;
             Success = false;
             FeedbackMessage = string.Empty;
-            Errors = new List<(string, string)>();
+            Errors = new List<RequestError>();
         }
 
         #endregion
@@ -64,76 +63,29 @@ namespace RSGym_Client
             Console.Write("\nOpção selecionada: ");
             string selectedID = this.ReadUserInput();
 
-            // ToDo: Validar data e hora (formatos e períodos)
-            // em outro método que possa ser usado pelo update
             // Validação de dados
-            if (inputDate == string.Empty)
-            {
-                Errors.Add(("RequestDate", "A data do pedido é obrigatória."));
-                inputValues += $"{inputDate},";
-            }
-            if (!inputDate.HasValidDatePattern())
-            {
-                Errors.Add(("RequestDate", "A data deve ter o formato 'dd/mm/aaaa'. Ex.: 25/11/2022."));
-                inputValues += $"{inputDate},";
-            }
+            Errors.AddRange(inputDate.ValidateRequestDate());
+            Errors.AddRange(inputHour.ValidateRequestHour());
+            Errors.AddRange(selectedID.ValidateRequestTrainer());
 
-            if (inputHour == string.Empty)
-            {
-                Errors.Add(("RequestHour", "A hora do pedido é obrigatória."));
-                inputValues += $"{inputHour},";
-            }
-            if (!inputHour.HasValidHourPattern())
-            {
-                Errors.Add(("RequestHour", "A hora deve ter o formato 'hh:mm'. Ex.: 16:30."));
-                inputValues += $"{inputHour},";
-            }
+            // Validações funcionais
+            string requestPeriod = $"{inputDate}|{inputHour}";
+            Errors.AddRange(requestPeriod.ValidateRequestPeriod());
+            Errors.AddRange(requestPeriod.ValidateRequestConflict(this.User.UserID));
 
-            bool validTrainerID = int.TryParse(selectedID, out int trainerID);
-            if (!validTrainerID)
-            {
-                Errors.Add(("TrainerID", "Selecione um PT da lista."));
-                inputValues += $"{selectedID},";
-            }
-            
             int requestID = 0;
             if (Errors.Count() == 0)
             {
-                // Validações funcionais
-                DateTime requestDate = DateTime.Parse($"{inputDate:d} {inputHour:t}");
-                if (requestDate <= DateTime.Now)
-                {
-                    Errors.Add(("RequestDate", "O pedido não pode ser solicitado para data no passado."));
-                    inputValues += $"{inputDate:d} {inputHour:t},";
-                    Errors.Add(("RequestHour", "O pedido não pode ser solicitado para data no passado."));
-                    inputValues += $"{inputDate:d} {inputHour:t},";
-                }
-
-                // Validação feita tendo em conta cada aula com duração de 1 hora
-                DateTime startDate = requestDate;
-                DateTime finishDate = startDate.AddHours(1);
-
-                IRequest conflictedRequest = RequestRepository.GetRequestsByUserID(this.User.UserID).Find(r =>
-                    (startDate >= r.RequestDate && startDate <= r.RequestDate.AddHours(1)) ||
-                    (finishDate >= r.RequestDate && finishDate <= r.RequestDate.AddHours(1)));
-
-                if (conflictedRequest != null)
-                {
-                    Errors.Add(("RequestDate", "Há conflitos de horários."));
-                    inputValues += $"{inputDate:d} {inputHour:t},";
-                    Errors.Add(("RequestHour", "Há conflitos de horários."));
-                    inputValues += $"{inputDate:d} {inputHour:t}";
-                }
-
                 // Simulação de resposta do ginásio
                 bool approved = Utils.ApproveRequest();
 
                 // Criação do pedido
                 requestID = approved ? 0 : -1;
 
+                DateTime requestDate = DateTime.Parse($"{inputDate:d} {inputHour:t}");
                 Request newRequest = new Request
                 {
-                    TrainerID = trainerID,
+                    TrainerID = int.Parse(selectedID),
                     UserID = this.User.UserID,
                     RequestDate = requestDate,
                     CreatedAt = DateTime.Now,
@@ -145,14 +97,8 @@ namespace RSGym_Client
             }
 
             Success = Errors.Count() == 0 && requestID > 0;
-            if (Success)
-            {
-                BuildFeedbackMessage(newRequestID: requestID);
-            }
-            else
-            {
-                BuildFeedbackMessage(inputValues, requestID);
-            }
+            
+            BuildFeedbackMessage(newRequestID: requestID);
 
             Console.Clear();
         }
@@ -176,16 +122,12 @@ namespace RSGym_Client
             }
             else if (Errors.Count() > 0)
             {
-                sb.Append(Errors.GetFormattedRequestError(inputValues));
+                sb.Append(Errors.GetFormattedRequestError());
             }
             else if(newRequestID == -1)
             {
                 sb.AppendLine("Solicitação negada pelo ginásio.");
                 sb.Append("Tente outro período ou entre em contacto por telefone ou email para fazer seu pedido.");
-            }
-            else
-            {
-                sb.Append("Não foi possível executar sua solicitação.");
             }
 
             FeedbackMessage = sb.ToString();

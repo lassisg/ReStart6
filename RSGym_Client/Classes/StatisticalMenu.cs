@@ -5,8 +5,6 @@ namespace RSGym_Client
     class StatisticalMenu : Menu
     {
 
-        #region Constructors
-
         public StatisticalMenu()
         {
             Type = MenuType.Statistical;
@@ -19,8 +17,6 @@ namespace RSGym_Client
                 new MenuItem { Code = 'X', Description = "Sair da aplicação" }
             };
         }
-
-        #endregion
 
     }
 
