@@ -44,9 +44,12 @@ namespace RSGym_Client
         {
             isExit = false;
 
+            bool hasRequests =RequestRepository.GetRequestsByUserID(this.User.UserID).Any();
+            if (!hasRequests)
+                throw new ApplicationException("Não há pedidos para consultar.");
+
             Console.Write("\nDigite o nº do pedido que deseja consultar: ");
             string inputID = this.ReadUserInput();
-
 
             _ = int.TryParse(inputID, out int requestID);
 

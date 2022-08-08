@@ -51,6 +51,9 @@ namespace RSGym_Client
                 .Where(r => r.Status == RequestStatus.Agendado)
                 .ToList();
 
+            if (scheduledRequests.Count() == 0)
+                throw new ApplicationException("Não há pedidos para cancelar/eliminar.");
+
             Console.WriteLine("\nEscolha um pedido para cancelar/apagar");
 
             string requestHeader = scheduledRequests

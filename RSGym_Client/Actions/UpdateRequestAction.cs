@@ -55,6 +55,9 @@ namespace RSGym_Client
                 .Where(r => r.Status == RequestStatus.Agendado)
                 .ToList();
 
+            if (scheduledRequests.Count() == 0)
+                throw new ApplicationException("Não há pedidos para atualizar.");
+
             Console.WriteLine("\nEscolha um pedido para editar.");
 
             string requestHeader = scheduledRequests
@@ -124,7 +127,7 @@ namespace RSGym_Client
             }
 
             Success = hasChanges && Errors.Count() == 0;
-            
+
             BuildFeedbackMessage(hasChanges.ToString(), requestID);
 
             Console.Clear();
@@ -152,7 +155,7 @@ namespace RSGym_Client
             }
             else if (Errors.Count() == 0)
             {
-                sb.Append("Não há mudanças a realizar.");
+                throw new ApplicationException("Não há mudanças a realizar.");
             }
 
             FeedbackMessage = sb.ToString();

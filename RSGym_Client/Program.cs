@@ -80,6 +80,10 @@ namespace RSGym_Client
                     string errorMessage = $"Verifique a opção selecionada.\n({e.Message})";
                     errorMessage.WriteErrorMessage();
                 }
+                catch (ApplicationException e)
+                {
+                    e.Message.WriteWarningMessage();
+                }
                 catch (Exception e)
                 {
                     e.Message.WriteErrorMessage();

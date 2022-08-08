@@ -1,6 +1,7 @@
 ﻿using RSGym_DAL;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace RSGym_Client
@@ -46,6 +47,9 @@ namespace RSGym_Client
 
             List<Request> requests = RequestRepository.GetRequestsByUserID(this.User.UserID);
 
+            if (requests.Count() == 0)
+                throw new ApplicationException("Não há pedidos para mostrar.");
+
             Success = requests.Count > 0;
             BuildFeedbackMessage();
 
@@ -64,10 +68,6 @@ namespace RSGym_Client
                 sb.AppendLine(Utils.GetSimpleHeader("Lista de pedidos realizados"));
                 sb.Append(requestHeader);
                 requests.ForEach(r => sb.Append($"\n{r.ToString(trainerLength, statusLength, messageLength)}"));
-            }
-            else
-            {
-                sb.Append("Não há pedidos para mostrar.");
             }
 
             FeedbackMessage = sb.ToString();
