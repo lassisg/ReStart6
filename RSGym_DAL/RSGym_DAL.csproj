@@ -48,13 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202207311926089_M01_Initial_Migration.cs" />
-    <Compile Include="Migrations\202207311926089_M01_Initial_Migration.Designer.cs">
-      <DependentUpon>202207311926089_M01_Initial_Migration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202207312349345_M02_Up_CompletedAt.cs" />
-    <Compile Include="Migrations\202207312349345_M02_Up_CompletedAt.Designer.cs">
-      <DependentUpon>202207312349345_M02_Up_CompletedAt.cs</DependentUpon>
+    <Compile Include="Migrations\202208071812471_M01_Initial_state.cs" />
+    <Compile Include="Migrations\202208071812471_M01_Initial_state.Designer.cs">
+      <DependentUpon>202208071812471_M01_Initial_state.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\GuestUser.cs" />
@@ -76,11 +72,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202207311926089_M01_Initial_Migration.resx">
-      <DependentUpon>202207311926089_M01_Initial_Migration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207312349345_M02_Up_CompletedAt.resx">
-      <DependentUpon>202207312349345_M02_Up_CompletedAt.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202208071812471_M01_Initial_state.resx">
+      <DependentUpon>202208071812471_M01_Initial_state.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

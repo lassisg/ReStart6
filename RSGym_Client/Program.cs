@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
@@ -17,13 +16,12 @@ namespace RSGym_Client
 
             Utils.SetUTF8Encoding();
 
-            Utils.PrintHeader("ReStart Gym, O recomeço da sua saúde física!", "\n");
+            Utils.PrintHeader("ReStart Gym, O recomeço da sua saúde física!", linesAfter: "\n");
 
             IMenu menu;
             IUser currentUser = new GuestUser();
             IBaseAction currentAction = new BasicAction();
             char userOption = '0';
-
             bool exitApp = false;
 
             do
@@ -38,15 +36,15 @@ namespace RSGym_Client
                     menu.Show();
 
                     currentAction = currentAction
-                        .UpdateParameters(menu, userOption, currentUser) // retorna IBaseAction
-                        .ReadUserInput()                                 // retorna string do input
-                        .ValidateInputFormat(out userOption)             // retorna char convertido do input
-                        .ValidateInputOption(menu)                       // retorna IBaseAction, consoante char do método anterior
-                        .UpdateUserInfo(currentUser, out currentUser)    // retorna IBaseAction
-                        .ExecuteAction(menu, out exitApp)                // retorna IBaseAction
-                        .UpdateUserInfo(currentUser, out currentUser)    // retorna IBaseAction
-                        .SaveCurrentAction(userOption);                  // retorna IBaseAction
-                                                                         //.ShowFeedbackMessage();
+                        .UpdateParameters(menu, userOption, currentUser)
+                        .ReadUserInput()
+                        .ValidateInputFormat(out userOption)
+                        .ValidateInputOption(menu)
+                        .UpdateUserInfo(currentUser, out currentUser)
+                        .ExecuteAction(out exitApp)
+                        .UpdateUserInfo(currentUser, out currentUser)
+                        .SaveCurrentAction(userOption)
+                        .WriteFeedbackMessage();
 
                 }
                 catch (DbEntityValidationException e)
@@ -59,12 +57,20 @@ namespace RSGym_Client
                     e.GetDbExeptionColumnLengths(out int paramLength, out int inputLength);
                     paramLength = Math.Max(paramLength, paramHeader.Length);
                     inputLength = Math.Max(inputLength, inputHeader.Length);
+                    
+                    List<string> formattedError = e.GetFormattedDbExeption(paramLength, inputLength)
+                        .Split(Environment.NewLine.ToCharArray())
+                        .Where(x => x != string.Empty).ToList();
+
+                    int formattedErrorLength = formattedError.Max(x => x.Split('|')[2].Trim().Length);
 
                     StringBuilder errors = new StringBuilder();
 
                     errors.AppendLine($"Erro na validação dos dados:\n");
                     errors.AppendLine($"{paramHeader.PadRight(paramLength)} | {inputHeader.PadRight(inputLength)} | {errorHeader}");
-                    errors.AppendLine(e.GetFormattedDbExeption(paramLength, inputLength));
+                    errors.Append($"{new string('-', paramLength)} | {new string('-', inputLength)} | {new string ('-', formattedErrorLength)}");
+
+                    formattedError.ForEach(x => errors.Append($"\n{x}"));
 
                     errors.ToString().WriteErrorMessage();
 
@@ -77,12 +83,6 @@ namespace RSGym_Client
                 catch (Exception e)
                 {
                     e.Message.WriteErrorMessage();
-                }
-                finally
-                {
-
-                    //Console.ReadKey();
-
                 }
 
             } while (!exitApp);

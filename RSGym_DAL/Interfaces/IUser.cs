@@ -6,8 +6,6 @@ namespace RSGym_DAL
     public interface IUser
     {
 
-        #region Properties
-        
         int UserID { get; set; }
         
         string Username { get; set; }
@@ -17,8 +15,6 @@ namespace RSGym_DAL
         ICollection<Request> Requests { get; set; }
         
         LoginStatus IsLoggedIn { get; set; }
-
-        #endregion
 
     }
 

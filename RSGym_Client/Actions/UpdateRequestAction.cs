@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
-    class UpdateRequestAction : IBaseAction
+    class UpdateRequestAction : IBaseAction, ICommunicable, IBreakable
     {
 
         #region Properties
@@ -22,6 +21,10 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
+        public List<RequestError> Errors { get; set; }
+
         #endregion
 
         #region Contructor
@@ -32,6 +35,9 @@ namespace RSGym_Client
             Name = "Update request";
             User = new GuestUser();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
+            Errors = new List<RequestError>();
         }
 
         #endregion
@@ -41,41 +47,38 @@ namespace RSGym_Client
         public void Execute(out bool isExit)
         {
             isExit = false;
-
-            // Permitir alterar
-            //   - data,
-            //   - hora,
-            //   - PT,
-            //   - adicionar mensagem (neste caso, mudar para cancelado)
-
-            // 1. Listar apenas pedidos agendados do user
-
-            List<Request> scheduledRequests = RequestRepository.GetRequestsByUserID(this.User.UserID)
-                .Where(r => r.Status == RequestStatus.Agendado).ToList();
+            string inputValues = string.Empty;
+            
+            // Coleta de dados
+            List<Request> scheduledRequests = RequestRepository
+                .GetRequestsByUserID(this.User.UserID)
+                .Where(r => r.Status == RequestStatus.Agendado)
+                .ToList();
 
             Console.WriteLine("\nEscolha um pedido para editar.");
 
-            string requestHeader = scheduledRequests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
+            string requestHeader = scheduledRequests
+                .GetRequestHeader(out int trainerLength, out int statusLength, out int messageLength);
 
             Console.WriteLine(requestHeader);
             scheduledRequests.ForEach(r => Console.WriteLine(r.ToString(trainerLength, statusLength, messageLength)));
 
-            // 2. Selecionar um dos pedidos, pelo id
             Console.Write("\nOpção selecionada: ");
             string request = this.ReadUserInput();
 
-            // toDo: Validate if input is integer
-            int requestID = int.Parse(request);
+            _ = int.TryParse(request, out int requestID);
 
-            Request currentRequest = scheduledRequests.Where(r => r.RequestID == requestID).Single();
+            Request currentRequest = scheduledRequests.Where(r => r.RequestID == requestID).FirstOrDefault();
 
-            // 3. Se não preencher um novo valor, será mantido o atual (informar o user!)
+            if (currentRequest is null)
+                throw new InvalidOperationException("É necessário escolher um dos pedidos da lista.");
+
             Console.Write("\nPara todas as opções, caso seja deixado em vazio, será considerado o valor entre '[...]'\n");
-
+            
             Console.Write($"\nDigite a data desejada (no formato dd/MM/aaaa) [{currentRequest.RequestDate:d}]: ");
             string newRequestDate = this.ReadUserInput();
 
-            Console.Write($"\nDigite a data desejada (no formato HH:mm) [{currentRequest.RequestHour:hh\\:mm}]: ");
+            Console.Write($"\nDigite a data desejada (no formato hh:mm) [{currentRequest.RequestDate:HH\\:mm}]: ");
             string newRequestHour = this.ReadUserInput();
 
             var trainers = TrainerRepository.GetAllTrainers();
@@ -84,35 +87,75 @@ namespace RSGym_Client
             trainers.ForEach(t => Console.WriteLine(t.ToString()));
 
             Console.Write($"\nOpção selecionada [{currentRequest.TrainerID}]: ");
-            string trainerID = this.ReadUserInput();
+            string selectedID = this.ReadUserInput();
 
-            Console.Write($"\nSe quiser escrever uma mensagem, digite abaixo [{currentRequest.Message}]: \n");
+            string previousMessage = (currentRequest.Message != null && currentRequest.Message.Length > 0) ? $" [{currentRequest.Message}]" : "";
+            Console.Write($"\nSe quiser escrever uma mensagem, digite abaixo{previousMessage}: \n");
             string newRequestMessage = this.ReadUserInput();
 
+            // Validação de dados
+            Errors.AddRange(newRequestDate.ValidateRequestDate(true));
+            Errors.AddRange(newRequestHour.ValidateRequestHour(true));
+            Errors.AddRange(selectedID.ValidateRequestTrainer(true));
 
-            // ToDo: Validate with Priject 1 if a change in Status is needed
+            // Validações funcionais
+            string requestPeriod = $"{newRequestDate}|{newRequestHour}";
+            Errors.AddRange(requestPeriod.ValidateRequestPeriod(true));
+            Errors.AddRange(requestPeriod.ValidateRequestConflict(this.User.UserID, true));
 
-            // ToDo: Validar data e hora (formatos e períodos)
-            // em outro método que possa ser usado pelo create
+            bool hasChanges = newRequestDate != string.Empty ||
+                              newRequestHour != string.Empty ||
+                              selectedID != string.Empty ||
+                              newRequestMessage != string.Empty;
 
-            currentRequest.RequestDate = newRequestDate != string.Empty ? DateTime.Parse(newRequestDate) : currentRequest.RequestDate;
-            currentRequest.RequestHour = newRequestHour != string.Empty ? TimeSpan.Parse(newRequestHour) : currentRequest.RequestHour;
-            currentRequest.TrainerID = trainerID != string.Empty ? int.Parse(trainerID) : currentRequest.TrainerID;
-            currentRequest.Message = newRequestMessage != string.Empty ? newRequestMessage : currentRequest.Message;
-            currentRequest.MessageAt = newRequestMessage != string.Empty ? DateTime.Now : currentRequest.MessageAt;
+            
+            if (hasChanges && Errors.Count() == 0)
+            {
+                string newDate = newRequestDate != string.Empty ? newRequestDate : currentRequest.RequestDate.ToString("d");
+                string newHour = newRequestHour != string.Empty ? newRequestHour : currentRequest.RequestDate.ToString("t");
+                DateTime requestDate = DateTime.Parse($"{newDate:d} {newHour:t}");
+                
+                currentRequest.RequestDate = requestDate;
+                currentRequest.TrainerID = selectedID != string.Empty ? int.Parse(selectedID) : currentRequest.TrainerID;
+                currentRequest.Message = newRequestMessage != string.Empty ? newRequestMessage : currentRequest.Message;
+                currentRequest.MessageAt = newRequestMessage != string.Empty ? DateTime.Now : currentRequest.MessageAt;
 
-            RequestRepository.UpdateRequest(currentRequest);
-            Success = true;
+                RequestRepository.UpdateRequest(currentRequest);
+            }
+
+            Success = hasChanges && Errors.Count() == 0;
+            
+            BuildFeedbackMessage(hasChanges.ToString(), requestID);
 
             Console.Clear();
+        }
 
+        public void BuildFeedbackMessage(string changes = "", int currentRequestID = 0)
+        {
             var sb = new StringBuilder();
-            sb.AppendLine("Pedido atualizado:");
-            sb.AppendLine(requestHeader);
-            sb.Append(currentRequest.ToString(trainerLength, statusLength, messageLength));
 
-            Communicator.WriteSuccessMessage(sb.ToString());
-            
+            if (Success)
+            {
+                var requests = RequestRepository.GetRequestsByUserID(this.User.UserID)
+                       .Where(r => r.RequestID == currentRequestID)
+                       .ToList(); 
+                
+                string requestHeader = requests.GetRequestHeader(out int trainerLength, out int statusLength, out int messageLength);
+
+                sb.AppendLine(Utils.GetSimpleHeader("Pedido atualizado:"));
+                sb.Append(requestHeader);
+                requests.ForEach(r => sb.Append($"\n{r.ToString(trainerLength, statusLength, messageLength)}"));
+            }
+            else if (Errors.Count() > 0)
+            {
+                sb.Append(Errors.GetFormattedRequestError());
+            }
+            else if (Errors.Count() == 0)
+            {
+                sb.Append("Não há mudanças a realizar.");
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

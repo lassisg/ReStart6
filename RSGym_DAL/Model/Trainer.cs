@@ -20,9 +20,9 @@ namespace RSGym_DAL
         public string Code { get; set; }
 
         [Required(ErrorMessage = "O nome do treinador é obrigatório.")]
-        [StringLength(70, ErrorMessage = "O limite de caracteres permitido é 70.", MinimumLength = 2)]
+        [StringLength(70, ErrorMessage = "O nome do treinador deve ter emtre 2 e 70 caracteres.", MinimumLength = 2)]
         [MaxLength(70)]
-        [RegularExpression(@"^[\D][\w ']{2,70}$", ErrorMessage = "O nome do treinador deve ter entre 2 e 70 caracteres e não pode começar com números.")]
+        [RegularExpression(@"^[\D][\w '\\(-\\)]{2,70}$", ErrorMessage = "O nome do treinador deve ter entre 2 e 70 caracteres e não pode começar com números.")]
         public string Name { get; set; }
 
         #endregion

@@ -1,10 +1,11 @@
 ﻿using RSGym_DAL;
 using System;
 using System.Linq;
+using System.Text;
 
 namespace RSGym_Client
 {
-    class GetRequestsByPTAction : IBaseAction
+    class GetRequestsByPTAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -19,6 +20,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -29,6 +32,8 @@ namespace RSGym_Client
             Name = "Get request count grouped by trainer";
             User = new GuestUser();
             MenuType = MenuType.Statistical;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -38,22 +43,29 @@ namespace RSGym_Client
         public void Execute(out bool isExit)
         {
             isExit = false;
-
-            var requests = RequestRepository.GetRequestsByTrainer();
-
             Success = true;
+            BuildFeedbackMessage();
 
             Console.Clear();
+        }
 
-            Utils.PrintSubHeader("Lista de pedidos agrupados por PT");
-            int trainerLength = requests.ToList().Select(r => TrainerRepository.GetTrainerById(r.Key).ToString().Split('-')[1].Length).Max();
+        public void BuildFeedbackMessage(string previous = "", int current = 0)
+        {
+            var sb = new StringBuilder();
 
-            Console.WriteLine($"\n{"Personal trainer".PadRight(trainerLength)} | Nº de pedidos");
-            Console.WriteLine($"{new String('-', trainerLength)}-+--------------");
-            requests.ToList().ForEach(s => Console.WriteLine($"{TrainerRepository.GetTrainerById(s.Key).ToString().Split('-')[1].Trim().Replace(":", " -").PadRight(trainerLength)} | {s.Value}"));
-            
-            Console.WriteLine();
+            if (Success)
+            {
+                var allRequests = RequestRepository.GetAllRequests();
+                var groupedRequests = allRequests.GroupBy(r => r.Trainer).Select(x => new { Trainer = x.Key, Count = x.Count() }).ToList();
+                int trainerLength = groupedRequests.Max(g => g.Trainer.ToString().Split('-')[1].Length);
 
+                sb.AppendLine(Utils.GetSimpleHeader("Lista de pedidos agrupados por PT"));
+                sb.AppendLine($"\n{"Personal trainer".PadRight(trainerLength)} | Nº de pedidos");
+                sb.Append($"{new String('-', trainerLength)}-+--------------");
+                groupedRequests.ToList().ForEach(g => sb.Append($"\n{g.Trainer.ToString().Split('-')[1].Trim().Replace(":", " -").PadRight(trainerLength)} | {g.Count}"));
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

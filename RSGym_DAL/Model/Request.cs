@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace RSGym_DAL
@@ -18,14 +17,7 @@ namespace RSGym_DAL
         public int TrainerID { get; set; }
 
         [Required(ErrorMessage = "A data do pedido é obrigatória.")]
-        [DataType(DataType.Date, ErrorMessage = "Data em formato inválido.")]
-        [Column(TypeName = "date")]
         public DateTime RequestDate { get; set; }
-
-        [Required(ErrorMessage = "A hora do pedido é obrigatória.")]
-        [DataType(DataType.Time)]
-        
-        public TimeSpan RequestHour { get; set; }
 
         [Required(ErrorMessage = "O status do pedido é obrigatório.")]
         public RequestStatus Status { get; set; }
@@ -64,12 +56,12 @@ namespace RSGym_DAL
 
             StringBuilder message = new StringBuilder();
 
-            message.Append($"{RequestID,2} | ");
-            message.Append($"{RequestDate:d} {RequestHour:hh\\:mm} | ");
+            message.Append($"{RequestID,-2} | ");
+            message.Append($"{RequestDate:d} {RequestDate:HH\\:mm} | ");
             message.Append($"{trainerHeader.PadRight(trainerLength)} | ");
 
             if (Status == RequestStatus.Concluido)
-                status = $"{status} (finalizada em {CompletedAt:dd/MM/yyyy HH:mm})";
+                status = $"{status} (finalizado em {CompletedAt:dd/MM/yyyy HH:mm})";
 
             message.Append($"{status.PadRight(statusLength)}");
 

@@ -61,13 +61,14 @@
     <Compile Include="Actions\GetRequestsByStatusAction.cs" />
     <Compile Include="Actions\GetRequestsByPTAction.cs" />
     <Compile Include="Actions\GetTopPTAction.cs" />
+    <Compile Include="Classes\RequestError.cs" />
+    <Compile Include="Interfaces\IBreakable.cs" />
+    <Compile Include="Interfaces\ICommunicable.cs" />
     <Compile Include="Interfaces\IMenuItem.cs" />
     <Compile Include="Interfaces\IMenu.cs" />
     <Compile Include="Interfaces\IBaseAction.cs" />
-    <Compile Include="Classes\AppException.cs" />
     <Compile Include="Classes\MenuRepository.cs" />
     <Compile Include="Classes\Communicator.cs" />
-    <Compile Include="Interfaces\IAppException.cs" />
     <Compile Include="Actions\LoginAction.cs" />
     <Compile Include="Classes\GuestMenu.cs" />
     <Compile Include="Classes\Menu.cs" />

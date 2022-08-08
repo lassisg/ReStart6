@@ -1,13 +1,11 @@
 ﻿using RSGym_DAL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
-    class ListRequestAction : IBaseAction
+    class ListRequestAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -22,6 +20,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -32,6 +32,8 @@ namespace RSGym_Client
             Name = "List all requests";
             User = new GuestUser();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -40,22 +42,35 @@ namespace RSGym_Client
 
         public void Execute(out bool isExit)
         {
-            // ToDo: Extract code to othe method
             isExit = false;
-
-            Console.Clear();
-            Utils.PrintSubHeader("Lista de pedidos realizados");
 
             List<Request> requests = RequestRepository.GetRequestsByUserID(this.User.UserID);
 
-            string requestHeader = requests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
-            Console.WriteLine(requestHeader);
+            Success = requests.Count > 0;
+            BuildFeedbackMessage();
 
-            requests.ForEach(r => Console.WriteLine(r.ToString(trainerLength, statusLength, messageLength)));
+            Console.Clear();
+        }
 
-            Console.WriteLine();
+        public void BuildFeedbackMessage(string previous = "", int current = 0)
+        {
+            var sb = new StringBuilder();
 
-            Success = true;
+            if (Success)
+            {
+                List<Request> requests = RequestRepository.GetRequestsByUserID(this.User.UserID);
+                string requestHeader = requests.GetRequestHeader(out int trainerLength, out int statusLength, out int messageLength);
+
+                sb.AppendLine(Utils.GetSimpleHeader("Lista de pedidos realizados"));
+                sb.Append(requestHeader);
+                requests.ForEach(r => sb.Append($"\n{r.ToString(trainerLength, statusLength, messageLength)}"));
+            }
+            else
+            {
+                sb.Append("Não há pedidos para mostrar.");
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

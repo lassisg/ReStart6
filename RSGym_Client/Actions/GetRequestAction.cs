@@ -1,13 +1,11 @@
 ﻿using RSGym_DAL;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
-    class GetRequestAction : IBaseAction
+    class GetRequestAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -22,6 +20,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -32,6 +32,8 @@ namespace RSGym_Client
             Name = "Get request";
             User = new GuestUser();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -42,29 +44,51 @@ namespace RSGym_Client
         {
             isExit = false;
 
-            // ToDo: Add validation
             Console.Write("\nDigite o nº do pedido que deseja consultar: ");
-            string requestID = this.ReadUserInput();
+            string inputID = this.ReadUserInput();
 
-            var request = RequestRepository.GetRequestById(int.Parse(requestID));
-            Success = true;
+
+            _ = int.TryParse(inputID, out int requestID);
+
+            var request = RequestRepository
+                .GetRequestsByUserID(this.User.UserID)
+                .Where(r => r.RequestID == requestID)
+                .FirstOrDefault();
+
+            Success = !(request is null);
+
+            BuildFeedbackMessage(requestID: requestID);
 
             Console.Clear();
+        }
 
-            Utils.PrintSubHeader($"Informações sobre o pedido nº {requestID}");
+        public void BuildFeedbackMessage(string previous = "", int requestID = 0)
+        {
+            var sb = new StringBuilder();
 
-            List<Request> requests = new List<Request>
+            if (Success)
             {
-                request
-            };
+                var requests = RequestRepository
+                    .GetRequestsByUserID(this.User.UserID)
+                    .Where(r => r.RequestID == requestID)
+                    .ToList();
 
-            string requestHeader = requests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
+                string requestHeader = requests.GetRequestHeader(out int trainerLength, out int statusLength, out int messageLength);
 
-            Console.WriteLine(requestHeader);
-            requests.ForEach(r => Console.WriteLine(r.ToString(trainerLength, statusLength, messageLength)));
+                sb.AppendLine(Utils.GetSimpleHeader($"Informações sobre o pedido nº {requestID}"));
+                sb.Append(requestHeader);
+                requests.ForEach(r => sb.Append($"\n{r.ToString(trainerLength, statusLength, messageLength)}"));
+            }
+            else if(requestID == 0)
+            {
+                sb.Append($"Digite um nº de pedido válido.");
+            }
+            else
+            {
+                sb.Append($"Não foi encontrado um pedido com o nº {requestID} entre os seu pedidos.");
+            }
 
-            Console.WriteLine();
-            
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

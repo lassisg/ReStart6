@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
-    class FinishRequestAction : IBaseAction
+    class FinishRequestAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -22,6 +21,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -32,6 +33,8 @@ namespace RSGym_Client
             Name = "Finish request";
             User = new GuestUser();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -42,43 +45,74 @@ namespace RSGym_Client
         {
             isExit = false;
 
-            // 1. Listar apenas pedidos agendados do user
-            List<Request> scheduledRequests = RequestRepository.GetRequestsByUserID(this.User.UserID)
-                .Where(r => r.Status == RequestStatus.Agendado).ToList();
+            List<Request> scheduledRequests = RequestRepository
+                .GetRequestsByUserID(this.User.UserID)
+                .Where(r => r.Status == RequestStatus.Agendado)
+                .ToList();
 
             Console.WriteLine("\nEscolha um pedido para concluir.");
 
-            string requestHeader = scheduledRequests.GetHeader(out int trainerLength, out int statusLength, out int messageLength);
+            string requestHeader = scheduledRequests
+                .GetRequestHeader(out int trainerLength, out int statusLength, out int messageLength);
 
             Console.WriteLine(requestHeader);
-            scheduledRequests.ForEach(r => Console.WriteLine(r.ToString(trainerLength, statusLength, messageLength)));
+            scheduledRequests
+                .ForEach(r => Console.WriteLine(r.ToString(trainerLength, statusLength, messageLength)));
 
-            // 2. Selecionar um dos pedidos, pelo id
             Console.Write("\nOpção selecionada: ");
-            string request = this.ReadUserInput();
+            string userInput = this.ReadUserInput();
 
-            // toDo: Validate if input is integer
-            int requestID = int.Parse(request);
+            _ = int.TryParse(userInput, out int requestID);
 
-            Request currentRequest = scheduledRequests.Where(r => r.RequestID == requestID).Single();
+            Request request = scheduledRequests
+                .Where(r => r.RequestID == requestID)
+                .FirstOrDefault();
 
-            currentRequest.Status = RequestStatus.Concluido;
-            currentRequest.CompletedAt = DateTime.Now;
-            currentRequest.Message = "Aula concluída";
-            currentRequest.MessageAt = DateTime.Now;
+            if (request != null)
+            {
+                request.Status = RequestStatus.Concluido;
+                request.CompletedAt = DateTime.Now;
+                request.Message = "Aula concluída";
+                request.MessageAt = DateTime.Now;
+                
+                RequestRepository.UpdateRequest(request);
+            }
 
-            RequestRepository.UpdateRequest(currentRequest);
-            Success = true;
+            Success = !(request is null);
+
+            BuildFeedbackMessage(requestID: requestID);
 
             Console.Clear();
+        }
 
+        public void BuildFeedbackMessage(string previousRequest = "", int requestID = 0)
+        {
             var sb = new StringBuilder();
-            sb.AppendLine("Pedido concluído:");
-            sb.AppendLine(requestHeader);
-            sb.Append(currentRequest.ToString(trainerLength, statusLength, messageLength));
 
-            Communicator.WriteSuccessMessage(sb.ToString());
-            
+            if (Success)
+            {
+                var currentRequest = RequestRepository.GetRequestById(requestID);
+                var requests = new List<Request>
+                {
+                    currentRequest
+                };
+
+                string requestHeader = requests.GetRequestHeader(out int trainerLength, out int statusLength, out int messageLength);
+
+                sb.AppendLine("Pedido concluído:");
+                sb.AppendLine(requestHeader);
+                sb.Append(currentRequest.ToString(trainerLength, statusLength, messageLength));
+            }
+            else if (requestID == 0)
+            {
+                sb.Append("Selecione um pedido válido.");
+            }
+            else
+            {
+                sb.Append($"Não foi localizado um pedido com o nº {requestID} nas sua lista de pedidos.");
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

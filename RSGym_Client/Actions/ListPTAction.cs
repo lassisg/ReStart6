@@ -1,14 +1,12 @@
 ﻿using RSGym_DAL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
 
-    class ListPTAction : IBaseAction
+    class ListPTAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -23,6 +21,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -33,6 +33,8 @@ namespace RSGym_Client
             Name = "List Trainers";
             User = new GuestUser();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -42,16 +44,25 @@ namespace RSGym_Client
         public void Execute(out bool isExit)
         {
             isExit = false;
+            Success = true;
+            BuildFeedbackMessage();
 
             Console.Clear();
-            Utils.PrintSubHeader("Lista de Personal Trainers disponíveis");
+        }
 
-            List<Trainer> trainers = TrainerRepository.GetAllTrainers();
-            trainers.ForEach(t => Console.WriteLine(t.ToString()));
+        public void BuildFeedbackMessage(string previous = "", int current = 0)
+        {
+            var sb = new StringBuilder();
 
-            Console.WriteLine();
+            if (Success)
+            {
+                List<Trainer> trainers = TrainerRepository.GetAllTrainers();
 
-            Success = true;
+                sb.AppendLine(Utils.GetSimpleHeader("Lista de Personal Trainers disponíveis"));
+                trainers.ForEach(t => sb.Append($"\n{t}"));
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

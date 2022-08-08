@@ -18,7 +18,12 @@ namespace RSGym_Client
 
         public void Show()
         {
+            
+            string header = "Menu inicial";
+            header = this is RestrictedMenu ? "Menu do utilizador" : header;
+            header = this is StatisticalMenu ? "Menu estatístico" : header;
 
+            Utils.PrintHeader(header, linesAfter: "\n", clearConsole: false);
             Utils.PrintSubHeader("Escolha uma das opções abaixo");
 
             foreach (MenuItem menuItem in MenuItems)

@@ -1,9 +1,5 @@
 ﻿using RSGym_DAL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
@@ -23,6 +19,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -33,6 +31,8 @@ namespace RSGym_Client
             Name = "Basic";
             User = new GuestUser();
             MenuType = MenuType.Guest;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion

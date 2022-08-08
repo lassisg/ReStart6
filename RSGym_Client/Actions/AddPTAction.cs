@@ -1,13 +1,10 @@
 ﻿using RSGym_DAL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
-    class AddPTAction : IBaseAction
+    class AddPTAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -22,6 +19,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -32,6 +31,8 @@ namespace RSGym_Client
             Name = "Add Trainer";
             User = new GuestUser();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -52,15 +53,30 @@ namespace RSGym_Client
             };
 
             TrainerRepository.CreateTrainer(newTrainer);
-            Success = true;
 
-            Console.Clear();
+            Success = newTrainer.TrainerID > 0;
+            BuildFeedbackMessage(newTrainerID: newTrainer.TrainerID);
             
-            var sb = new StringBuilder();
-            sb.AppendLine("Novo Personal Trainer adicionado:");
-            sb.AppendLine(newTrainer.ToString());
+            Console.Clear();
+        }
 
-            Communicator.WriteSuccessMessage(sb.ToString());
+        public void BuildFeedbackMessage(string previousTrainer = "", int newTrainerID = 0)
+        {
+            var sb = new StringBuilder();
+
+            if (Success)
+            {
+                var newTrainer = TrainerRepository.GetTrainerById(newTrainerID);
+            
+                sb.AppendLine("Novo Personal Trainer adicionado:");
+                sb.Append(newTrainer.ToString());
+            }
+            else
+            {
+                sb.Append("O formato do nome digitado é inválido.");
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

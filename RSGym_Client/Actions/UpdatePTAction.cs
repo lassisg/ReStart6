@@ -1,13 +1,11 @@
 ﻿using RSGym_DAL;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
-    class UpdatePTAction : IBaseAction
+    class UpdatePTAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -22,6 +20,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -32,6 +32,8 @@ namespace RSGym_Client
             Name = "Update Trainer";
             User = new GuestUser();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -48,27 +50,48 @@ namespace RSGym_Client
             trainers.ForEach(t => Console.WriteLine(t.ToString()));
 
             Console.Write("\nOpção selecionada: ");
-            string trainerID = this.ReadUserInput();
+            string userInput = this.ReadUserInput();
 
-            var trainer = trainers.Where(t => t.TrainerID == int.Parse(trainerID)).Single();
+            _ = int.TryParse(userInput, out int trainerID);
 
-            Console.Write($"\nDigite o novo nome para o PT '{trainer.Name}': ");
-            string trainerName = this.ReadUserInput();
+            var trainer = trainers.Where(t => t.TrainerID == trainerID).FirstOrDefault();
+            string previousName = string.Empty;
 
-            string previousName = trainer.Name;
-            trainer.Name = trainerName;
+            if (trainer != null)
+            {
+                Console.Write($"\nDigite o novo nome para o PT '{trainer.Name}': ");
+                string trainerName = this.ReadUserInput();
 
-            TrainerRepository.UpdateTrainer(trainer);
+                previousName = trainer.Name;
+                trainer.Name = trainerName;
 
-            Success = true;
+                TrainerRepository.UpdateTrainer(trainer);
+            }
+
+            Success = !(trainer is null);
+            
+            BuildFeedbackMessage(previousName, trainerID);
 
             Console.Clear();
+        }
 
+        public void BuildFeedbackMessage(string previousName = "", int newTrainerID = 0)
+        {
             var sb = new StringBuilder();
-            sb.Append("O nome do Personal Trainer foi editado: ");
-            sb.Append($"'{previousName}' --> '{trainer.Name}'");
 
-            Communicator.WriteSuccessMessage(sb.ToString());
+            if (Success)
+            {
+                var newTrainer = TrainerRepository.GetTrainerById(newTrainerID);
+
+                sb.AppendLine("O nome do Personal Trainer foi editado: ");
+                sb.Append($"'{previousName}' --> '{newTrainer.Name}'");
+            }
+            else
+            {
+                sb.Append("Selecione uma opção válida.");
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

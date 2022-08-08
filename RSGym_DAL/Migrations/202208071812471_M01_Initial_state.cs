@@ -3,7 +3,7 @@ namespace RSGym_DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class M01_Initial_Migration : DbMigration
+    public partial class M01_Initial_state : DbMigration
     {
         public override void Up()
         {
@@ -14,12 +14,12 @@ namespace RSGym_DAL.Migrations
                         RequestID = c.Int(nullable: false, identity: true),
                         UserID = c.Int(nullable: false),
                         TrainerID = c.Int(nullable: false),
-                        RequestDate = c.DateTime(nullable: false, storeType: "date"),
-                        RequestHour = c.Time(nullable: false, precision: 5),
+                        RequestDate = c.DateTime(nullable: false),
                         Status = c.Int(nullable: false),
                         CreatedAt = c.DateTime(nullable: false),
                         Message = c.String(maxLength: 254),
                         MessageAt = c.DateTime(),
+                        CompletedAt = c.DateTime(),
                     })
                 .PrimaryKey(t => t.RequestID)
                 .ForeignKey("dbo.Trainer", t => t.TrainerID, cascadeDelete: true)

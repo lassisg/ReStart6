@@ -1,14 +1,11 @@
 ﻿using RSGym_DAL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSGym_Client
 {
 
-    class LogoutAction : IBaseAction
+    class LogoutAction : IBaseAction, ICommunicable
     {
 
         #region Properties
@@ -23,6 +20,8 @@ namespace RSGym_Client
 
         public bool Success { get; set; }
 
+        public string FeedbackMessage { get; set; }
+
         #endregion
 
         #region Contructor
@@ -33,6 +32,8 @@ namespace RSGym_Client
             Name = "Logout";
             User = new User();
             MenuType = MenuType.Restricted;
+            Success = false;
+            FeedbackMessage = string.Empty;
         }
 
         #endregion
@@ -44,8 +45,23 @@ namespace RSGym_Client
             isExit = false;
             User = new GuestUser();
             Success = true;
+
+            BuildFeedbackMessage();
+
             Console.Clear();
-            Communicator.WriteSuccessMessage("Logout realizado com sucesso!\nAgora seu nome não aparece na barra de tíulos :-(");
+        }
+
+        public void BuildFeedbackMessage(string previousUser = "", int currentUserID = 0)
+        {
+            var sb = new StringBuilder();
+
+            if (Success)
+            {
+                sb.AppendLine("Logout realizado com sucesso!");
+                sb.Append("Agora seu nome não aparece na barra de tíulos :-(");
+            }
+
+            FeedbackMessage = sb.ToString();
         }
 
         #endregion

@@ -6,8 +6,6 @@ namespace RSGym_Client
     class GuestMenu : Menu
     {
 
-        #region Constructors
-
         public GuestMenu()
         {
             Type = MenuType.Guest;
@@ -16,8 +14,6 @@ namespace RSGym_Client
                 new MenuItem { Code = 'X', Description = "Sair da aplicação" }
             };
         }
-
-        #endregion
 
     }
 
