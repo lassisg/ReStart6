@@ -50,6 +50,9 @@ namespace RSGym_Client
                 .Where(r => r.Status == RequestStatus.Agendado)
                 .ToList();
 
+            if (scheduledRequests.Count() == 0)
+                throw new ApplicationException("Não há pedidos para concluir.");
+
             Console.WriteLine("\nEscolha um pedido para concluir.");
 
             string requestHeader = scheduledRequests

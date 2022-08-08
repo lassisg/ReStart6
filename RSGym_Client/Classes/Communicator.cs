@@ -32,11 +32,12 @@ namespace RSGym_Client
         {
             string separator = new String('-', 7);
 
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write($"{"AVISO:",-7}");
             Console.ResetColor();
 
-            Console.WriteLine($"{"",-7}{message}");
+            Console.WriteLine("Não foi possível executar a operação solicitada.\n");
 
             string[] messageLines = message.Replace("\r\n", "\n").Split(Environment.NewLine.ToCharArray());
             for (int i = 0; i < messageLines.Length; i++)
