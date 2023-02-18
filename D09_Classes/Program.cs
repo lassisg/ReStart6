@@ -1,21 +1,5 @@
-﻿using D00_Utils;
-using System;
+﻿using D09_Classes;
 
-namespace D09_Classes
-{
+Constructors.ConstructorsCall();
 
-    internal class Program
-    {
-
-        static void Main(string[] args)
-        {
-
-            Constructors.ConstructorsCall();
-
-            Methods.MethodsCall();
-
-        }
-
-    }
-
-}
+Methods.MethodsCall();
