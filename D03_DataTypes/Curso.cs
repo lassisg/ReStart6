@@ -1,29 +1,24 @@
-﻿using System;
+﻿namespace D03_DataTypes;
 
-namespace D03_DataTypes
+class Curso
 {
 
-    class Curso
-    {
+    // Class elements - methods, properties, events
 
-        // Class elements - methods, properties, events
+    #region Fields (devem ser privados)
 
-        #region Fields (devem ser privados)
+    string nome;
 
-        string nome;
+    #endregion
 
-        #endregion
+    #region Properties (devem ser publicas) : auto-implemented
 
-        #region Properties (devem ser publicas) : auto-implemented
+    public int CursoID { get; set; }
+    public string Nome { get; set; }
+    public DateTime DataInicio { get; set; }
+    public DateTime DataFim { get; set; }
+    public double numeroHoras { get; set; }
 
-        public int CursoID { get; set; }
-        public string Nome { get; set; }
-        public DateTime DataInicio { get; set; }
-        public DateTime DataFim { get; set; }
-        public double numeroHoras { get; set; }
-
-        #endregion
-
-    }
+    #endregion
 
 }
