@@ -19,7 +19,6 @@ namespace E02_NomeCompleto
 
         public void ReadNames()
         {
-
             Console.Write("Digite seu 1º nome: ");
             FirstName = Console.ReadLine();
 
@@ -28,43 +27,28 @@ namespace E02_NomeCompleto
 
             Console.Write("Digite seu último nome: ");
             LastName = Console.ReadLine();
-
         }
 
         public void ValidateNames()
         {
-
             if (FirstName.Length > 0)
-            {
                 FirstName = $"{FirstName} ";
-            }
 
             if (MiddleName.Length > 0)
-            {
                 MiddleName = $"{MiddleName} ";
-            }
 
             if (LastName.Length > 0)
-            {
                 LastName = $"{LastName}";
-            }
-
         }
 
         public void CreateFullName()
         {
-
             FullName = $"{FirstName}{MiddleName}{LastName}";
             FullName = FullName.Trim(); 
-
         }
 
-        public void WriteFullName()
-        {
-
+        public void WriteFullName() =>
             Console.Write($"\nSeu nome completo é: {FullName}");
-
-        }
 
         #endregion
 

@@ -1,28 +1,13 @@
-﻿using System;
+﻿using E02_NomeCompleto;
 
-namespace E02_NomeCompleto
-{
+Employee employee = new Employee();
 
-    internal class Program
-    {
+employee.ReadNames();
 
-        static void Main(string[] args)
-        {
+employee.ValidateNames();
 
-            Employee employee = new Employee();
+employee.CreateFullName();
 
-            employee.ReadNames();
+employee.WriteFullName();
 
-            employee.ValidateNames();
-
-            employee.CreateFullName();
-
-            employee.WriteFullName();
-
-            Console.ReadLine();
-
-        }
-
-    }
-
-}
+Console.ReadLine();
