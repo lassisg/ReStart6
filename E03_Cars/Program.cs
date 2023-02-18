@@ -1,71 +1,52 @@
 ﻿using D00_Utils;
-using System;
-using System.Collections.Generic;
+using E03_Cars;
 
-namespace E03_Cars
+#region Variables
+
+List<Car> cars = new List<Car>();
+Car myCar = new Car();
+bool validOption = true;
+
+#endregion
+
+#region Methods
+
+try
 {
+    string selectedOption;
 
-    internal class Program
+    do
     {
+        Car.ShowMenu(validOption, cars.Count > 0);
 
-        static void Main(string[] args)
+        selectedOption = Car.ReadSelectedOption();
+
+        if (selectedOption.ToLower() != "x")
         {
+            validOption = Car.ValidateOption(selectedOption, cars.Count > 0);
 
-            #region Variables
-
-            List<Car> cars = new List<Car>();
-            Car myCar = new Car();
-            bool validOption = true;
-
-            #endregion
-
-            #region Methods
-
-            try
+            if (validOption)
             {
-                string selectedOption;
-
-                do
-                {
-
-                    Car.ShowMenu(validOption, cars.Count > 0);
-
-                    selectedOption = Car.ReadSelectedOption();
-
-                    if (selectedOption.ToLower() != "x")
-                    {
-                        validOption = Car.ValidateOption(selectedOption, cars.Count > 0);
-
-                        if (validOption)
-                        {
-                            myCar.ExecuteAction(selectedOption);
-                            if (cars.Count == 0)
-                            {
-                                cars.Add(myCar);
-                            }
-                        }
-
-                    }
-
-                } while (selectedOption.ToLower() != "x");
-
+                myCar.ExecuteAction(selectedOption);
+                if (cars.Count == 0)
+                    cars.Add(myCar);
             }
-            catch (FormatException)
-            {
-                Console.WriteLine("\nHouve um erro na conversão do valor informado.");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("\nErro desconhecido:");
-                Console.WriteLine(e.Message);
-            }
-
-            #endregion
-
-            Utils4.CleanConsole();
 
         }
 
-    }
+    } while (selectedOption.ToLower() != "x");
 
 }
+catch (FormatException)
+{
+    Console.WriteLine("\nHouve um erro na conversão do valor informado.");
+}
+catch (Exception e)
+{
+    Console.WriteLine("\nErro desconhecido:");
+    Console.WriteLine(e.Message);
+}
+
+#endregion
+
+Utils.CleanConsole();
