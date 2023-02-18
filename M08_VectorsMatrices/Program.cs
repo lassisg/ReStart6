@@ -1,30 +1,15 @@
 ﻿using D00_Utils;
+using M08_VectorsMatrices;
 
-namespace M08_VectorsMatrices
-{
+Utils.SetUtf8Encoding();
 
-    internal class Program
-    {
+//Exercicios.ExecutarExercicio01();
+//Exercicios.ExecutarExercicio02();
+//Exercicios.ExecutarExercicio03();
+//Exercicios.ExecutarExercicio04();
+//Exercicios.ExecutarExercicio05();
+//Exercicios.ExecutarExercicio06();
+//Exercicios.ExecutarExercicio07();
+Exercicios.ExecutarExercicio08();
 
-        static void Main(string[] args)
-        {
-
-
-            Utils4.SetUTF8Encoding();
-
-            //Exercicios.ExecutarExercicio01();
-            //Exercicios.ExecutarExercicio02();
-            //Exercicios.ExecutarExercicio03();
-            //Exercicios.ExecutarExercicio04();
-            //Exercicios.ExecutarExercicio05();
-            //Exercicios.ExecutarExercicio06();
-            //Exercicios.ExecutarExercicio07();
-            Exercicios.ExecutarExercicio08();
-
-            Utils4.CleanConsole();
-
-        }
-
-    }
-
-}
+Utils.CleanConsole();

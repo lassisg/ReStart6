@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M08_VectorsMatrices", "M08_VectorsMatrices\M08_VectorsMatrices.csproj", "{92542602-3F15-4D63-9587-561530FDD4F7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M09_Strings", "M09_Strings\M09_Strings.csproj", "{64E33B98-E352-43DA-B4D6-A92CD16BF650}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D00_Utils", "D00_Utils\D00_Utils.csproj", "{B676E629-158E-4161-BE76-64B30B5EEB0B}"
@@ -61,16 +59,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M06_InstrucoesRepeticao", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M07_Methods", "M07_Methods\M07_Methods.csproj", "{A5A9C336-3EC9-44D1-866B-A8C2CF4AAC2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M08_VectorsMatrices", "M08_VectorsMatrices\M08_VectorsMatrices.csproj", "{4160A9C7-BDB4-47B9-ADAD-8E0986C057FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{92542602-3F15-4D63-9587-561530FDD4F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92542602-3F15-4D63-9587-561530FDD4F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92542602-3F15-4D63-9587-561530FDD4F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92542602-3F15-4D63-9587-561530FDD4F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64E33B98-E352-43DA-B4D6-A92CD16BF650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{64E33B98-E352-43DA-B4D6-A92CD16BF650}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64E33B98-E352-43DA-B4D6-A92CD16BF650}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -183,6 +179,10 @@ Global
 		{A5A9C336-3EC9-44D1-866B-A8C2CF4AAC2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5A9C336-3EC9-44D1-866B-A8C2CF4AAC2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5A9C336-3EC9-44D1-866B-A8C2CF4AAC2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4160A9C7-BDB4-47B9-ADAD-8E0986C057FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4160A9C7-BDB4-47B9-ADAD-8E0986C057FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4160A9C7-BDB4-47B9-ADAD-8E0986C057FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4160A9C7-BDB4-47B9-ADAD-8E0986C057FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
