@@ -10,7 +10,7 @@ namespace M08_VectorsMatrices
         {
 
 
-            Utils.SetUTF8Encoding();
+            Utils4.SetUTF8Encoding();
 
             //Exercicios.ExecutarExercicio01();
             //Exercicios.ExecutarExercicio02();
@@ -21,7 +21,7 @@ namespace M08_VectorsMatrices
             //Exercicios.ExecutarExercicio07();
             Exercicios.ExecutarExercicio08();
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
 

@@ -162,7 +162,7 @@ namespace E04_Curso
         protected internal void InserirCurso()
         {
 
-            Utils.PrintSubHeader("Novo curso");
+            Utils4.PrintSubHeader("Novo curso");
 
             List<string> userInputs;
 
@@ -181,7 +181,7 @@ namespace E04_Curso
             StringBuilder sb = new StringBuilder();
 
             Console.Clear();
-            Utils.PrintSubHeader("Cursos disponíveis");
+            Utils4.PrintSubHeader("Cursos disponíveis");
             Console.WriteLine();
 
             foreach (Curso item in listaCursos)

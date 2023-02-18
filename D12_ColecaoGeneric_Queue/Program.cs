@@ -11,11 +11,11 @@ namespace D12_ColecaoGeneric_Queue
         static void Main(string[] args)
         {
 
-            Utils.SetUTF8Encoding();
+            Utils4.SetUTF8Encoding();
 
             #region Queue
 
-            Utils.PrintHeader("Queue");
+            Utils4.PrintHeader("Queue");
 
             // Criar um Queue de inteiros
             Queue<int> filaInteiros = new Queue<int>();
@@ -49,7 +49,7 @@ namespace D12_ColecaoGeneric_Queue
                 Console.WriteLine(item);
             }
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 

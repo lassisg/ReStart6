@@ -51,9 +51,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\D00_Utils\D00_Utils.csproj">
+    <ProjectReference Include="..\D00_Utils_4.7\D00_Utils_4.7.csproj">
       <Project>{01c45a05-094a-4ef9-b35d-56d0d459619c}</Project>
-      <Name>D00_Utils</Name>
+      <Name>D00_Utils_4.7</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -12,13 +12,13 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio01()
         {
 
-            Utils.PrintHeader("Exercício 1");
+            Utils4.PrintHeader("Exercício 1");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever um programa que imprima no ecrã um retângulo com o";
             subHeader += "\nsímbolo '0' sabendo a sua largura e comprimento.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             int largura = 40;
             int comprimento = 10;
@@ -38,13 +38,13 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio02()
         {
 
-            Utils.PrintHeader("Exercício 2");
+            Utils4.PrintHeader("Exercício 2");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escreva um programa que imprima no ecrã os números ímpares";
             subHeader += "\nentre 1 e 50.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             int length = 50;
 
@@ -63,7 +63,7 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio03()
         {
 
-            Utils.PrintHeader("Exercício 3");
+            Utils4.PrintHeader("Exercício 3");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escreva um programa que calcule a soma, com incrementos de 3,";
@@ -71,7 +71,7 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\n(ex.: 4+7+10+13+...), utilizando as três estruturas de";
             subHeader += "\nrepetição que conhece.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             int soma = 0;
             int limite = 100;
@@ -111,14 +111,14 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio04()
         {
 
-            Utils.PrintHeader("Exercício 4");
+            Utils4.PrintHeader("Exercício 4");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escreva um programa que receba dois números inteiros e gere";
             subHeader += "\nos números inteiros que estão no intervalo compreendidos";
             subHeader += "\npor eles.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             int num01, num02, menor, maior;
 
@@ -150,13 +150,13 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio05()
         {
 
-            Utils.PrintHeader("Exercício 5");
+            Utils4.PrintHeader("Exercício 5");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Altere o programa anterior para mostrar no final a soma dos";
             subHeader += "\nnúmeros.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             int num01, num02, menor, maior, soma;
 
@@ -192,14 +192,14 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio06()
         {
 
-            Utils.PrintHeader("Exercício 6");
+            Utils4.PrintHeader("Exercício 6");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escreva um programa que leia uma sequência de números";
             subHeader += "\ninteiros a partir do teclado e apresente o máximo e o";
             subHeader += "\nmínimo. O programa termina quando o número lido for zero.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string userInput;
             List<int> valores = new List<int>();
@@ -228,7 +228,7 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio07()
         {
 
-            Utils.PrintHeader("Exercício 7");
+            Utils4.PrintHeader("Exercício 7");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escreva um programa que leia uma sequência de números";
@@ -236,7 +236,7 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\ndos inteiros positivos. O programa termina quando o";
             subHeader += "\nnúmero lido for zero.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string userInput;
             int soma = 0;
@@ -263,7 +263,7 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio08()
         {
 
-            Utils.PrintHeader("Exercício 8");
+            Utils4.PrintHeader("Exercício 8");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever um programa que peça a altura de n funcionários de";
@@ -272,7 +272,7 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\n  • A altura do funcionário mais alto;";
             subHeader += "\n  • A altura média.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string userInput;
             List<double> alturas = new List<double>();
@@ -307,13 +307,13 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio09()
         {
 
-            Utils.PrintHeader("Exercício 9");
+            Utils4.PrintHeader("Exercício 9");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escreva um programa que leia um número inteiro e calcule a";
             subHeader += "\nsoma dos seus dígitos.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string userInput;
             int inputValue;
@@ -345,7 +345,7 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio10()
         {
             
-            Utils.PrintHeader("Exercício 10");
+            Utils4.PrintHeader("Exercício 10");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Analise o programa e descreva o seu comportamento.";
@@ -372,7 +372,7 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\n    }";
             subHeader += "\n}";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             StringBuilder sb = new StringBuilder();
 
@@ -391,13 +391,13 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio11()
         {
 
-            Utils.PrintHeader("Exercício 11");
+            Utils4.PrintHeader("Exercício 11");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Alterar o exercício anterior para contabilizar o nº de";
             subHeader += "\ntentativas falhadas.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             int n;
             int errorCount = -1;
@@ -420,7 +420,7 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio12()
         {
 
-            Utils.PrintHeader("Exercício 12");
+            Utils4.PrintHeader("Exercício 12");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever um programa que peça a n pessoas de uma empresa a";
@@ -429,7 +429,7 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\n60; e dizer se os funcionários são jovens, adultos ou";
             subHeader += "\nidosos, conforme a média calculada.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string userInput, classification;
             int inputValue;
@@ -474,7 +474,7 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio13()
         {
 
-            Utils.PrintHeader("Exercício 13");
+            Utils4.PrintHeader("Exercício 13");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "O dono de um hotel concebeu uma forma original de cobrar aos";
@@ -488,7 +488,7 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\nintroduzir, no Main, a seguinte instrução:";
             subHeader += "\nConsole.OutputEncoding = System.Text.Encoding.UTF8;";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string userInput;
             int inputValue;
@@ -516,7 +516,7 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio14()
         {
 
-            Utils.PrintHeader("Exercício 14");
+            Utils4.PrintHeader("Exercício 14");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Supondo que a população do país A é de 80 000 habitantes com";
@@ -527,7 +527,7 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\nA ultrapasse ou iguale a população do país B, mantidas as";
             subHeader += "\ntaxas de crescimento.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double populacaoA = 80000;
             double populacaoB = 200000;
@@ -551,7 +551,7 @@ namespace M06_InstrucoesRepeticao
         internal static void ExecutarExercicio15()
         {
 
-            Utils.PrintHeader("Exercício 15");
+            Utils4.PrintHeader("Exercício 15");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escreva um programa que calcule o total das entradas a pagar";
@@ -561,7 +561,7 @@ namespace M06_InstrucoesRepeticao
             subHeader += "\neuros. O programa deverá pedir ao utilizador o número e";
             subHeader += "\ntipo de entradas.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string userInput;
             int entradas = 0;
@@ -613,14 +613,14 @@ namespace M06_InstrucoesRepeticao
 
         internal static void ExecutarExercicio16()
         {
-            Utils.PrintHeader("Exercício 16");
+            Utils4.PrintHeader("Exercício 16");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escreva um programa que leia 20 números entre 10 e 30 (os";
             subHeader += "\nnúmeros lidos devem ser validados) e apresente o produto";
             subHeader += "\ndos que pertencerem ao intervalo [10,20].";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string userInput;
             int currentNumber = 1;

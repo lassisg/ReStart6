@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D01_VisualStudio", "D01_VisualStudio\D01_VisualStudio.csproj", "{A59E388B-91C2-4FD3-AF2C-FB7F5B99BA65}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D02_Algoritmia", "D02_Algoritmia\D02_Algoritmia.csproj", "{C09C5BFF-9316-4952-A3AA-9EE20472A665}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D02_Algoritmia_4.7", "D02_Algoritmia_4.7\D02_Algoritmia_4.7.csproj", "{C09C5BFF-9316-4952-A3AA-9EE20472A665}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E01_Calculadora", "E01_Calculadora\E01_Calculadora.csproj", "{315FFCED-96F4-4453-8851-492D4887634E}"
 EndProject
@@ -25,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D08_EstruturasDados", "D08_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D09_Classes", "D09_Classes\D09_Classes.csproj", "{DDE64560-10DE-4634-ADE9-CC9A6CA5B308}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D00_Utils", "D00_Utils\D00_Utils.csproj", "{01C45A05-094A-4EF9-B35D-56D0D459619C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D00_Utils_4.7", "D00_Utils_4.7\D00_Utils_4.7.csproj", "{01C45A05-094A-4EF9-B35D-56D0D459619C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D10_Colecao_ArrayList", "D10_Colecao_ArrayList\D10_Colecao_ArrayList.csproj", "{EF60D2B0-50AC-4DEA-B321-E854DDF607A2}"
 EndProject
@@ -61,16 +59,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M08_VectorsMatrices", "M08_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M09_Strings", "M09_Strings\M09_Strings.csproj", "{64E33B98-E352-43DA-B4D6-A92CD16BF650}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D00_Utils", "D00_Utils\D00_Utils.csproj", "{B676E629-158E-4161-BE76-64B30B5EEB0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D01_VisualStudio", "D01_VisualStudio\D01_VisualStudio.csproj", "{CE36C20D-42FA-4C55-9985-654551889819}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A59E388B-91C2-4FD3-AF2C-FB7F5B99BA65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A59E388B-91C2-4FD3-AF2C-FB7F5B99BA65}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A59E388B-91C2-4FD3-AF2C-FB7F5B99BA65}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A59E388B-91C2-4FD3-AF2C-FB7F5B99BA65}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C09C5BFF-9316-4952-A3AA-9EE20472A665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C09C5BFF-9316-4952-A3AA-9EE20472A665}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C09C5BFF-9316-4952-A3AA-9EE20472A665}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -183,6 +181,14 @@ Global
 		{64E33B98-E352-43DA-B4D6-A92CD16BF650}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64E33B98-E352-43DA-B4D6-A92CD16BF650}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64E33B98-E352-43DA-B4D6-A92CD16BF650}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B676E629-158E-4161-BE76-64B30B5EEB0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B676E629-158E-4161-BE76-64B30B5EEB0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B676E629-158E-4161-BE76-64B30B5EEB0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B676E629-158E-4161-BE76-64B30B5EEB0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE36C20D-42FA-4C55-9985-654551889819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE36C20D-42FA-4C55-9985-654551889819}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE36C20D-42FA-4C55-9985-654551889819}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE36C20D-42FA-4C55-9985-654551889819}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

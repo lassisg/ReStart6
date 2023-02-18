@@ -40,7 +40,7 @@ namespace D05_ManipulacaoDados
 
             #region Manipulação strings
 
-            Utils.PrintHeader("STRING");
+            Utils4.PrintHeader("STRING");
 
             Console.WriteLine($"Curso em maiusculas: {curso.ToUpper()}");
             Console.WriteLine($"1ª palavra do curso: {curso.Substring(0, 9)}");
@@ -51,7 +51,7 @@ namespace D05_ManipulacaoDados
 
             #region Manipulação strings - StringBuilder
 
-            Utils.PrintHeader("STRING BUILDER", "\n\n");
+            Utils4.PrintHeader("STRING BUILDER", "\n\n");
 
             Console.WriteLine($"StringBuilder: {sb01}");
 
@@ -59,7 +59,7 @@ namespace D05_ManipulacaoDados
 
             #region Manipulação numérica
 
-            Utils.PrintHeader("NUMBER - MATH()", "\n\n");
+            Utils4.PrintHeader("NUMBER - MATH()", "\n\n");
 
             Console.WriteLine($"Valor mínimo: {Math.Min(valor02, valor01)}");
             Console.WriteLine($"Valor máximo: {Math.Max(valor02, valor01)}");
@@ -71,7 +71,7 @@ namespace D05_ManipulacaoDados
 
             #region Manipulação Datetime
 
-            Utils.PrintHeader("DATETIME", "\n\n");
+            Utils4.PrintHeader("DATETIME", "\n\n");
 
             Console.WriteLine($"Hora atual + 10 min: {timestamp.AddMinutes(10).Minute}");
             Console.WriteLine($"Hora atual + 10 min: {timestamp.AddMinutes(10).ToString("mm")}");

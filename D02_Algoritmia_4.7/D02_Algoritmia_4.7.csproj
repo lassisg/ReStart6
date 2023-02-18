@@ -7,7 +7,7 @@
     <ProjectGuid>{C09C5BFF-9316-4952-A3AA-9EE20472A665}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>D02_Algoritmia</RootNamespace>
-    <AssemblyName>D02_Algoritmia</AssemblyName>
+    <AssemblyName>D02_Algoritmia_4.7</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

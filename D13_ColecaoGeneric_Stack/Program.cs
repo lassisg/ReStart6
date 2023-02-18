@@ -11,11 +11,11 @@ namespace D13_ColecaoGeneric_Stack
         static void Main(string[] args)
         {
 
-            Utils.SetUTF8Encoding();
+            Utils4.SetUTF8Encoding();
 
             #region Stack
 
-            Utils.PrintHeader("Stack");
+            Utils4.PrintHeader("Stack");
 
             // Criar ums Stack de inteiros
             Stack<int> pilhaInteiros = new Stack<int>();
@@ -49,7 +49,7 @@ namespace D13_ColecaoGeneric_Stack
                 Console.WriteLine(item);
             }
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 

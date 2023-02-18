@@ -128,17 +128,17 @@ namespace E03_Cars
 
             Dictionary<string, string> menuOptions = GetMenuOptions(showFullMenu);
 
-            Utils.PrintHeader("E06_Cars");
+            Utils4.PrintHeader("E06_Cars");
 
             if (!isValidOption)
             {
 
-                Utils.PrintHeader("Calculadora Simples");
+                Utils4.PrintHeader("Calculadora Simples");
                 ShowWarning();
 
             }
 
-            Utils.PrintSubHeader("Escolha uma das opções abaixo.");
+            Utils4.PrintSubHeader("Escolha uma das opções abaixo.");
 
             foreach (KeyValuePair<string, string> item in menuOptions)
             {

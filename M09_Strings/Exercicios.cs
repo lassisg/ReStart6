@@ -10,12 +10,12 @@ namespace M09_Strings
         internal static void ExecutarExercicio01()
         {
 
-            Utils.PrintHeader("Exercício 1");
+            Utils4.PrintHeader("Exercício 1");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever e testar um método que leia o seu nome e o apresente no ecrã.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             Console.Write("Digite seu nome: ");
             string myName = Console.ReadLine();
@@ -27,13 +27,13 @@ namespace M09_Strings
         internal static void ExecutarExercicio02()
         {
 
-            Utils.PrintHeader("Exercício 2");
+            Utils4.PrintHeader("Exercício 2");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever e testar um programa que peça um nome completo e mostre só o";
             subHeader += "\nprimeiro e o último nome.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string fullName;
 
@@ -56,13 +56,13 @@ namespace M09_Strings
         internal static void ExecutarExercicio03()
         {
 
-            Utils.PrintHeader("Exercício 3");
+            Utils4.PrintHeader("Exercício 3");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever e testar um programa que peça o nome e apelidos, um de cada";
             subHeader += "\nvez, e que junte tudo numa única string.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string firstName, surnames, fullName;
 
@@ -81,13 +81,13 @@ namespace M09_Strings
         internal static void ExecutarExercicio04()
         {
 
-            Utils.PrintHeader("Exercício 4");
+            Utils4.PrintHeader("Exercício 4");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever e testar um programa que peça um nome completo e converta";
             subHeader += "\npara maiúsculas o 1º, 3º, 5º nomes.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string fulllName;
 
@@ -112,13 +112,13 @@ namespace M09_Strings
         internal static void ExecutarExercicio05()
         {
 
-            Utils.PrintHeader("Exercício 5");
+            Utils4.PrintHeader("Exercício 5");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever e testar um método que devolva o 1º índice, numa string, de";
             subHeader += "\num carácter introduzido pelo utilizador.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string userInput, frase;
             char letra;
@@ -160,13 +160,13 @@ namespace M09_Strings
         internal static void ExecutarExercicio06()
         {
 
-            Utils.PrintHeader("Exercício 6");
+            Utils4.PrintHeader("Exercício 6");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever e testar um método que devolva quantas vezes um determinado";
             subHeader += "\ncarácter aparece numa string.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string frase;
             char letra;
@@ -209,13 +209,13 @@ namespace M09_Strings
         internal static void ExecutarExercicio07()
         {
 
-            Utils.PrintHeader("Exercício 7");
+            Utils4.PrintHeader("Exercício 7");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever e testar um método que concatene duas strings introduzidas";
             subHeader += "\npelo utilizador.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string userInput01, userInput02;
 
@@ -237,7 +237,7 @@ namespace M09_Strings
         internal static void ExecutarExercicio08()
         {
 
-            Utils.PrintHeader("Exercício 8");
+            Utils4.PrintHeader("Exercício 8");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Analise o programa e descreva o seu comportamento";
@@ -276,7 +276,7 @@ namespace M09_Strings
             subHeader += "\n}";
 
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             StringBuilder sb = new StringBuilder();
 

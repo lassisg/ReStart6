@@ -22,13 +22,13 @@ namespace D08_EstruturasDados
             Console.WriteLine(nome02);
             Console.WriteLine(nome03);
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region VETOR 1: com dimensão inicial, declaração e atribuição
 
-            Utils.PrintHeader("VETOR - 1");
+            Utils4.PrintHeader("VETOR - 1");
 
             // Vetor com 2 elementos
 
@@ -50,13 +50,13 @@ namespace D08_EstruturasDados
                 Console.WriteLine(curso[i]);
             }
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region VETOR 2: com dimensão inicial, declaração e atribuição duma só vez
 
-            Utils.PrintHeader("VETOR - 2");
+            Utils4.PrintHeader("VETOR - 2");
 
             string[] pessoa = new string[4]
             {
@@ -71,13 +71,13 @@ namespace D08_EstruturasDados
                 Console.WriteLine(pessoa[i]);
             }
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region VETOR 3: sem dimensão inicial, declaração e atribuição
 
-            Utils.PrintHeader("VETOR - 3");
+            Utils4.PrintHeader("VETOR - 3");
 
             string[] localidades = new string[]
             {
@@ -98,13 +98,13 @@ namespace D08_EstruturasDados
                 new DateTime(2022, 05, 12)
             };
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region FOREACH para listar
 
-            Utils.PrintHeader("FOREACH");
+            Utils4.PrintHeader("FOREACH");
 
             foreach (string localidade in localidades)
             {
@@ -126,13 +126,13 @@ namespace D08_EstruturasDados
                 Console.WriteLine(item.ToShortDateString());
             }
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region MATRIZ 1: com dimensão inicial
 
-            Utils.PrintHeader("MATRIZES");
+            Utils4.PrintHeader("MATRIZES");
 
             // Dimensionar e atribuir duma só vez
             
@@ -168,13 +168,13 @@ namespace D08_EstruturasDados
                 { "Curso 2", "C# Foundations"},
             };
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region MATRIZ 2: listar com FOREACH
 
-            Utils.PrintHeader("MATRIZES - listar");
+            Utils4.PrintHeader("MATRIZES - listar");
 
             foreach (string cliente in clientes)
             {
@@ -191,15 +191,15 @@ namespace D08_EstruturasDados
                 Console.WriteLine(formacao);
             }
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region MATRIZ 3: listar com FORs para simular uma tabela
 
-            Utils.PrintHeader("MATRIZES - listar com FORs");
+            Utils4.PrintHeader("MATRIZES - listar com FORs");
 
-            Utils.PrintSubHeader("Versão com GetUpperBound()");
+            Utils4.PrintSubHeader("Versão com GetUpperBound()");
 
             for (int i = 0; i <= clientes.GetUpperBound(0); i++)
             {
@@ -215,7 +215,7 @@ namespace D08_EstruturasDados
 
             }
 
-            Utils.PrintSubHeader("Versão com GetLength()");
+            Utils4.PrintSubHeader("Versão com GetLength()");
 
             for (int i = 0; i < clientes.GetLength(0); i++)
             {
@@ -231,7 +231,7 @@ namespace D08_EstruturasDados
 
             }
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 

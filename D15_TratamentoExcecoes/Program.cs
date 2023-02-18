@@ -10,11 +10,11 @@ namespace D15_TratamentoExcecoes
         static void Main(string[] args)
         {
 
-            Utils.SetUTF8Encoding();
+            Utils4.SetUTF8Encoding();
 
             #region Try... Catch...Finally
 
-            Utils.PrintHeader("Try... Catch...Finally");
+            Utils4.PrintHeader("Try... Catch...Finally");
 
             try
             {
@@ -55,7 +55,7 @@ namespace D15_TratamentoExcecoes
             finally
             {
                 
-                Utils.CleanConsole();
+                Utils4.CleanConsole();
 
             }
 

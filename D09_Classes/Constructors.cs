@@ -67,7 +67,7 @@ namespace D09_Classes
 
             #region 1º constructor
 
-            Utils.PrintHeader("1º constructor");
+            Utils4.PrintHeader("1º constructor");
 
             Constructors colaborador01 = new Constructors();  // Usa o 1º construtor
             Console.WriteLine($"Nome antes dos Sets: {colaborador01.Nome}\n");
@@ -84,13 +84,13 @@ namespace D09_Classes
             Console.WriteLine(colaborador01.Email);
             Console.WriteLine(colaborador01.Localidade);
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region 2º constructor
 
-            Utils.PrintHeader("2º constructor");
+            Utils4.PrintHeader("2º constructor");
 
             Constructors colaborador02 = new Constructors(2, "Milena", "milena@mail.com", "Porto");
 
@@ -100,14 +100,14 @@ namespace D09_Classes
             Console.WriteLine(colaborador02.Email);
             Console.WriteLine(colaborador02.Localidade);
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region 3º constructor
 
-            Utils.PrintHeader("3º constructor");
-            Utils.PrintSubHeader("Usa valor \'default\' de Loacalidade");
+            Utils4.PrintHeader("3º constructor");
+            Utils4.PrintSubHeader("Usa valor \'default\' de Loacalidade");
 
             Constructors colaborador03 = new Constructors(3, "Amélia", "amelia@mail.com");
 
@@ -117,7 +117,7 @@ namespace D09_Classes
             Console.WriteLine(colaborador03.Email);
             Console.WriteLine(colaborador03.Localidade);
 
-            Utils.PrintSubHeader("Atribuo novo valor de Loacalidade");
+            Utils4.PrintSubHeader("Atribuo novo valor de Loacalidade");
 
             Constructors colaborador04 = new Constructors(4, "Reis", "reis@mail.com");
             colaborador04.Localidade = "Braga";
@@ -128,7 +128,7 @@ namespace D09_Classes
             Console.WriteLine(colaborador04.Email);
             Console.WriteLine(colaborador04.Localidade);
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 

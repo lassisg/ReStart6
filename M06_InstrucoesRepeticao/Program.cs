@@ -7,7 +7,7 @@ namespace M06_InstrucoesRepeticao
         static void Main(string[] args)
         {
 
-            Utils.SetUTF8Encoding();
+            Utils4.SetUTF8Encoding();
 
             //Exercicios.ExecutarExercicio01();
             //Exercicios.ExecutarExercicio02();
@@ -26,7 +26,7 @@ namespace M06_InstrucoesRepeticao
             //Exercicios.ExecutarExercicio15();
             Exercicios.ExecutarExercicio16();
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
     }

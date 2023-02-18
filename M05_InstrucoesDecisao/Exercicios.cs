@@ -23,7 +23,7 @@ namespace M05_InstrucoesDecisao
             //   2 < 3 E 3 > 4
             //   2 < 3 OU 3 > 4
             //   NÃO(2 < 3 OU 3 > 4)
-            Utils.PrintHeader("Exercício 1");
+            Utils4.PrintHeader("Exercício 1");
 
             string subHeader;
             // ----------------------------------------------------------------------
@@ -39,7 +39,7 @@ namespace M05_InstrucoesDecisao
             subHeader += "\n\t2 < 3 OU 3 > 4";
             subHeader += "\n\tNÃO(2 < 3 OU 3 > 4)";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
 
             Console.WriteLine($"\nResultado da operação lógica              2 == 3: {2 == 3}");
@@ -52,7 +52,7 @@ namespace M05_InstrucoesDecisao
             Console.WriteLine($"Resultado da operação lógica      2 < 3 OU 3 > 4: {2 < 3 | 3 > 4}");
             Console.WriteLine($"Resultado da operação lógica NÃO(2 < 3 OU 3 > 4): {!(2 < 3 | 3 > 4)}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -61,12 +61,12 @@ namespace M05_InstrucoesDecisao
 
             //2. Escrever um programa para converter um número real positivo para um número inteiro.Deve ainda de
             //arredondar o número.
-            Utils.PrintHeader("Exercício 2");
+            Utils4.PrintHeader("Exercício 2");
 
             // ---------------------------------------------------------------------------------------
             string subHeader = "Escrever um programa para converter um número real positivo para um";
             subHeader += "\nnúmero inteiro. Deve ainda de arredondar o número.";
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             Console.Write("Digite um número real positivo: ");
             double number01 = Convert.ToDouble(Console.ReadLine());
@@ -75,7 +75,7 @@ namespace M05_InstrucoesDecisao
 
             Console.WriteLine($"O número \'{number01}\' convertido para inteiro e arredondado é \'{number02}\'");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -84,12 +84,12 @@ namespace M05_InstrucoesDecisao
 
 
             //3. Escrever um programa para determinar se um número é par e positivo.
-            Utils.PrintHeader("Exercício 3");
+            Utils4.PrintHeader("Exercício 3");
 
             // ---------------------------------------------------------------------------------------
             string subHeader = "Escrever um programa para determinar se um número é par e positivo.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             Console.Write("Digite um número: ");
             double number01 = Convert.ToDouble(Console.ReadLine());
@@ -103,7 +103,7 @@ namespace M05_InstrucoesDecisao
 
             Console.WriteLine(mensagem);
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -113,7 +113,7 @@ namespace M05_InstrucoesDecisao
             // 4. Escrever um programa para calcular o salário semanal a pagar a um empregado, tendo em atenção que todas as
             // horas após as 40 serão pagas a dobrar. O utilizador deve de indicar o valor do salário por hora e o valor das horas
             // trabalhadas.
-            Utils.PrintHeader("Exercício 04");
+            Utils4.PrintHeader("Exercício 04");
 
             // ---------------------------------------------------------------------------------------
             string subHeader = "Escrever um programa para calcular o salário semanal a pagar a um";
@@ -121,7 +121,7 @@ namespace M05_InstrucoesDecisao
             subHeader += "\ndobrar. O utilizador deve de indicar o valor do salário por hora e o";
             subHeader += "\nvalor das horas trabalhadas.";
             
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double hourSalary;
             double workHours;
@@ -144,7 +144,7 @@ namespace M05_InstrucoesDecisao
 
             Console.WriteLine($"\nO salário semanal será de {weeklySalary.ToString("C", new CultureInfo("pt-PT"))}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -153,13 +153,13 @@ namespace M05_InstrucoesDecisao
 
             // 5. Escrever um programa que permita identificar o número maior entre três números
             // introduzidos pelo utilizador.
-            Utils.PrintHeader("Exercício 05");
+            Utils4.PrintHeader("Exercício 05");
 
             // ---------------------------------------------------------------------------------------
             string subHeader = "Escrever um programa que permita identificar o número maior entre três";
             subHeader += "\nnúmeros introduzidos pelo utilizador.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double[] number = new double[3];
             double greatest;
@@ -174,7 +174,7 @@ namespace M05_InstrucoesDecisao
 
             Console.WriteLine($"\nO maior dos três números é: {greatest}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -184,7 +184,7 @@ namespace M05_InstrucoesDecisao
             // 6.Escrever um programa que determine a aprovação de um formando numa ação de formação.
             // Deve ter em atenção que só é considerado aprovado se a obtiver classificação mínima de
             // 8 valores em dois testes e cada um tem um peso de 10 valores na nota final.
-            Utils.PrintHeader("Exercício 06");
+            Utils4.PrintHeader("Exercício 06");
 
             // ---------------------------------------------------------------------------------------
             string subHeader = "Escrever um programa que determine a aprovação de um formando numa";
@@ -192,7 +192,7 @@ namespace M05_InstrucoesDecisao
             subHeader += "\nobtiver classificação mínima de 8 valores em dois testes e cada um tem um";
             subHeader += "\npeso de 10 valores na nota final.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double[] grades = new double[2];
             bool aproved = true;
@@ -218,7 +218,7 @@ namespace M05_InstrucoesDecisao
             
             Console.WriteLine($"\nAluno {resultMessage}.");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -228,14 +228,14 @@ namespace M05_InstrucoesDecisao
             // 7. Escrever um programa, utilizando o operador ternário, que apresente a mensagem de “Parabéns” se um
             // formando obteve uma nota superior a 10.No caso contrário, apresente a mensagem “Ups, deve marcar novo
             // exame.”
-            Utils.PrintHeader("Exercício 07");
+            Utils4.PrintHeader("Exercício 07");
 
             // ---------------------------------------------------------------------------------------
             string subHeader = "Escrever um programa, utilizando o operador ternário, que apresente a";
             subHeader += "\nmensagem de \"Parabéns\" se um formando obteve uma nota superior a 10. No";
             subHeader += "\ncaso contrário, apresente a mensagem “Ups, deve marcar novo exame.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double grade;
             string message;
@@ -247,7 +247,7 @@ namespace M05_InstrucoesDecisao
 
             Console.WriteLine($"\n{message}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -255,12 +255,12 @@ namespace M05_InstrucoesDecisao
         {
 
             // 8. Escrever um programa que determine se o ano introduzido é bissexto.
-            Utils.PrintHeader("Exercício 08");
+            Utils4.PrintHeader("Exercício 08");
 
             // ---------------------------------------------------------------------------------------
             string subHeader = "Escrever um programa que determine se o ano introduzido é bissexto.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             int year;
             bool bissexto = false;
@@ -274,7 +274,7 @@ namespace M05_InstrucoesDecisao
             message = bissexto ? "" : " não";
 
             Console.WriteLine($"\nO ano {year}{message} é bissexto.");
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -283,13 +283,13 @@ namespace M05_InstrucoesDecisao
 
             // 9. Escrever um programa que devolva ao utilizador, por ordem crescente, os três números introduzidos
             // inicialmente.
-            Utils.PrintHeader("Exercício 09");
+            Utils4.PrintHeader("Exercício 09");
 
             // ---------------------------------------------------------------------------------------
             string subHeader = "Escrever um programa que devolva ao utilizador, por ordem crescente,";
             subHeader += "\nos três números introduzidos inicialmente.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             ArrayList number = new ArrayList();
 
@@ -307,7 +307,7 @@ namespace M05_InstrucoesDecisao
                 Console.Write($"\n{item}");
             }
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -317,7 +317,7 @@ namespace M05_InstrucoesDecisao
             // 10. Escrever um programa para calcular o valor total a pagar por um determinado artigo, sabendo que o tipo de artigo
             // e preço sem iva. Supondo que a taxa de iva é de 5 % para os produtos essenciais, 30 % para os bens de luxo e 20 %
             // para os restantes.
-            Utils.PrintHeader("Exercício 10");
+            Utils4.PrintHeader("Exercício 10");
 
             // ---------------------------------------------------------------------------------------
             string subHeader = "Escrever um programa para calcular o valor total a pagar por um";
@@ -325,7 +325,7 @@ namespace M05_InstrucoesDecisao
             subHeader += "\nque a taxa de iva é de 5 % para os produtos essenciais, 30 % para os bens";
             subHeader += "\nde luxo e 20 % para os restantes.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double price, finalPrice, IVA;
             int productType;
@@ -360,7 +360,7 @@ namespace M05_InstrucoesDecisao
             Console.WriteLine($"O preço final do produto, com IVA, é: {finalPrice.ToString("C", new CultureInfo("pt-PT"))} ");
 
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -369,7 +369,7 @@ namespace M05_InstrucoesDecisao
 
             // 11. Escrever um programa que leia três valores inteiros e verifique se estes podem corresponder aos lados de um
             // triângulo.No caso de se tratar de um triângulo, deve ainda de o classificar como equilátero, isósceles ou escaleno.
-            Utils.PrintHeader("Exercício 11");
+            Utils4.PrintHeader("Exercício 11");
 
             // ---------------------------------------------------------------------------------------
             string subHeader = "Escrever um programa que leia três valores inteiros e verifique se";
@@ -377,7 +377,7 @@ namespace M05_InstrucoesDecisao
             subHeader += "\nde um triângulo, deve ainda de o classificar como equilátero, isósceles ou";
             subHeader += "\nescaleno.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             int[] sides = new int[3];
             string triangleType;
@@ -402,7 +402,7 @@ namespace M05_InstrucoesDecisao
                 Console.WriteLine($"\nEstes valores não correspondem à um triângulo.");
             }
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -410,12 +410,12 @@ namespace M05_InstrucoesDecisao
         {
 
             // 12. Escrever um programa que escreva, por extenso, os números de 0 até 9.
-           Utils.PrintHeader("Exercício 12");
+           Utils4.PrintHeader("Exercício 12");
 
             // ---------------------------------------------------------------------------------------
             string subHeader = "Escrever um programa que escreva, por extenso, os números de 0 até 9.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             for (int i = 0; i < 10; i++)
             {
@@ -468,7 +468,7 @@ namespace M05_InstrucoesDecisao
 
             }
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -476,13 +476,13 @@ namespace M05_InstrucoesDecisao
         {
 
             // 13. Escrever um programa para identificar se o carácter introduzido pelo utilizador é uma vogal ou uma consoante.
-            Utils.PrintHeader("Exercício 13");
+            Utils4.PrintHeader("Exercício 13");
 
             // ---------------------------------------------------------------------------------------
             string subHeader = "Escrever um programa para identificar se o carácter introduzido pelo";
             subHeader += "\nutilizador é uma vogal ou uma consoante.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             char input;
             char[] vogais = new char[]
@@ -507,7 +507,7 @@ namespace M05_InstrucoesDecisao
 
             Console.WriteLine(message);
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -516,13 +516,13 @@ namespace M05_InstrucoesDecisao
 
             // 14. Escrever um programa que determine o símbolo do zodíaco de uma pessoa baseando-se no dia e no mês do seu
             // nascimento.
-            Utils.PrintHeader("Exercício 14");
+            Utils4.PrintHeader("Exercício 14");
 
             // ---------------------------------------------------------------------------------------
             string subHeader = "Escrever um programa que determine o símbolo do zodíaco de uma pessoa";
             subHeader += "\nbaseando-se no dia e no mês do seu nascimento.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string zodiacSign = string.Empty;
 
@@ -562,7 +562,7 @@ namespace M05_InstrucoesDecisao
 
             Console.WriteLine($"\n{zodiacSign}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
 

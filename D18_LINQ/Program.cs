@@ -14,11 +14,11 @@ namespace D18_LINQ
         static void Main(string[] args)
         {
 
-            Utils.PrintHeader("LINQ");
+            Utils4.PrintHeader("LINQ");
 
             #region Query Syntax
 
-            Utils.PrintSubHeader("Query Syntax");
+            Utils4.PrintSubHeader("Query Syntax");
 
             List<int> numbers = new List<int>() { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
@@ -48,13 +48,13 @@ namespace D18_LINQ
                 Console.WriteLine(item);
             }
             
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region Method Syntax
 
-            Utils.PrintSubHeader("Method Syntax");
+            Utils4.PrintSubHeader("Method Syntax");
 
             List<int> numbers1 = new List<int>() { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
             List<int> numbers2 = new List<int>() { 15, 14, 11, 13, 19, 18, 16, 17, 12, 10 };
@@ -84,7 +84,7 @@ namespace D18_LINQ
                 Console.WriteLine(item);
             }
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
             

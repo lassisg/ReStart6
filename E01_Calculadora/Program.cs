@@ -44,7 +44,7 @@ namespace E01_Calculadora
 
             #endregion
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
 

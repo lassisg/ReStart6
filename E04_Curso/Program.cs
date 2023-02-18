@@ -10,7 +10,7 @@ namespace E04_Curso
         static void Main(string[] args)
         {
 
-            Utils.PrintHeader("E07: Cursos");
+            Utils4.PrintHeader("E07: Cursos");
 
             Curso c1 = new Curso();
             c1.InserirCurso();
@@ -23,7 +23,7 @@ namespace E04_Curso
 
             Curso.ListarCurso(Curso.listaCursos);
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
 

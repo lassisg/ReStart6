@@ -10,12 +10,12 @@ namespace M07_Methods
         internal static void ExecutarExercicio01()
         {
 
-            Utils.PrintHeader("Exercício 1");
+            Utils4.PrintHeader("Exercício 1");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escreva e teste um método que escreva \"Olá, <nome>\".";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             Console.Write("Digite o seu nome: ");
             string name = Console.ReadLine();
@@ -32,13 +32,13 @@ namespace M07_Methods
         internal static void ExecutarExercicio02()
         {
 
-            Utils.PrintHeader("Exercício 2");
+            Utils4.PrintHeader("Exercício 2");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escreva e teste um método que devolva a soma de dois números inteiros.";
             subHeader += "\nentre 1 e 50.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string userInput;
             int num01, num02;
@@ -75,13 +75,13 @@ namespace M07_Methods
         internal static void ExecutarExercicio03()
         {
 
-            Utils.PrintHeader("Exercício 3");
+            Utils4.PrintHeader("Exercício 3");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever e testar um método que imprima no ecrã uma linha com";
             subHeader += "\nn asteriscos, em que n é um número introduzido pelo utilizador.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             char symbolToPrint = '*';
             string userInput;
@@ -111,14 +111,14 @@ namespace M07_Methods
         internal static void ExecutarExercicio04()
         {
 
-            Utils.PrintHeader("Exercício 4");
+            Utils4.PrintHeader("Exercício 4");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever um programa que simule uma máquina de calcular, de números";
             subHeader += "\ninteiros, em que cada uma das operações soma, subtração, multiplicação";
             subHeader += "\ne divisão é implementada através de um método.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             Console.WriteLine("\nExercício completo em 'E01_Calculadora'.");
 
@@ -128,12 +128,12 @@ namespace M07_Methods
         internal static void ExecutarExercicio05()
         {
 
-            Utils.PrintHeader("Exercício 5");
+            Utils4.PrintHeader("Exercício 5");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever e testar um método que devolva o máximo de dois valores.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string userInput;
             double num01, num02, max;
@@ -163,14 +163,14 @@ namespace M07_Methods
         internal static void ExecutarExercicio06()
         {
 
-            Utils.PrintHeader("Exercício 6");
+            Utils4.PrintHeader("Exercício 6");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever e testar um programa que devolva o valor da hipotenusa.";
             subHeader += "\nUsar o método Math.Sqrt()";
             subHeader += "\nhttps://msdn.microsoft.com/pt-br/library/system.math.sqrt(v=vs.100).aspx";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string userInput;
             double hipotenusa;
@@ -206,13 +206,13 @@ namespace M07_Methods
         internal static void ExecutarExercicio07()
         {
 
-            Utils.PrintHeader("Exercício 7");
+            Utils4.PrintHeader("Exercício 7");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Escrever e testar um método que receba, como argumento, um valor inteiro";
             subHeader += "\npositivo e devolva o nº de dígitos do valor recebido.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string userInput;
             bool isInteger;
@@ -244,7 +244,7 @@ namespace M07_Methods
         internal static void ExecutarExercicio08()
         {
 
-            Utils.PrintHeader("Exercício 8");
+            Utils4.PrintHeader("Exercício 8");
             string subHeader;
             // ----------------------------------------------------------------------
             subHeader = "Analise o programa e descreva o seu comportamento.";
@@ -274,7 +274,7 @@ namespace M07_Methods
             subHeader += "\n    }";
             subHeader += "\n}";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             StringBuilder sb = new StringBuilder();
 

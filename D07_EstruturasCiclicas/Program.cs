@@ -18,7 +18,7 @@ namespace D07_EstruturasCiclicas
 
             #region WHILE: pode nunca fazer
 
-            Utils.PrintHeader("WHILE");
+            Utils4.PrintHeader("WHILE");
 
             while (valor01 != "x")
             {
@@ -30,7 +30,7 @@ namespace D07_EstruturasCiclicas
 
             #region DO ... WHILE: faz pelo menos 1 vez
 
-            Utils.PrintHeader("DO ... WHILE", "\n\n");
+            Utils4.PrintHeader("DO ... WHILE", "\n\n");
 
             do
             {
@@ -42,7 +42,7 @@ namespace D07_EstruturasCiclicas
 
             #region FOR v1: repetir x número de vezes, incremento
 
-            Utils.PrintHeader("FOR v1", "\n\n");
+            Utils4.PrintHeader("FOR v1", "\n\n");
 
             // Repetir o ciclo 5 vezes, incremento
             for (int i = 0; i <= 4; i++)        // i = i + 1
@@ -54,7 +54,7 @@ namespace D07_EstruturasCiclicas
 
             #region FOR v2: repetir x número de vezes, decremento
 
-            Utils.PrintHeader("FOR v2", "\n\n");
+            Utils4.PrintHeader("FOR v2", "\n\n");
 
             // Repetir o ciclo 5 vezes, decremento
             for (int i = 4; i >= 0; i--)        // i = i - 1
@@ -66,7 +66,7 @@ namespace D07_EstruturasCiclicas
 
             #region FOR v3: tabuada dos 7
 
-            Utils.PrintHeader("FOR v3 - TABUADA DOS 7", "\n\n");
+            Utils4.PrintHeader("FOR v3 - TABUADA DOS 7", "\n\n");
 
             for (int i = 1; i <= 10; i++)
             {
@@ -79,7 +79,7 @@ namespace D07_EstruturasCiclicas
 
             // Primeiro ver estrutura de dados (arrays e collections)
 
-            Utils.PrintHeader("FOREACH", "\n\n");
+            Utils4.PrintHeader("FOREACH", "\n\n");
 
             Console.WriteLine("Verificar \'D08_EstruturasDados\'...");
 

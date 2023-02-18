@@ -12,11 +12,11 @@ namespace D14_ColecaoGenerica_Dictionary
         static void Main(string[] args)
         {
 
-            Utils.SetUTF8Encoding();
+            Utils4.SetUTF8Encoding();
 
             #region Dictionary
 
-            Utils.PrintHeader("Dictionary");
+            Utils4.PrintHeader("Dictionary");
 
             // Instanciar e atribuir imediatamente
             Dictionary<string, string> dicionarioStrings = new Dictionary<string, string>()
@@ -92,7 +92,7 @@ namespace D14_ColecaoGenerica_Dictionary
             Console.WriteLine("\ndicionarioStrings após o Removing:");
             ListarDicionario(dicionarioStrings);
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 

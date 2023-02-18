@@ -10,7 +10,7 @@ namespace M07_Methods
         {
 
 
-            Utils.SetUTF8Encoding();
+            Utils4.SetUTF8Encoding();
 
             //Exercicios.ExecutarExercicio01();
             //Exercicios.ExecutarExercicio02();
@@ -21,7 +21,7 @@ namespace M07_Methods
             //Exercicios.ExecutarExercicio07();
             Exercicios.ExecutarExercicio08();
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
 

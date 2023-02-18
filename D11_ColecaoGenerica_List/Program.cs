@@ -10,11 +10,11 @@ namespace D11_ColecaoGenerica_List
         static void Main(string[] args)
         {
 
-            Utils.SetUTF8Encoding();
+            Utils4.SetUTF8Encoding();
 
             #region Criar 1 pessoa com o 2º constructor e listar
 
-            Utils.PrintHeader("Criar 1 pessoa com o 2º constructor e listar");
+            Utils4.PrintHeader("Criar 1 pessoa com o 2º constructor e listar");
 
             Pessoa p1 = new Pessoa(1, "Leandro");
             Pessoa p2 = new Pessoa(2, "Leonardo");
@@ -22,13 +22,13 @@ namespace D11_ColecaoGenerica_List
             p1.List();
             p2.List();
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region List<Pessoa>
 
-            Utils.PrintHeader("List<Pessoa>");
+            Utils4.PrintHeader("List<Pessoa>");
 
             List<Pessoa> listaPessoas = new List<Pessoa>();
 
@@ -41,13 +41,13 @@ namespace D11_ColecaoGenerica_List
                 item.List();
             }
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region List<int>
 
-            Utils.PrintHeader("List<int>");
+            Utils4.PrintHeader("List<int>");
 
             List<int> listaInteiros = new List<int>();
 
@@ -56,7 +56,7 @@ namespace D11_ColecaoGenerica_List
             // listaInteiros.Add('a');      // Erro!!! Não aceita char pq deve ser int
             // listaInteiros.Add(1.5);      // Erro!!! Não aceita double pq deve ser int
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 

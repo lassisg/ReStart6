@@ -62,7 +62,7 @@ namespace E03_Cars
 
             #endregion
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
 

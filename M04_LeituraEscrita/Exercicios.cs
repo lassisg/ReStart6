@@ -18,13 +18,13 @@ namespace M04_LeituraEscrita
             // 1.Apresentar a área de um retângulo a partir de dois valores (altura e largura)
             // introduzidos pelo utilizador.
             // Nota: area = altura * largura
-            Utils.PrintHeader("Exercício 1");
+            Utils4.PrintHeader("Exercício 1");
 
             string subHeader;
             subHeader = "Apresentar a área de um retângulo a partir de dois valores";
             subHeader += "\n(altura e largura) introduzidos pelo utilizador.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             Retangulo r = new Retangulo();
 
@@ -38,7 +38,7 @@ namespace M04_LeituraEscrita
 
             Console.WriteLine($"\nA area do retângulo é: {r.Area}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -46,11 +46,11 @@ namespace M04_LeituraEscrita
         {
 
             // 2.Refazer o exemplo 3b com outros valores.
-            Utils.PrintHeader("Exercício 2");
+            Utils4.PrintHeader("Exercício 2");
 
             string subHeader = "Refazer o exemplo 3b com outros valores.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             Console.Write("Digite o 1º número: ");
             double number01 = Convert.ToDouble(Console.ReadLine());
@@ -61,7 +61,7 @@ namespace M04_LeituraEscrita
             double resultado = number01 / number02;
             Console.WriteLine($"O resultado das expressão \'{number01} / {number02}\' é: {resultado}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -73,14 +73,14 @@ namespace M04_LeituraEscrita
             //      › 15 / 2
             //      › Resto da divisão de 15 por 2.
 
-            Utils.PrintHeader("Exercício 3");
+            Utils4.PrintHeader("Exercício 3");
 
             string subHeader = "Escrever um programa que apresente no ecrã o resultado das expressões:";
             subHeader += "\n\t› 15 + 2";
             subHeader += "\n\t› 15 / 2";
             subHeader += "\n\t› Resto da divisão de 15 por 2.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double resultado = 15 + 2;
             Console.WriteLine($"O resultado das expressão \'15 + 2\' é: {resultado}");
@@ -92,7 +92,7 @@ namespace M04_LeituraEscrita
             Console.WriteLine($"Resto da divisão de 15 por 2 é: {resultado}");
 
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -103,13 +103,13 @@ namespace M04_LeituraEscrita
             // arredondados em três linhas diferentes.sendo que na primeira linha
             // aparecem todos arredondados a três casas decimais, na segunda a uma
             // e na terceira a sem casa decimal.
-            Utils.PrintHeader("Exercício 04");
+            Utils4.PrintHeader("Exercício 04");
 
             string subHeader = "4. Escreva um programa que apresente os números(8.456796, 9.8, 3.12345, 6) arredondados em três linhas diferentes";
             subHeader += "\nsendo que na primeira linha aparecem todos arredondados a três casas decimais,";
             subHeader += "\nna segunda a uma e na terceira sem casa decimal.";
             
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double number01 = 8.456796;
             double number02 = 9.8;
@@ -120,7 +120,7 @@ namespace M04_LeituraEscrita
             Console.WriteLine($"{number01:F1}\t{number02:F1}\t{number03:F1}\t{number04:F1}");
             Console.WriteLine($"{number01:F0}\t{number02:F0}\t{number03:F0}\t{number04:F0}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -128,11 +128,11 @@ namespace M04_LeituraEscrita
         {
 
             //5.Escrever um programa que apresente os números do exercício anterior em percentagem.
-            Utils.PrintHeader("Exercício 05");
+            Utils4.PrintHeader("Exercício 05");
 
             string subHeader = "5. Escrever um programa que apresente os números do exercício anterior em percentagem.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double number01 = 8.456796;
             double number02 = 9.8;
@@ -141,7 +141,7 @@ namespace M04_LeituraEscrita
 
             Console.WriteLine($"{number01:P}\t{number02:P}\t{number03:P}\t{number04:P}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -153,13 +153,13 @@ namespace M04_LeituraEscrita
             //casas.
             //› Na 1ª linha, os números estão alinhados à direita, com uma casa decimal e cada um com 20
             //casas.
-            Utils.PrintHeader("Exercício 06");
+            Utils4.PrintHeader("Exercício 06");
 
             string subHeader = "6. Escrever um programa que leia do utilizador 3 números e os apresente dois resultados diferentes:";
             subHeader += "\n\t› Na 1ª linha, os números estão alinhados à esquerda, com duas casas decimais e cada um com 20 casas";
             subHeader += "\n\t> Na 2ª linha, os números estão alinhados à direita, com uma casa decimal e cada um com 20 casas";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double[] numbers = new double[3];
 
@@ -177,7 +177,7 @@ namespace M04_LeituraEscrita
             Console.WriteLine($"{numbers[0]:F2}; {numbers[1]:F2}; {numbers[2]:F2}".PadRight(20, ' '));
             Console.WriteLine($"{numbers[0]:F1}; {numbers[1]:F1}; {numbers[2]:F1}".PadLeft(20, ' '));
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -185,12 +185,12 @@ namespace M04_LeituraEscrita
         {
 
             //7.Escrever um programa que apresente no ecrã a parte inteira de um número introduzido pelo utilizador.
-            Utils.PrintHeader("Exercício 07");
+            Utils4.PrintHeader("Exercício 07");
 
             string subHeader = "7. Escrever um programa que apresente no ecrã a parte inteira de um";
             subHeader += "\nnúmero introduzido pelo utilizador.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double numero;
 
@@ -199,7 +199,7 @@ namespace M04_LeituraEscrita
 
             Console.WriteLine($"\nA parte inteira é {(int)numero}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -208,13 +208,13 @@ namespace M04_LeituraEscrita
 
             //8.Escrever uma mensagem que peça ao utilizador o primeiro nome e o apelido e apresente o seguinte resultado:
             //< nome > < apelido >, acabou de ganhar o 1º prémio. Parabéns!
-            Utils.PrintHeader("Exercício 08");
+            Utils4.PrintHeader("Exercício 08");
 
             string subHeader = "8. Escrever uma mensagem que peça ao utilizador o primeiro nome e o apelido";
             subHeader += "\ne apresente o seguinte resultado:";
             subHeader += "\n< nome > < apelido >, acabou de ganhar o 1º prémio. Parabéns!";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             string nome, apelido;
 
@@ -226,7 +226,7 @@ namespace M04_LeituraEscrita
 
 
             Console.WriteLine($"\n{nome} {apelido}, acabou de ganhar o 1º prémio. Parabéns!");
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -234,7 +234,7 @@ namespace M04_LeituraEscrita
         {
 
             //9.Criar uma apliação do tipo consola para receber do utilizador dois valores inteiros e devolver a média aritmética.
-            Utils.PrintHeader("Exercício 09");
+            Utils4.PrintHeader("Exercício 09");
 
             string subHeader = "9. Criar uma apliação do tipo consola para receber do utilizador dois";
             subHeader += "\nvalores inteiros e devolver a média aritmética.";
@@ -242,7 +242,7 @@ namespace M04_LeituraEscrita
             int numero01, numero02;
             double media;
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             Console.Write("\nDigite um número inteiro: ");
             numero01 = Convert.ToInt16(Console.ReadLine());
@@ -254,7 +254,7 @@ namespace M04_LeituraEscrita
 
             Console.WriteLine($"\nA média aritmética é {media}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -262,12 +262,12 @@ namespace M04_LeituraEscrita
         {
 
             //10.Escreva um programa que converta dólares americanos para euros(a taxa de câmbio é de 1,1579 USD para 1€).
-            Utils.PrintHeader("Exercício 10");
+            Utils4.PrintHeader("Exercício 10");
 
             string subHeader = "10. Escreva um programa que converta dólares americanos para euros";
             subHeader += "\n(a taxa de câmbio é de 1,1579 USD para 1€).";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double dolar, euro, rate;
             rate = 1.1579;
@@ -282,7 +282,7 @@ namespace M04_LeituraEscrita
 
             Console.WriteLine($"{dolar.ToString("c", us)} equivale a {euro.ToString("c", pt)}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -291,12 +291,12 @@ namespace M04_LeituraEscrita
 
             //11.Escreva um programa que converta a temperatura lida em graus Fahrenheit para graus Celsius.
             //A fórmula é C = 5 / 9 * (f - 32).
-            Utils.PrintHeader("Exercício 11");
+            Utils4.PrintHeader("Exercício 11");
 
             string subHeader = "11. Escreva um programa que converta a temperatura lida em graus";
             subHeader += "\nFahrenheit para graus Celsius.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double temperatureFahrenheit, temperatureCelsius;
 
@@ -311,7 +311,7 @@ namespace M04_LeituraEscrita
 
             Console.WriteLine($"\nA temperatura em Celsius é {temperatureCelsius}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -320,13 +320,13 @@ namespace M04_LeituraEscrita
 
             //12.Escrever um programa que leia o preço base de um determinado produto e calcule o seu valor de venda ao
             //público(ou seja, valor acrescido da taxa de IVA a 23 %).
-            Utils.PrintHeader("Exercício 12");
+            Utils4.PrintHeader("Exercício 12");
 
             string subHeader = "12. Escrever um programa que leia o preço base de um determinado";
             subHeader += "\nproduto e calcule o seu valor de venda ao público";
             subHeader += "\n(ou seja, valor acrescido da taxa de IVA a 23 %).";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double preco, precoComIVA;
             byte IVA = 23;
@@ -338,7 +338,7 @@ namespace M04_LeituraEscrita
 
             Console.WriteLine($"\nO preço com IVA é {precoComIVA}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -346,12 +346,12 @@ namespace M04_LeituraEscrita
         {
 
             //13.Escrever um programa leia o valor base e o iva de um produto e que calcule o valor final do produto.
-            Utils.PrintHeader("Exercício 13");
+            Utils4.PrintHeader("Exercício 13");
 
             string subHeader = "13. Escrever um programa leia o valor base e o iva de um";
             subHeader += "\nproduto e que calcule o valor final do produto.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double preco, precoComIVA;
             double IVA;
@@ -366,7 +366,7 @@ namespace M04_LeituraEscrita
 
             Console.WriteLine($"\nO preço com IVA é {precoComIVA}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -374,12 +374,12 @@ namespace M04_LeituraEscrita
         {
 
             //14.Escrever um programa que converta um valor em segundos para horas, minutos e segundos.
-            Utils.PrintHeader("Exercício 14");
+            Utils4.PrintHeader("Exercício 14");
 
             string subHeader = "14. Escrever um programa que converta um valor em segundos para horas,";
             subHeader += "\nminutos e segundos.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             int seconds;
 
@@ -390,7 +390,7 @@ namespace M04_LeituraEscrita
 
             Console.WriteLine($"\n{seconds} s = {tempo.TotalHours} h");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
 
@@ -399,12 +399,12 @@ namespace M04_LeituraEscrita
         {
 
             //15.Escrever um programa que apresente ao utilizador a sua idade daqui a vinte anos.
-            Utils.PrintHeader("Exercício 15");
+            Utils4.PrintHeader("Exercício 15");
 
             string subHeader = "15. Escrever um programa que apresente ao utilizador a sua idade";
             subHeader += "\ndaqui a vinte anos.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
 
             Console.Write("\nDigite sua idade hoje: ");
@@ -413,7 +413,7 @@ namespace M04_LeituraEscrita
 
             Console.WriteLine($"\nSua idade daqui a vinte anos será {idadeFutura}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -425,14 +425,14 @@ namespace M04_LeituraEscrita
             // turista despendeu numa viagem de quatro dias ao Porto, sabendo que
             // cada dia gastou mais 20 % do que no dia anterior.O valor da despesa
             // deverá ser apresentado sem casas decimais. 4 / 13
-            Utils.PrintHeader("Exercício 16");
+            Utils4.PrintHeader("Exercício 16");
 
             string subHeader = "16. Escrever um programa que calcule a despesa média diária que";
             subHeader += "\nturista despendeu numa viagem de quatro dias ao Porto, sabendo que";
             subHeader += "\ncada dia gastou mais 20 % do que no dia anterior.O valor da despesa";
             subHeader += "\ndeverá ser apresentado sem casas decimais. 4 / 13";
 
-            Utils.PrintSubHeader(subHeader.ToString());
+            Utils4.PrintSubHeader(subHeader.ToString());
 
             double day1Spent, totalSpent;
 
@@ -447,7 +447,7 @@ namespace M04_LeituraEscrita
 
             Console.WriteLine($"\nO total gasto na viagem será de {totalSpent:F0}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -460,7 +460,7 @@ namespace M04_LeituraEscrita
             // vendem e uma percentagem P sobre o valor das vendas V que efetuarem.
             // Escreva um programa que calcule e imprima o salário que um vendedor
             // vai auferir este mês.
-            Utils.PrintHeader("Exercício 17");
+            Utils4.PrintHeader("Exercício 17");
 
             string subHeader = "17. Num determinado stand de automóveis, os vendedores ganham um";
             subHeader += "\nsalário mensal base X, uma comissão de Y euros por cada automóvel que";
@@ -468,7 +468,7 @@ namespace M04_LeituraEscrita
             subHeader += "\nEscreva um programa que calcule e imprima o salário que um vendedor";
             subHeader += "\nvai auferir este mês.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             double baseSalary, comission, ratePerSale, monthSales, salary;
             int totalVehicles;
@@ -492,7 +492,7 @@ namespace M04_LeituraEscrita
 
             Console.WriteLine($"\nO salário mensal será {salary.ToString("C", new CultureInfo("pt-PT"))}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -503,13 +503,13 @@ namespace M04_LeituraEscrita
             // 18.Escrever um programa que troque entre si o valor contido em duas
             // variáveis inteiras a e b, ou seja, o valor contido em a passa a ser o
             // valor de b e vice-versa, sem utilizar uma terceira variável.
-            Utils.PrintHeader("Exercício 18");
+            Utils4.PrintHeader("Exercício 18");
 
             string subHeader = "18.Escrever um programa que troque entre si o valor contido em duas";
             subHeader += "\nvariáveis inteiras a e b, ou seja, o valor contido em a passa a ser o";
             subHeader += "\nvalor de b e vice-versa, sem utilizar uma terceira variável.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             int a, b;
 
@@ -522,7 +522,7 @@ namespace M04_LeituraEscrita
 
             Console.WriteLine($"Depois da troca: a = {a}, b = {b}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
         
@@ -532,12 +532,12 @@ namespace M04_LeituraEscrita
             // ----------------------------------------------------------------------
             // 19. Escreva um programa que apresente no ecrã antecessor e sucessor de
             // um número introduzido pelo utilizador.
-            Utils.PrintHeader("Exercício 19");
+            Utils4.PrintHeader("Exercício 19");
 
             string subHeader = "19. Escreva um programa que apresente no ecrã antecessor e sucessor de";
             subHeader += "\num número introduzido pelo utilizador.";
 
-            Utils.PrintSubHeader(subHeader);
+            Utils4.PrintSubHeader(subHeader);
 
             int numero, antecessor, sucessor;
 
@@ -550,7 +550,7 @@ namespace M04_LeituraEscrita
             Console.WriteLine($"\nNúmero antecessor: {antecessor}");
             Console.WriteLine($"Número sucessor: {sucessor}");
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
         }
     }

@@ -17,7 +17,7 @@ namespace D10_Colecao_ArrayList
 
             #region ArrayList: inteiros
 
-            Utils.PrintHeader("ArrayList: inteiros");
+            Utils4.PrintHeader("ArrayList: inteiros");
 
             // Instanciar o ArrayList
             ArrayList listaInteiros = new ArrayList();
@@ -44,13 +44,13 @@ namespace D10_Colecao_ArrayList
                 Console.WriteLine(item);
             }
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region ArrayList: strings
 
-            Utils.PrintHeader("ArrayList: string");
+            Utils4.PrintHeader("ArrayList: string");
 
             ArrayList listaStrings = new ArrayList()
             {
@@ -59,15 +59,15 @@ namespace D10_Colecao_ArrayList
                 "C"
             };
 
-            Utils.PrintArrayList(listaStrings);
+            Utils4.PrintArrayList(listaStrings);
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region ArrayList: Pessosas
 
-            Utils.PrintHeader("ArrayList: Pessosas");
+            Utils4.PrintHeader("ArrayList: Pessosas");
 
             ArrayList listaPessoas = new ArrayList();
 
@@ -87,13 +87,13 @@ namespace D10_Colecao_ArrayList
 
             //Funcionario f1 = new Funcionario();
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 
             #region ArrayList: Funcionarios
 
-            Utils.PrintHeader("ArrayList: Funcionarios");
+            Utils4.PrintHeader("ArrayList: Funcionarios");
 
             ArrayList listaFuncionarios = new ArrayList();
 
@@ -113,7 +113,7 @@ namespace D10_Colecao_ArrayList
 
             //Funcionario f1 = new Funcionario();
 
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             #endregion
 

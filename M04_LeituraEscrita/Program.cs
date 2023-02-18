@@ -14,7 +14,7 @@ namespace M04_LeituraEscrita
         static void Main(string[] args)
         {
 
-            Utils.SetUTF8Encoding();
+            Utils4.SetUTF8Encoding();
 
             //Exercicios.ExecutarExercicio01();
             //Exercicios.ExecutarExercicio02();

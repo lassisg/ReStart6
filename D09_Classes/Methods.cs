@@ -100,56 +100,56 @@ namespace D09_Classes
 
             // ----------------------------------------------------------------------
 
-            Utils.PrintHeader("Procedure");
+            Utils4.PrintHeader("Procedure");
             Procedure();
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             // ----------------------------------------------------------------------
 
-            Utils.PrintHeader("Function");
+            Utils4.PrintHeader("Function");
             /*
             string resultado;
             resultado = Function();
             Console.WriteLine(resultado + "\n\n");
             */
             Console.WriteLine(Function() + "\n\n");
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             // ----------------------------------------------------------------------
 
-            Utils.PrintHeader("Method with mandatory argument");
+            Utils4.PrintHeader("Method with mandatory argument");
             MethodWithMandatoryArgument("Microsoft", "C#");
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             // ----------------------------------------------------------------------
 
-            Utils.PrintHeader("Method with optional argument");
+            Utils4.PrintHeader("Method with optional argument");
             MethodWithOptionalArgument("Microsoft");
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             // ----------------------------------------------------------------------
 
-            Utils.PrintHeader("Method with named argument");
+            Utils4.PrintHeader("Method with named argument");
             MethodWithNamedArgument(message02: "C#", message01: "Microsoft");
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             // ----------------------------------------------------------------------
 
-            Utils.PrintHeader("Passing value to method");
+            Utils4.PrintHeader("Passing value to method");
             string value = "Mensagem original.";
             Console.WriteLine($"Mensagem ANTES de mudar a variável: {value}");
             PassingValueToMethod(value);
             Console.WriteLine($"Mensagem DEPOIS de mudar a variável: {value}\n\n");
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             // ----------------------------------------------------------------------
 
-            Utils.PrintHeader("Passing reference to method");
+            Utils4.PrintHeader("Passing reference to method");
             string reference = "Mensagem original.";
             Console.WriteLine($"Mensagem ANTES de mudar a variável: {reference}");
             PassingReferenceToMethod(ref reference);
             Console.WriteLine($"Mensagem DEPOIS de mudar a variável: {reference}\n\n");
-            Utils.CleanConsole();
+            Utils4.CleanConsole();
 
             // ----------------------------------------------------------------------
 
