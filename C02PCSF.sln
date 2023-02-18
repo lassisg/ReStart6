@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M04_LeituraEscrita", "M04_LeituraEscrita\M04_LeituraEscrita.csproj", "{3BC54041-41B6-4D09-BA27-8271503AED1E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M05_InstrucoesDecisao", "M05_InstrucoesDecisao\M05_InstrucoesDecisao.csproj", "{956950DA-B53C-4526-B7CB-DC336D7CC627}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M06_InstrucoesRepeticao", "M06_InstrucoesRepeticao\M06_InstrucoesRepeticao.csproj", "{816F2FE9-DB84-49B6-8231-0B4C0269CB07}"
@@ -61,16 +59,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E03_Cars", "E03_Cars\E03_Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E04_Curso", "E04_Curso\E04_Curso.csproj", "{6108EC2F-39C6-418B-BF13-265D04BC811B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M04_LeituraEscrita", "M04_LeituraEscrita\M04_LeituraEscrita.csproj", "{5F84CABA-D181-438F-B3ED-55047ADD9949}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3BC54041-41B6-4D09-BA27-8271503AED1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3BC54041-41B6-4D09-BA27-8271503AED1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3BC54041-41B6-4D09-BA27-8271503AED1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3BC54041-41B6-4D09-BA27-8271503AED1E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{956950DA-B53C-4526-B7CB-DC336D7CC627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{956950DA-B53C-4526-B7CB-DC336D7CC627}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{956950DA-B53C-4526-B7CB-DC336D7CC627}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -183,6 +179,10 @@ Global
 		{6108EC2F-39C6-418B-BF13-265D04BC811B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6108EC2F-39C6-418B-BF13-265D04BC811B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6108EC2F-39C6-418B-BF13-265D04BC811B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F84CABA-D181-438F-B3ED-55047ADD9949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F84CABA-D181-438F-B3ED-55047ADD9949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F84CABA-D181-438F-B3ED-55047ADD9949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F84CABA-D181-438F-B3ED-55047ADD9949}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -21,30 +21,21 @@ namespace M04_LeituraEscrita
 
         public Retangulo() 
         { 
-
             Altura = 0; 
             Largura = 0; 
             Area = 0;
-
         }
         public Retangulo(int altura, int largura) 
         {
-
             Altura = altura;
             Largura = largura; 
-
         }
 
         #endregion
 
         #region Methods
 
-        public void CalcularArea()
-        {
-
-            Area = Altura * Largura;
-
-        }
+        public void CalcularArea() => Area = Altura * Largura;
 
         #endregion
 
