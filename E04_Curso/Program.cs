@@ -1,32 +1,17 @@
 ﻿using D00_Utils;
-using System;
+using E04_Curso;
 
-namespace E04_Curso
-{
+Utils.PrintHeader("E07: Cursos");
 
-    class Program
-    {
+Curso c1 = new Curso();
+c1.InserirCurso();
 
-        static void Main(string[] args)
-        {
+Curso c2 = new Curso();
+c2.InserirCurso();
 
-            Utils4.PrintHeader("E07: Cursos");
+Curso c3 = new Curso();
+c3.InserirCurso();
 
-            Curso c1 = new Curso();
-            c1.InserirCurso();
+Curso.ListarCurso(Curso.listaCursos);
 
-            Curso c2 = new Curso();
-            c2.InserirCurso();
-
-            Curso c3 = new Curso();
-            c3.InserirCurso();
-
-            Curso.ListarCurso(Curso.listaCursos);
-
-            Utils4.CleanConsole();
-
-        }
-
-    }
-
-}
+Utils.CleanConsole();
