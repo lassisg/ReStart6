@@ -43,17 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="E01_MediaAritmetica.cs" />
-    <Compile Include="E02_MaiorIdade.cs" />
-    <Compile Include="E03_MaiorNumero.cs" />
-    <Compile Include="E04_MaiorIdadeRepeticao.cs" />
-    <Compile Include="E05_InscricaoCurso.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="M02OOP_C01_E01_LeandroGabriel_v1.docx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
