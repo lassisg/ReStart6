@@ -73,7 +73,7 @@ for (int i = 1; i <= 10; i++)
 
 Utils.PrintHeader("FOREACH", "\n\n");
 
-Console.WriteLine("Verificar \'D08_EstruturasDados\'...");
+Console.WriteLine("Verificar \'D08_EstruturasDados_4.7\'...");
 
 #endregion
 
