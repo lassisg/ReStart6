@@ -10,14 +10,12 @@ using System.Text;
     string cursoCompleto1 = String.Join("; ", area, categoria, curso);
     string cursoCompleto2 = String.Concat(area, "/", categoria, "-", curso);
 
-
     StringBuilder sb01 = new StringBuilder();     // overload
     sb01.Append(area);
     sb01.Append(" ");
     sb01.Append(categoria);
     sb01.Append(" ");
     sb01.Append(curso);
-    
 
     int valor01 = 10;
     int valor02 = 100;
