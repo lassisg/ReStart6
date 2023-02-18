@@ -3,15 +3,14 @@ using System.Text;
 
 namespace M09_Strings;
 
-internal class Exercicios
+internal static class Exercicios
 {
 
     internal static void ExecutarExercicio01()
     {
         Utils.PrintHeader("Exercício 1");
-        string subHeader;
-        // ----------------------------------------------------------------------
-        subHeader = "Escrever e testar um método que leia o seu nome e o apresente no ecrã.";
+        //               ----------------------------------------------------------------------
+        var subHeader = "Escrever e testar um método que leia o seu nome e o apresente no ecrã.";
 
         Utils.PrintSubHeader(subHeader);
 
@@ -24,17 +23,14 @@ internal class Exercicios
     internal static void ExecutarExercicio02()
     {
         Utils.PrintHeader("Exercício 2");
-        string subHeader;
-        // ----------------------------------------------------------------------
-        subHeader = "Escrever e testar um programa que peça um nome completo e mostre só o";
+        //               ----------------------------------------------------------------------
+        var subHeader = "Escrever e testar um programa que peça um nome completo e mostre só o";
         subHeader += "\nprimeiro e o último nome.";
 
         Utils.PrintSubHeader(subHeader);
 
-        string fullName;
-
         Console.Write("Digite seu nome completo: ");
-        fullName = Console.ReadLine();
+        string fullName = Console.ReadLine();
 
         string[] names = fullName.Split();
 
@@ -47,22 +43,19 @@ internal class Exercicios
     internal static void ExecutarExercicio03()
     {
         Utils.PrintHeader("Exercício 3");
-        string subHeader;
-        // ----------------------------------------------------------------------
-        subHeader = "Escrever e testar um programa que peça o nome e apelidos, um de cada";
+        //               ----------------------------------------------------------------------
+        var subHeader = "Escrever e testar um programa que peça o nome e apelidos, um de cada";
         subHeader += "\nvez, e que junte tudo numa única string.";
 
         Utils.PrintSubHeader(subHeader);
 
-        string firstName, surnames, fullName;
-
         Console.Write("Digite seu 1º nome: ");
-        firstName = Console.ReadLine();
+        string firstName = Console.ReadLine();
 
         Console.Write("Digite seus apelidos: ");
-        surnames = Console.ReadLine();
+        string surnames = Console.ReadLine();
 
-        fullName = $"{firstName} {surnames}";
+        var fullName = $"{firstName} {surnames}";
 
         Console.WriteLine($"\nSeu nome completo é: {fullName}");
     }
@@ -70,9 +63,8 @@ internal class Exercicios
     internal static void ExecutarExercicio04()
     {
         Utils.PrintHeader("Exercício 4");
-        string subHeader;
-        // ----------------------------------------------------------------------
-        subHeader = "Escrever e testar um programa que peça um nome completo e converta";
+        //               ----------------------------------------------------------------------
+        var subHeader = "Escrever e testar um programa que peça um nome completo e converta";
         subHeader += "\npara maiúsculas o 1º, 3º, 5º nomes.";
 
         Utils.PrintSubHeader(subHeader);
@@ -99,21 +91,17 @@ internal class Exercicios
     internal static void ExecutarExercicio05()
     {
         Utils.PrintHeader("Exercício 5");
-        string subHeader;
-        // ----------------------------------------------------------------------
-        subHeader = "Escrever e testar um método que devolva o 1º índice, numa string, de";
+        //               ----------------------------------------------------------------------
+        var subHeader = "Escrever e testar um método que devolva o 1º índice, numa string, de";
         subHeader += "\num carácter introduzido pelo utilizador.";
 
         Utils.PrintSubHeader(subHeader);
 
-        string userInput, frase;
-        char letra;
-
         Console.Write("Digite uma frase: ");
-        frase = Console.ReadLine();
+        string frase = Console.ReadLine();
 
         Console.Write("\nDigite um carctere para buscar na frase: ");
-        letra = char.Parse(Console.ReadLine());
+        char letra = char.Parse(Console.ReadLine());
 
         int indice = GetCharIndex(frase, letra);
 
@@ -137,21 +125,17 @@ internal class Exercicios
     internal static void ExecutarExercicio06()
     {
         Utils.PrintHeader("Exercício 6");
-        string subHeader;
-        // ----------------------------------------------------------------------
-        subHeader = "Escrever e testar um método que devolva quantas vezes um determinado";
+        //               ----------------------------------------------------------------------
+        var subHeader = "Escrever e testar um método que devolva quantas vezes um determinado";
         subHeader += "\ncarácter aparece numa string.";
 
         Utils.PrintSubHeader(subHeader);
 
-        string frase;
-        char letra;
-
         Console.Write("Digite uma frase: ");
-        frase = Console.ReadLine();
+        string frase = Console.ReadLine();
 
         Console.Write("\nDigite um carctere para buscar na frase: ");
-        letra = char.Parse(Console.ReadLine());
+        char letra = char.Parse(Console.ReadLine());
 
         int contagem = GetCharCount(frase, letra);
 
@@ -177,20 +161,17 @@ internal class Exercicios
     internal static void ExecutarExercicio07()
     {
         Utils.PrintHeader("Exercício 7");
-        string subHeader;
-        // ----------------------------------------------------------------------
-        subHeader = "Escrever e testar um método que concatene duas strings introduzidas";
+        //               ----------------------------------------------------------------------
+        var subHeader = "Escrever e testar um método que concatene duas strings introduzidas";
         subHeader += "\npelo utilizador.";
 
         Utils.PrintSubHeader(subHeader);
 
-        string userInput01, userInput02;
-
         Console.Write("Digite alguma coisa: ");
-        userInput01 = Console.ReadLine();
+        string userInput01 = Console.ReadLine();
 
         Console.Write("Digite outra coisa: ");
-        userInput02 = Console.ReadLine();
+        string userInput02 = Console.ReadLine();
 
         Console.WriteLine($"\n{JoinInputs(userInput01, userInput02)}");
     }
@@ -200,9 +181,8 @@ internal class Exercicios
     internal static void ExecutarExercicio08()
     {
         Utils.PrintHeader("Exercício 8");
-        string subHeader;
-        // ----------------------------------------------------------------------
-        subHeader = "Analise o programa e descreva o seu comportamento";
+        //               ----------------------------------------------------------------------
+        var subHeader = "Analise o programa e descreva o seu comportamento";
         subHeader += "\n\nusing System;";
         subHeader += "\n";
         subHeader += "\nnamespace Modulo9";
