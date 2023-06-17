@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSGymLibrary", "RSGymLibrary\RSGymLibrary.csproj", "{9741512A-13BA-4E88-8E77-55D07C70D5F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSGymConsoleUI", "RSGymConsoleUI\RSGymConsoleUI.csproj", "{BD704418-99E6-41D6-BD74-8E70C760EF72}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9741512A-13BA-4E88-8E77-55D07C70D5F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9741512A-13BA-4E88-8E77-55D07C70D5F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9741512A-13BA-4E88-8E77-55D07C70D5F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9741512A-13BA-4E88-8E77-55D07C70D5F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD704418-99E6-41D6-BD74-8E70C760EF72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD704418-99E6-41D6-BD74-8E70C760EF72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD704418-99E6-41D6-BD74-8E70C760EF72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD704418-99E6-41D6-BD74-8E70C760EF72}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B38F0FF0-D861-4BE3-B0B8-A767617F6D0A}
+	EndGlobalSection
+EndGlobal
