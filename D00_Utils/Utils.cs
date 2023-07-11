@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Text;
 
-namespace Utils;
+namespace D00_Utils;
 
-public class Utils
+public static class Utils
 {
     public static void SetUtf8Encoding()
         => Console.OutputEncoding = System.Text.Encoding.UTF8;
