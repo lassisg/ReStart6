@@ -193,32 +193,24 @@ Utils.PrintSubHeader("Versão com GetUpperBound()");
 
 for (int i = 0; i <= clientes.GetUpperBound(0); i++)
 {
-
     for (int j = 0; j <= clientes.GetUpperBound(1); j++)
     {
-
         Console.Write($"{clientes[i, j]}\t");
-
     }
     
     Console.WriteLine();
-
 }
 
 Utils.PrintSubHeader("Versão com GetLength()");
 
 for (int i = 0; i < clientes.GetLength(0); i++)
 {
-
     for (int j = 0; j < clientes.GetLength(1); j++)
     {
-
         Console.Write($"{clientes[i, j]}\t");
-
     }
     
     Console.WriteLine();
-
 }
 
 Utils.CleanConsole();
