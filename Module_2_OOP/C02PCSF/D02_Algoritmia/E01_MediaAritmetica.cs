@@ -2,10 +2,8 @@
 
 public static class E01_MediaAritmetica
 {
-    
     public static void CalcularMediaAritmetica()
     {
-
         // 1. Declarar variáveis (camelCase)          
         double nota01, nota02, media;
 
@@ -26,20 +24,12 @@ public static class E01_MediaAritmetica
         Console.WriteLine();
 
         // 6. Avaliar a média
-        if (media >= 9.5)
-        {
-            // true
+        if (media >= 9.5) // true
             Console.WriteLine("Aprovado!");
-        }
-        else
-        {
-            // false
+        else // false
             Console.WriteLine("Reprovado!");
-        }
 
         // 7. Pausar a consola
         Console.ReadLine();
-
     }
-
 }

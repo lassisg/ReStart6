@@ -2,10 +2,8 @@
 
 public static  class E04_MaiorIdadeRepeticao
 {
-
     public static void AnalisarMaioridade()
     {
-
         int idade;
 
         Console.Write("Digite sua idade: ");
@@ -22,7 +20,5 @@ public static  class E04_MaiorIdadeRepeticao
         Console.WriteLine($"\nTens {idade} anos. És menor de idade");
 
         Console.ReadLine();
-
     }
-
 }

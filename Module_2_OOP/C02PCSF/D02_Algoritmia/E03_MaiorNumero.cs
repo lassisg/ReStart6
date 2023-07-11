@@ -2,10 +2,8 @@
 
 public static class E03_MaiorNumero
 {
-
     public static void CalcularMaiorNumero()
     {
-
         double numero01;
         double numero02;
 
@@ -22,17 +20,11 @@ public static class E03_MaiorNumero
         else
         {
             if (numero02 > numero01)
-            {
                 Console.WriteLine($"\nNúmero 2 ({numero02}) é maior que o número 1 ({numero01}).");
-            }
             else
-            {
                 Console.WriteLine($"\nOs números {numero01} {numero02} são iguais.");
-            }
         }
 
         Console.ReadLine();
-
     }
-
 }

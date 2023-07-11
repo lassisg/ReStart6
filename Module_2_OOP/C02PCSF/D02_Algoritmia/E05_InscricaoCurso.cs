@@ -2,10 +2,8 @@
 
 public static class E05_InscricaoCurso
 {
-
     public static void InscreverCurso01()
     {
-
         bool programador;
         string curso;
 
@@ -13,23 +11,17 @@ public static class E05_InscricaoCurso
         programador = Convert.ToBoolean(Console.ReadLine());
 
         if (programador)
-        {
             curso = "C# Foundations";
-        }
         else
-        {
             curso = "Programming Fundamentals";
-        }
 
         Console.WriteLine($"\nAluno inscrito no curso " + curso);
 
         Console.ReadLine();
-
     }
 
     public static void InscreverCurso02()
     {
-
         string programador;
         string curso;
 
@@ -37,13 +29,9 @@ public static class E05_InscricaoCurso
         programador = Console.ReadLine();
 
         if (programador == "S")
-        {
             curso = "C# Foundations";
-        }
         else
-        {
             curso = "Programming Fundamentals";
-        }
 
         // Console.WriteLine("\nAluno inscrito no curso " + curso);
 
@@ -51,7 +39,5 @@ public static class E05_InscricaoCurso
         Console.WriteLine($"\nAluno inscrito no curso {curso}");
 
         Console.ReadLine();
-
     }
-
 }
