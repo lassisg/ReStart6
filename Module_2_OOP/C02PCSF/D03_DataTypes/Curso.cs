@@ -2,7 +2,6 @@
 
 class Curso
 {
-
     // Class elements - methods, properties, events
 
     #region Fields (devem ser privados)
@@ -20,5 +19,4 @@ class Curso
     public double numeroHoras { get; set; }
 
     #endregion
-
 }
