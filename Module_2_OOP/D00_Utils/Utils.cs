@@ -7,8 +7,8 @@ public static class Utils
 {
     public static void SetUtf8Encoding()
         => Console.OutputEncoding = System.Text.Encoding.UTF8;
-
-    public static void PrintHeader(string title, string newLines = "")
+    
+    public static void PrintHeader(string title, string newLines = "", bool clearConsole = true)
     {
         string border = new string ('-', 70);
         StringBuilder sb = new StringBuilder();
@@ -18,7 +18,9 @@ public static class Utils
         sb.AppendLine(title.ToUpper());
         sb.AppendLine(border);
 
-        Console.Clear();
+        if (clearConsole)
+            Console.Clear();
+
         Console.Write(sb.ToString());
     }
 
