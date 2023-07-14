@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using D01_EF6.Models;
+﻿using D01_EF6.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace D01_EF6.Data;
