@@ -5,6 +5,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>D03_EF6_CF_Migrations_Books_DAL</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
