@@ -1,80 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using D01_EF6.Models;
 
-namespace D01_EF6
+namespace D01_EF6;
+
+internal class Program
 {
-
-    internal class Program
+    static void Main(string[] args)
     {
-
-        static void Main(string[] args)
+        // Cria a instância do DBContext (connectionstring name)
+        var db = new NorthwindContext();
+        
+        // Usa a instância
+        using (db)
         {
+            #region New Region (1)
 
-            // Cria a instância do DBContext (connectionstring name)
-            var db = new NorthwindEntities();
+            var region = new Models.Region();
+            region.RegionId = db.Regions.Max(r => r.RegionId) + 1; // <=====
+            region.RegionDescription = "Ilhas";
 
-            // Usa a instância
-            using (db)
-            {
+            db.Regions.Add(region);
+            int countRegions = db.SaveChanges();
 
-                #region New Region (1)
+            Console.WriteLine($"Success! You just inserted {countRegions} new region!\n");
 
-                Region region = new Region();
-                region.RegionID = db.Region.Max(r => r.RegionID) + 1;                                               // <=====
-                region.RegionDescription = "Ilhas";
+            db.Regions
+                .ToList()
+                .ForEach(r => Console.WriteLine($"{r.RegionId}: {r.RegionDescription}")); // <=====
 
-                db.Region.Add(region);
-                int countRegions = db.SaveChanges();
+            // var queryRegions = db.Regions.Select(r => r).OrderBy(r => r.RegionId);
+            // foreach (var item in queryRegions)
+            // {
+            //     Console.WriteLine($"{item.RegionId}: {item.RegionDescription}");
+            // }
 
-                Console.WriteLine($"Success! You just inserted {countRegions} new region!\n");
+            #endregion
 
-                
-                db.Region
-                    .ToList()
-                    .ForEach(r => Console.WriteLine($"{r.RegionID}: {r.RegionDescription}"));                        // <=====
+            #region New Territory (Location) in the new region (n)
 
-                //var queryRegions = db.Region.Select(r => r).OrderBy(r => r.RegionID);
-                //foreach (var item in queryRegions)
-                //{
-                //    Console.WriteLine($"{item.RegionID}: {item.RegionDescription}");
-                //}
+            Territory territories = new Territory();
+            territories.TerritoryId = "00003";
+            territories.TerritoryDescription = "Gaia";
+            territories.RegionId = db.Regions.FirstOrDefault(r => r.RegionDescription == "Norte").RegionId; // <=====
 
-                #endregion
+            db.Territories.Add(territories);
 
-                #region New Territory (Location) in the new region (n)
+            int countTerritories = db.SaveChanges();
 
-                Territories territories = new Territories();
-                territories.TerritoryID = "00003";
-                territories.TerritoryDescription = "Gaia";
-                territories.RegionID = db.Region.FirstOrDefault(r=>r.RegionDescription == "Norte").RegionID;        // <=====
-
-                db.Territories.Add(territories);
-
-                int countTerritories = db.SaveChanges();
-
-                Console.WriteLine($"\nSuccess! You just inserted {countTerritories} new territory!\n");
+            Console.WriteLine($"\nSuccess! You just inserted {countTerritories} new territory!\n");
 
 
-                db.Territories
-                    .ToList()
-                    .ForEach(t => Console.WriteLine($"{t.TerritoryID}: {t.RegionID} - {t.TerritoryDescription}"));  // <=====
+            db.Territories
+                .ToList()
+                .ForEach(t => Console.WriteLine($"{t.TerritoryId}: {t.RegionId} - {t.TerritoryDescription}")); // <=====
 
-                //var queryTerritories = db.Territories.Select(t => t).OrderByDescending(t=>t.TerritoryID);
-                //foreach (var item in queryTerritories)
-                //{
-                //    Console.WriteLine($"{item.TerritoryID}: {item.RegionID} - {item.TerritoryDescription}");
-                //}
+            // var queryTerritories = db.Territories.Select(t => t).OrderByDescending(t=>t.TerritoryId);
+            // foreach (var item in queryTerritories)
+            // {
+            //     Console.WriteLine($"{item.TerritoryId}: {item.RegionId} - {item.TerritoryDescription}");
+            // }
 
-                #endregion
+            #endregion
 
-                Console.ReadLine();
-
-            }
+            Console.ReadLine();
         }
-
     }
-
 }
