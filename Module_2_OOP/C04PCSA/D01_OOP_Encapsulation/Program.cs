@@ -5,30 +5,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace D01_OOP_Encapsulation
+namespace D01_OOP_Encapsulation;
+
+internal class Program
 {
 
-    internal class Program
+    static void Main(string[] args)
     {
 
-        static void Main(string[] args)
-        {
+        Utils.SetUTF8Encoding();
 
-            Utils.SetUTF8Encoding();
+        Utils.PrintHeader("Encapsulation");
 
-            Utils.PrintHeader("Encapsulation");
-
-            // Instanciar a classe e usar os seus membros públicos
-            Course course01 = new Course();
+        // Instanciar a classe e usar os seus membros públicos
+        Course course01 = new Course();
 
 
-            course01.CourseID = 1;
-            course01.CourseName = "C#";
-            course01.ListCourse();
+        course01.CourseID = 1;
+        course01.CourseName = "C#";
+        course01.ListCourse();
 
-            Utils.CleanConsole();
-
-        }
+        Utils.CleanConsole();
 
     }
 
