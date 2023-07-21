@@ -64,6 +64,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M09_Strings", "Module_2_OOP\C02PCSF\M09_Strings\M09_Strings.csproj", "{49021975-B27C-4414-B766-8EED163840B0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module_2_OOP", "Module_2_OOP", "{943B2501-A290-44DE-96A7-0EBCF101A984}"
+	ProjectSection(SolutionItems) = preProject
+		Notes.md = Notes.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "C04PCSA", "C04PCSA", "{47088FAC-8D11-4385-832C-0E88040D9E59}"
 EndProject
