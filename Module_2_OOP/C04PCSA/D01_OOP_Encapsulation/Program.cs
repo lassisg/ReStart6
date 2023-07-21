@@ -13,7 +13,7 @@ internal class Program
     static void Main(string[] args)
     {
 
-        Utils.SetUTF8Encoding();
+        Utils.SetUtf8Encoding();
 
         Utils.PrintHeader("Encapsulation");
 
